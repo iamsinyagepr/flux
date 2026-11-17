@@ -1,0 +1,16 @@
+{
+ "name": "Payment method",
+ "id": "market:payment-method-picker",
+ "description": "Cash or card, as the store accepts them; sent with the order.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "payment",
+  "cash",
+  "card"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/payment-method-picker\", name: \"Payment method\", kind: Kind.section,\n  description: \"Cash or card, as the store accepts them; sent with the order.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Column(gap: Space.sm, children: [\n      Text(child: \"How will you pay?\", weight: FontWeight.semibold),\n      Wrap(spacing: Space.sm, runSpacing: Space.sm, children: [\n        If(condition: store.accepts_cash, then: Box(width: 130, padding: Insets(y: 12), radius: Radius.md, alignment: Anchor.center, border: Border(width: 1, color: checkout.payment_method != \"card\" ? Color.primary : Color.border), onTap: SetCheckout(field: \"payment_method\", value: \"cash\"), ariaLabel: \"Pay with cash\", child: Text(child: \"Cash\", weight: FontWeight.semibold))),\n        If(condition: store.accepts_card, then: Box(width: 130, padding: Insets(y: 12), radius: Radius.md, alignment: Anchor.center, border: Border(width: 1, color: checkout.payment_method == \"card\" ? Color.primary : Color.border), onTap: SetCheckout(field: \"payment_method\", value: \"card\"), ariaLabel: \"Pay by card\", child: Text(child: \"Card\", weight: FontWeight.semibold)))\n      ])\n    ])\n  )], data: [Data(name: \"store\", from: Client.store(), fetch: \"client\", type: Store), Data(name: \"checkout\", from: Client.checkout(), fetch: \"client\", type: ClientCheckout)],\n)\n"
+}

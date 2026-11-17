@@ -1,0 +1,16 @@
+{
+ "name": "Announcement bar",
+ "id": "market:announcement-bar",
+ "description": "A slim bar for news, which customers can dismiss.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "announcement",
+  "banner",
+  "news"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/announcement-bar\", name: \"Announcement bar\", kind: Kind.section,\n  description: \"A slim bar for news, which customers can dismiss.\",\n  options: [StringOption(name: \"message\", label: \"Message\", maxLength: 80, default: \"Free delivery on orders over R250 this weekend\")],\n  states: [BoolState(name: \"hidden\", default: false)],\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [If(condition: !state.hidden, then: Box(padding: Insets(x: 16, y: 10), background: Color.primary, child: Row(gap: Space.sm, crossAxisAlignment: CrossAxisAlignment.center, children: [\n      Expanded(child: Text(child: options.message, size: FontSize.sm, weight: FontWeight.semibold, color: Color.primaryInk, align: TextAlign.center)),\n      Box(width: 28, height: 28, alignment: Anchor.center, onTap: Toggle(state: \"hidden\"), ariaLabel: \"Dismiss\", child: Icon(name: Icons.close, size: Size.sm, color: Color.primaryInk))\n    ])))])\n  )],\n)\n"
+}

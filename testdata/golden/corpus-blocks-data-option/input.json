@@ -1,0 +1,30 @@
+{
+ "name": "blocks-data-option",
+ "pages": [
+  {
+   "id": "dish",
+   "name": "Dish",
+   "path": "/dishes/$dish",
+   "data": [
+    {
+     "name": "dish",
+     "source": "tenant",
+     "resource": "product",
+     "params": [
+      {
+       "name": "id",
+       "from": "route",
+       "value": "dish"
+      }
+     ]
+    }
+   ],
+   "source": "Page(name: \"Dish\", route: Route(path: \"/dishes/$dish\"))\n\nusingServer(\n  dish<Product>(src: Tenant.product(id: route.dish)),\n)\n\nState(\n  quantity: Number(default: 1),\n)\n\nBuild(\n  Column(gap: Space.md, children: [\n    DishCard(product: dish, title: \"Today's pick\"),\n    Text(child: \"Quantity: ${state.quantity}\"),\n  ])\n)\n"
+  }
+ ],
+ "entryPageId": "dish",
+ "shellSource": "",
+ "componentSources": {
+  "DishCard": "Component(\n  id: \"corpus/dish-card\",\n  name: \"DishCard\",\n  kind: Kind.section,\n  description: \"A dish, passed in.\",\n)\n\nOptions(\n  product<Product>(required: true),\n  categories<Category[]>(),\n  title: String(label: \"Title\", maxLength: 40, default: \"Dish\"),\n)\n\nBuild(\n  Column(gap: Space.sm, children: [\n    Text(child: options.title, size: FontSize.sm),\n    Text(child: options.product.name, weight: FontWeight.bold),\n    Text(child: formatMoney(options.product.display_price_cents)),\n  ])\n)\n"
+ }
+}

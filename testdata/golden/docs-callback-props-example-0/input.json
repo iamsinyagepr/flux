@@ -1,0 +1,4 @@
+{
+ "name": "CALLBACK_PROPS_EXAMPLE.md",
+ "source": "Component(\n  dsl: 1, id: \"example/menu-toggle\", name: \"MenuToggle\", kind: Kind.section,\n  description: \"A menu trigger with parent-owned actions.\",\n  options: [\n    BoolOption(name: \"open\", default: false),\n    ActionOption(name: \"onToggle\"),\n    ActionOption(name: \"onSelect\"),\n  ],\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Row(gap: Space.sm, children: [\n      Button(label: options.open ? \"Close menu\" : \"Open menu\", onTap: options.onToggle),\n      Button(label: \"Choose profile\", onTap: RunAction(action: options.onSelect, value: \"profile\")),\n    ])\n  )],\n)\n"
+}

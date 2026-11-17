@@ -1,0 +1,15 @@
+{
+ "name": "Status badges",
+ "id": "market:status-badges",
+ "description": "Badges for new, popular, spicy and sold out.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "badge",
+  "label"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/status-badges\", name: \"Status badges\", kind: Kind.section,\n  description: \"Badges for new, popular, spicy and sold out.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Wrap(spacing: Space.sm, runSpacing: Space.sm, children: [Badge(label: \"New\", tone: Tone.primary), Badge(label: \"Popular\", tone: Tone.success), Badge(label: \"Spicy\", tone: Tone.warning), Badge(label: \"Sold out\", tone: Tone.danger), Badge(label: \"Vegan\", tone: Tone.neutral)])\n  )],\n)\n"
+}

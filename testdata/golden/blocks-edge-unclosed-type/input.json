@@ -1,0 +1,4 @@
+{
+ "name": "Edge",
+ "source": "Component(id: \"test/edge\", name: \"Edge\", kind: Kind.section, description: \"Edge\")\nOptions(pick<Product[](required: true))\nBuild(Text(child: \"x\"))"
+}

@@ -1,0 +1,16 @@
+{
+ "name": "Menu by category",
+ "id": "market:category-sections",
+ "description": "Each category as a heading with its products under it.",
+ "type": "component",
+ "kind": "productCollection",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "menu",
+  "categories",
+  "sections"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/category-sections\", name: \"Menu by category\", kind: Kind.productCollection,\n  description: \"Each category as a heading with its products under it.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Column(gap: Space.lg, children: [ForEach(items: options.menu.categories, as: \"c\", child: Column(gap: Space.sm, children: [\n      Text(child: c.name, size: FontSize.lg, weight: FontWeight.bold),\n      ForEach(items: c.products, as: \"p\", child: Box(padding: Space.sm, radius: Radius.md, onTap: OpenProduct(product: p), ariaLabel: p.name, child: Row(gap: Space.md, crossAxisAlignment: CrossAxisAlignment.center, children: [\n        Expanded(child: Column(gap: Space.xs, children: [Text(child: p.name, weight: FontWeight.medium), If(condition: p.description, then: Text(child: p.description, size: FontSize.sm, color: Color.textMuted, maxLines: 2, overflow: TextOverflow.ellipsis))])),\n        Text(child: formatMoney(p.display_price_cents), weight: FontWeight.bold)\n      ])))\n    ]))])\n  )], options: [DataOption(name: \"menu\", type: Menu, required: true)],\n)\n"
+}

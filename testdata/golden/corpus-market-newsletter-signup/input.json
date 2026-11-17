@@ -1,0 +1,16 @@
+{
+ "name": "Newsletter sign-up",
+ "id": "market:newsletter-signup",
+ "description": "An email field and a button, with a thank-you message.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "newsletter",
+  "email",
+  "signup"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/newsletter-signup\", name: \"Newsletter sign-up\", kind: Kind.section,\n  description: \"An email field and a button, with a thank-you message.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Box(padding: Space.lg, radius: Radius.lg, background: Color.surfaceAlt, child: Form(id: \"newsletter\", onSubmit: ShowMessage(message: \"Thanks! Check your inbox.\"), child: Column(gap: Space.sm, children: [\n      Text(child: \"Get first dibs on new bakes\", size: FontSize.lg, weight: FontWeight.bold),\n      TextField(name: \"email\", label: \"Email\", type: InputType.email, placeholder: \"you@example.com\", required: true),\n      SubmitButton(label: \"Subscribe\", fullWidth: true)\n    ])))\n  )],\n)\n"
+}

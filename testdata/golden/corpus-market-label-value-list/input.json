@@ -1,0 +1,16 @@
+{
+ "name": "Label and value list",
+ "id": "market:label-value-list",
+ "description": "Rows of a label and its value, such as opening hours.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "hours",
+  "list",
+  "details"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/label-value-list\", name: \"Label and value list\", kind: Kind.section,\n  description: \"Rows of a label and its value, such as opening hours.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Column(gap: Space.sm, children: [\n      Row(children: [Expanded(child: Text(child: \"Monday to Friday\", color: Color.textMuted)), Text(child: \"07:00 – 18:00\", weight: FontWeight.semibold)]),\n      Divider(),\n      Row(children: [Expanded(child: Text(child: \"Saturday\", color: Color.textMuted)), Text(child: \"08:00 – 16:00\", weight: FontWeight.semibold)]),\n      Divider(),\n      Row(children: [Expanded(child: Text(child: \"Sunday\", color: Color.textMuted)), Text(child: \"Closed\", weight: FontWeight.semibold, color: Color.danger)])\n    ])\n  )],\n)\n"
+}

@@ -1,0 +1,16 @@
+{
+ "name": "Order summary",
+ "id": "market:order-summary",
+ "description": "Subtotal, delivery, discount and the total.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "summary",
+  "total",
+  "checkout"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/order-summary\", name: \"Order summary\", kind: Kind.section,\n  description: \"Subtotal, delivery, discount and the total.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Box(padding: Space.lg, radius: Radius.lg, background: Color.surface, border: Border(width: 1), child: Column(gap: Space.sm, children: [\n      Text(child: \"Order summary\", weight: FontWeight.bold),\n      Row(children: [Expanded(child: Text(child: \"Subtotal\", color: Color.textMuted)), Text(child: formatMoney(18500))]),\n      Row(children: [Expanded(child: Text(child: \"Delivery\", color: Color.textMuted)), Text(child: formatMoney(2500))]),\n      Row(children: [Expanded(child: Text(child: \"Discount\", color: Color.textMuted)), Text(child: \"– \" + formatMoney(3000), color: Color.success)]),\n      Divider(),\n      Row(children: [Expanded(child: Text(child: \"Total\", weight: FontWeight.bold)), Text(child: formatMoney(18000), size: FontSize.lg, weight: FontWeight.bold)]),\n      Button(label: \"Go to checkout\", fullWidth: true, onTap: Navigate(to: Route.checkout))\n    ]))\n  )],\n)\n"
+}

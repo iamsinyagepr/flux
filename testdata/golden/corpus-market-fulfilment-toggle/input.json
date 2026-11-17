@@ -1,0 +1,17 @@
+{
+ "name": "Fulfilment method",
+ "id": "market:fulfilment-toggle",
+ "description": "Delivery or collection, chosen with two large buttons.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "fulfilment",
+  "delivery",
+  "collection",
+  "checkout"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/fulfilment-toggle\", name: \"Fulfilment method\", kind: Kind.section,\n  description: \"Delivery or collection, chosen with two large buttons.\",\n  states: [StringState(name: \"method\", default: \"delivery\")],\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Column(gap: Space.sm, children: [\n      Row(gap: Space.sm, children: [\n        Expanded(child: Box(padding: Space.md, radius: Radius.md, alignment: Anchor.center, background: state.method == \"delivery\" ? Color.primary : Color.surface, border: Border(width: 1, color: state.method == \"delivery\" ? Color.primary : Color.border), onTap: SetState(state: \"method\", value: \"delivery\"), ariaLabel: \"Delivery\", child: Column(gap: Space.xs, align: Align.center, children: [Icon(name: Icons.location, color: state.method == \"delivery\" ? Color.primaryInk : Color.text), Text(child: \"Delivery\", weight: FontWeight.semibold, color: state.method == \"delivery\" ? Color.primaryInk : Color.text)]))),\n        Expanded(child: Box(padding: Space.md, radius: Radius.md, alignment: Anchor.center, background: state.method == \"collection\" ? Color.primary : Color.surface, border: Border(width: 1, color: state.method == \"collection\" ? Color.primary : Color.border), onTap: SetState(state: \"method\", value: \"collection\"), ariaLabel: \"Collection\", child: Column(gap: Space.xs, align: Align.center, children: [Icon(name: Icons.home, color: state.method == \"collection\" ? Color.primaryInk : Color.text), Text(child: \"Collection\", weight: FontWeight.semibold, color: state.method == \"collection\" ? Color.primaryInk : Color.text)])))\n      ]),\n      Text(child: state.method == \"delivery\" ? \"We'll bring it to your door in about 35 minutes.\" : \"Ready to collect from the store in about 15 minutes.\", size: FontSize.sm, color: Color.textMuted)\n    ])\n  )],\n)\n"
+}

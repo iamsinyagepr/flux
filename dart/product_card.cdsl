@@ -1,0 +1,134 @@
+Component(
+  dsl: 1,
+  id: "acme/product-card-pro",
+  name: "Pro product card",
+  kind: Kind.productCard,
+  description: "Product tile with image, price, discount badge and add button.",
+  aiHints: "Use for product tiles. Variants: vertical (image on top), horizontal (image on the left). Options for corner radius, image shape, calories and button text.",
+  options: [
+    EnumOption(name: "radius", label: "Corner radius",
+      values: [Radius.none, Radius.sm, Radius.md, Radius.lg], default: Radius.md),
+    EnumOption(name: "imageRatio", label: "Image shape",
+      values: ["1:1", "4:3", "16:9"], default: "4:3"),
+    BoolOption(name: "showCalories", label: "Show calories", default: false),
+    StringOption(name: "ctaLabel", label: "Button text", maxLength: 24, default: "Add"),
+  DataOption(name: "product", type: Product, required: true)],
+  parts: [
+    Part(
+      name: "priceRow",
+      build: Row(
+        gap: Space.sm,
+        align: Align.center,
+        children: [
+          Text(child: formatMoney(options.product.display_price_cents),
+               weight: FontWeight.bold, size: FontSize.lg),
+          If(
+            condition: discountPercent(options.product.display_price_cents, options.product.compare_at_price_cents) > 0,
+            then: Text(child: formatMoney(options.product.compare_at_price_cents),
+                       strike: true, color: Color.textMuted, size: FontSize.sm),
+          ),
+        ],
+      ),
+    ),
+    Part(
+      name: "addButton",
+      build: Button(
+        label: options.ctaLabel,
+        style: ButtonStyle.primary,
+        size: Size.sm,
+        fullWidth: true,
+        disabled: !options.product.is_available,
+        onTap: AddToCart(product: options.product),
+      ),
+    ),
+  ],
+  variants: [
+    Variant(
+      id: "vertical",
+      label: "Vertical",
+      build: Box(
+        radius: options.radius,
+        background: Color.surface,
+        border: Border(width: 1, color: Color.border),
+        shadow: Shadow.sm,
+        clip: true,
+        child: Column(
+          children: [
+            Layers(
+              child: Box(
+                onTap: OpenProduct(product: options.product),
+                ariaLabel: options.product.name,
+                child: Image(
+                  src: options.product.image_url,
+                  alt: options.product.name,
+                  aspectRatio: ratio(options.imageRatio),
+                  fit: Fit.cover,
+                ),
+              ),
+              layers: [
+                Layer(
+                  anchor: Anchor.topLeft,
+                  inset: Space.sm,
+                  child: If(
+                    condition: discountPercent(options.product.display_price_cents, options.product.compare_at_price_cents) > 0,
+                    then: Badge(
+                      label: "-${discountPercent(options.product.display_price_cents, options.product.compare_at_price_cents)}%",
+                      tone: Tone.danger,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              gap: Space.sm,
+              padding: Space.md,
+              children: [
+                Text(child: options.product.name, role: TextRole.heading, level: 3,
+                     weight: FontWeight.semibold, maxLines: 2),
+                Text(child: truncate(options.product.description, 80),
+                     color: Color.textMuted, size: FontSize.sm, maxLines: 2),
+                If(
+                  condition: options.showCalories && options.product.calories != null,
+                  then: Text(child: "${options.product.calories} kcal", size: FontSize.xs, color: Color.textMuted),
+                ),
+                Use(part: "priceRow"),
+                Use(part: "addButton"),
+              ],
+            ),
+          ],
+        ),
+      ),
+    ),
+    Variant(
+      id: "horizontal",
+      label: "Horizontal",
+      build: Box(
+        radius: options.radius,
+        background: Color.surface,
+        border: Border(width: 1, color: Color.border),
+        clip: true,
+        child: Row(
+          children: [
+            Box(
+              width: 120,
+              onTap: OpenProduct(product: options.product),
+              ariaLabel: options.product.name,
+              child: Image(src: options.product.image_url, alt: options.product.name, fit: Fit.cover, aspectRatio: 1),
+            ),
+            Expanded(
+              child: Column(
+                gap: Space.xs,
+                padding: Space.md,
+                children: [
+                  Text(child: options.product.name, role: TextRole.heading, level: 3, weight: FontWeight.semibold),
+                  Use(part: "priceRow"),
+                  Use(part: "addButton"),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  ],
+)

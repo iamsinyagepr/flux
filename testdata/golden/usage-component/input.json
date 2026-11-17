@@ -1,0 +1,4 @@
+{
+ "name": "usage",
+ "source": "Component(id: \"studio/hello\", name: \"Hello\", kind: Kind.section, description: \"A welcome\")\n\nBuild(\n  Text(child: \"Hello world\")\n)"
+}

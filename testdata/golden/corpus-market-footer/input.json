@@ -1,0 +1,15 @@
+{
+ "name": "Footer",
+ "id": "market:footer",
+ "description": "Links, contact details and the small print.",
+ "type": "component",
+ "kind": "footer",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "footer",
+  "links"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/footer\", name: \"Footer\", kind: Kind.footer,\n  description: \"Links, contact details and the small print.\",\n  options: [StringOption(name: \"brand\", label: \"Business\", maxLength: 40, default: \"Sunday Kitchen\")],\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Box(padding: Space.lg, background: Color.surfaceAlt, child: Column(gap: Space.md, children: [\n      Text(child: options.brand, size: FontSize.lg, weight: FontWeight.bold),\n      Wrap(spacing: Space.md, runSpacing: Space.sm, children: [\n        Button(label: \"Menu\", style: ButtonStyle.ghost, size: Size.sm, onTap: Navigate(to: Route.menu)),\n        Button(label: \"Orders\", style: ButtonStyle.ghost, size: Size.sm, onTap: Navigate(to: Route.orders)),\n        Button(label: \"Account\", style: ButtonStyle.ghost, size: Size.sm, onTap: Navigate(to: Route.account)),\n        Button(label: \"Stores\", style: ButtonStyle.ghost, size: Size.sm, onTap: Navigate(to: Route.stores))\n      ]),\n      Divider(),\n      Text(child: \"© Sunday Kitchen. Prices include VAT.\", size: FontSize.xs, color: Color.textMuted)\n    ]))\n  )],\n)\n"
+}

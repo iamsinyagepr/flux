@@ -1,0 +1,16 @@
+{
+ "name": "Feature grid",
+ "id": "market:feature-grid",
+ "description": "Three reasons to order, in a responsive grid.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "features",
+  "grid",
+  "benefits"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/feature-grid\", name: \"Feature grid\", kind: Kind.section,\n  description: \"Three reasons to order, in a responsive grid.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Grid(cols: Responsive(base: 1, md: 3), gap: Space.md, children: [\n      Column(gap: Space.xs, children: [Icon(name: Icons.clock, color: Color.primary), Text(child: \"Under 40 minutes\", weight: FontWeight.bold), Text(child: \"Most orders arrive faster.\", color: Color.textMuted)]),\n      Column(gap: Space.xs, children: [Icon(name: Icons.heart, color: Color.primary), Text(child: \"Made fresh\", weight: FontWeight.bold), Text(child: \"Cooked when you order.\", color: Color.textMuted)]),\n      Column(gap: Space.xs, children: [Icon(name: Icons.location, color: Color.primary), Text(child: \"Three stores\", weight: FontWeight.bold), Text(child: \"Collect from the nearest one.\", color: Color.textMuted)])\n    ])\n  )],\n)\n"
+}

@@ -1,0 +1,15 @@
+{
+ "name": "Top app bar",
+ "id": "market:top-app-bar",
+ "description": "Back, a title and the cart.",
+ "type": "component",
+ "kind": "navigation",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "app bar",
+  "header"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/top-app-bar\", name: \"Top app bar\", kind: Kind.navigation,\n  description: \"Back, a title and the cart.\",\n  options: [StringOption(name: \"title\", label: \"Title\", maxLength: 32, default: \"Menu\")],\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Box(padding: Insets(x: 12, y: 10), background: Color.surface, border: Border(width: 1), child: Row(gap: Space.sm, crossAxisAlignment: CrossAxisAlignment.center, children: [\n      Box(shape: BoxShape.circle, width: 36, height: 36, alignment: Anchor.center, onTap: Navigate(to: Route.home), ariaLabel: \"Back\", child: Icon(name: Icons.chevronLeft)),\n      Expanded(child: Text(child: options.title, size: FontSize.lg, weight: FontWeight.bold, align: TextAlign.center)),\n      Box(shape: BoxShape.circle, width: 36, height: 36, alignment: Anchor.center, onTap: Navigate(to: Route.cart), ariaLabel: \"Cart\", child: Icon(name: Icons.cart))\n    ]))\n  )],\n)\n"
+}

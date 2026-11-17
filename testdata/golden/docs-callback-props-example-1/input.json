@@ -1,0 +1,4 @@
+{
+ "name": "CALLBACK_PROPS_EXAMPLE.md",
+ "source": "Component(\n  dsl: 1, id: \"example/menu-header\", name: \"MenuHeader\", kind: Kind.section,\n  description: \"Forward values and callbacks to the trigger.\",\n  options: [\n    BoolOption(name: \"open\", default: false),\n    ActionOption(name: \"onToggle\"),\n    ActionOption(name: \"onSelect\"),\n  ],\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    MenuToggle(open: options.open, onToggle: options.onToggle, onSelect: options.onSelect)\n  )],\n)\n"
+}

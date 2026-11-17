@@ -1,0 +1,4 @@
+{
+ "name": "usage",
+ "source": "Component(id: \"test/usage\", name: \"usage\", kind: Kind.section, description: \"Golden case\")\n\nOptions(showCalories: Bool(label: \"Show calories\", default: false))\n\nBuild(\n  Text(child: \"x\")\n)\n"
+}

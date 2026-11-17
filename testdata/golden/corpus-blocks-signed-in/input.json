@@ -1,0 +1,36 @@
+{
+ "name": "blocks-signed-in",
+ "pages": [
+  {
+   "id": "orders",
+   "name": "Orders",
+   "path": "/orders",
+   "data": [
+    {
+     "name": "orders",
+     "source": "tenant",
+     "resource": "history",
+     "params": [
+      {
+       "name": "limit",
+       "from": "value",
+       "value": "20"
+      }
+     ],
+     "fetch": "client",
+     "select": "data",
+     "type": "Order[]"
+    },
+    {
+     "name": "me",
+     "source": "tenant",
+     "resource": "me",
+     "fetch": "client"
+    }
+   ],
+   "source": "Page(name: \"Orders\", route: Route(path: \"/orders\"))\n\nusingClient(\n  orders<Order[]>(src: Tenant.history(limit: 20)),\n  me<Me>(src: Tenant.me()),\n)\n\nBuild(\n  Column(gap: Space.md, children: [\n    Text(child: \"Hi ${me.display_name}\"),\n    Text(child: \"${orders.length} orders\"),\n  ])\n)\n"
+  }
+ ],
+ "entryPageId": "orders",
+ "shellSource": ""
+}

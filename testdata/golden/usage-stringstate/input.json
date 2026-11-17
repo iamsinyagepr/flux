@@ -1,0 +1,4 @@
+{
+ "name": "usage",
+ "source": "Component(id: \"test/usage\", name: \"usage\", kind: Kind.section, description: \"Golden case\")\n\nState(query: String(default: \"\"))\n\nBuild(\n  Text(child: \"x\")\n)\n"
+}

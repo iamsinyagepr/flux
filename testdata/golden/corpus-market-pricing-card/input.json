@@ -1,0 +1,16 @@
+{
+ "name": "Pricing card",
+ "id": "market:pricing-card",
+ "description": "A plan with its price, what's included and a button.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "pricing",
+  "plan",
+  "subscription"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/pricing-card\", name: \"Pricing card\", kind: Kind.section,\n  description: \"A plan with its price, what's included and a button.\",\n  options: [StringOption(name: \"plan\", label: \"Plan\", maxLength: 24, default: \"Coffee club\"), NumberOption(name: \"price\", label: \"Price (cents)\", min: 0, max: 10000000, default: 29900), StringOption(name: \"period\", label: \"After the price\", maxLength: 16, default: \" / month\"), StringOption(name: \"first\", label: \"First feature\", maxLength: 40, default: \"One coffee a day\"), StringOption(name: \"second\", label: \"Second feature\", maxLength: 40, default: \"10% off pastries\"), StringOption(name: \"third\", label: \"Third feature\", maxLength: 40, default: \"Skip the queue\"), StringOption(name: \"action\", label: \"Button\", maxLength: 24, default: \"Join the club\")],\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Box(padding: Space.lg, radius: Radius.lg, background: Color.surface, border: Border(width: 1, color: Color.primary), shadow: Shadow.md, child: Column(gap: Space.md, children: [\n      Row(crossAxisAlignment: CrossAxisAlignment.center, children: [Expanded(child: Text(child: options.plan, size: FontSize.lg, weight: FontWeight.bold)), Badge(label: \"Popular\", tone: Tone.primary)]),\n      Text(child: formatMoney(options.price) + options.period, size: FontSize.xl, weight: FontWeight.bold),\n      Column(gap: Space.xs, children: [\n        Row(gap: Space.sm, children: [Icon(name: Icons.check, size: Size.sm, color: Color.success), Text(child: options.first)]),\n        Row(gap: Space.sm, children: [Icon(name: Icons.check, size: Size.sm, color: Color.success), Text(child: options.second)]),\n        Row(gap: Space.sm, children: [Icon(name: Icons.check, size: Size.sm, color: Color.success), Text(child: options.third)])\n      ]),\n      Button(label: options.action, fullWidth: true, onTap: Navigate(to: Route.menu))\n    ]))\n  )],\n)\n"
+}

@@ -1,0 +1,4 @@
+{
+ "name": "Edge",
+ "source": "Component(id: \"test/edge\", name: \"Edge\", kind: Kind.section, description: \"Edge\")\nBuild(Text(child: \"x\"))\nVariants(a: Variant(label: \"A\", Build(Text(child: \"a\"))))"
+}

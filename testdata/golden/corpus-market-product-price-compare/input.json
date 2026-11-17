@@ -1,0 +1,15 @@
+{
+ "name": "Price with saving",
+ "id": "market:product-price-compare",
+ "description": "The product's price, its usual price struck through when it's on sale.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "price",
+  "sale"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/product-price-compare\", name: \"Price with saving\", kind: Kind.section,\n  description: \"The product's price, its usual price struck through when it's on sale.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Row(gap: Space.sm, crossAxisAlignment: CrossAxisAlignment.center, children: [\n      Text(child: formatMoney(options.product.display_price_cents), size: FontSize.xl, weight: FontWeight.bold),\n      If(condition: options.product.compare_at_price_cents > options.product.display_price_cents, then: Text(child: formatMoney(options.product.compare_at_price_cents), color: Color.textMuted, decoration: TextDecoration.lineThrough)),\n      If(condition: options.product.compare_at_price_cents > options.product.display_price_cents, then: Badge(label: \"Sale\", tone: Tone.danger))\n    ])\n  )], options: [DataOption(name: \"product\", type: Product, required: true)],\n)\n"
+}

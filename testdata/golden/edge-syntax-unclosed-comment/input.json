@@ -1,0 +1,4 @@
+{
+ "name": "syntax-unclosed-comment",
+ "source": "Component(dsl: 1, id: \"test/syntax-unclosed-comment\", name: \"syntax-unclosed-comment\", kind: Kind.section, description: \"Golden case\",\n  \n  variants: [Variant(id: \"default\", label: \"Default\", build: Text(child: \"a\") /* open)])"
+}

@@ -1,0 +1,4 @@
+{
+ "name": "functions",
+ "source": "Component(dsl: 1, id: \"test/functions\", name: \"functions\", kind: Kind.section, description: \"Golden case\",\n  \n  variants: [Variant(id: \"default\", label: \"Default\", build: Column(children: [Text(child: upper(\"a\", \"b\")), Text(child: formatMoney(product.display_price_cents)), If(condition: isMobile(), then: Text(child: \"m\"), else: Text(child: \"d\")), Text(child: Responsive(base: \"s\", md: \"m\", lg: \"l\"))]))])"
+}

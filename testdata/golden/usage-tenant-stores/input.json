@@ -1,0 +1,22 @@
+{
+ "name": "Usage",
+ "pages": [
+  {
+   "id": "usage",
+   "name": "Usage",
+   "path": "/usage/$store/$id/$dish",
+   "source": "Page(name: \"Usage\", route: Route(path: \"/usage/$store/$id/$dish\"))\n\nusingServer(stores<Store[]>(src: Tenant.stores()))\n\nBuild(\n  Text(child: \"x\")\n)\n",
+   "data": [
+    {
+     "name": "stores",
+     "source": "tenant",
+     "resource": "stores",
+     "select": "data",
+     "type": "Store[]"
+    }
+   ]
+  }
+ ],
+ "entryPageId": "usage",
+ "shellSource": ""
+}

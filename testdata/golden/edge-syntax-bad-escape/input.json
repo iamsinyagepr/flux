@@ -1,0 +1,4 @@
+{
+ "name": "syntax-bad-escape",
+ "source": "Component(dsl: 1, id: \"test/syntax-bad-escape\", name: \"syntax-bad-escape\", kind: Kind.section, description: \"Golden case\",\n  \n  variants: [Variant(id: \"default\", label: \"Default\", build: Text(child: \"bad \\q\"))])"
+}

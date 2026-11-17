@@ -1,0 +1,16 @@
+{
+ "name": "Store contact",
+ "id": "market:store-contact",
+ "description": "The store's address, phone and email.",
+ "type": "component",
+ "kind": "storeInfo",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "store",
+  "contact",
+  "address"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/store-contact\", name: \"Store contact\", kind: Kind.storeInfo,\n  description: \"The store's address, phone and email.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Box(padding: Space.lg, radius: Radius.lg, background: Color.surface, border: Border(width: 1), child: Column(gap: Space.sm, children: [\n      Text(child: store.name, weight: FontWeight.bold),\n      Row(gap: Space.sm, children: [Icon(name: Icons.location, size: Size.sm, color: Color.primary), Expanded(child: Text(child: \"${store.address_line1}, ${store.city}\", color: Color.textMuted))]),\n      If(condition: store.phone, then: Row(gap: Space.sm, children: [Icon(name: Icons.user, size: Size.sm, color: Color.primary), Text(child: store.phone)])),\n      If(condition: store.email, then: Row(gap: Space.sm, children: [Icon(name: Icons.email, size: Size.sm, color: Color.primary), Text(child: store.email)]))\n    ]))\n  )], data: [Data(name: \"store\", from: Client.store(), fetch: \"client\", type: Store)],\n)\n"
+}

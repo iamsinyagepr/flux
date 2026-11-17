@@ -1,0 +1,16 @@
+{
+ "name": "Contact form",
+ "id": "market:contact-form",
+ "description": "Name, email and a message.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "contact",
+  "form",
+  "message"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/contact-form\", name: \"Contact form\", kind: Kind.section,\n  description: \"Name, email and a message.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Form(id: \"contact\", onSubmit: ShowMessage(message: \"Message sent. We'll reply within a day.\"), child: Column(gap: Space.md, children: [\n      TextField(name: \"name\", label: \"Name\", required: true),\n      TextField(name: \"email\", label: \"Email\", type: InputType.email, required: true),\n      TextField(name: \"message\", label: \"Message\", rows: 4, required: true, maxLength: 500),\n      SubmitButton(label: \"Send message\", fullWidth: true)\n    ]))\n  )],\n)\n"
+}

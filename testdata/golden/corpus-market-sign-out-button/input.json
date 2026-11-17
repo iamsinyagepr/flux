@@ -1,0 +1,15 @@
+{
+ "name": "Sign out button",
+ "id": "market:sign-out-button",
+ "description": "Signs the customer out.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "sign out",
+  "account"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/sign-out-button\", name: \"Sign out button\", kind: Kind.section,\n  description: \"Signs the customer out.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Button(label: \"Sign out\", style: ButtonStyle.secondary, fullWidth: true, onTap: SignOutPreviewCustomer())\n  )],\n)\n"
+}

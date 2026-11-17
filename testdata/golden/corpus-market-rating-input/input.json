@@ -1,0 +1,16 @@
+{
+ "name": "Star rating",
+ "id": "market:rating-input",
+ "description": "Tap a star and send it as the order's review, once it is delivered.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "rating",
+  "review",
+  "stars"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/rating-input\", name: \"Star rating\", kind: Kind.section,\n  description: \"Tap a star and send it as the order's review, once it is delivered.\",\n  states: [NumberState(name: \"rating\", default: 0)],\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Column(gap: Space.sm, align: Align.center, children: [\n      Text(child: state.rating == 0 ? \"How was your order?\" : \"You rated it ${state.rating} out of 5\", weight: FontWeight.semibold),\n      Row(gap: Space.sm, mainAxisSize: MainAxisSize.min, children: [\n        Box(width: 44, height: 44, alignment: Anchor.center, onTap: SetState(state: \"rating\", value: 1), ariaLabel: \"One star\", child: Icon(name: Icons.star, size: Size.lg, color: state.rating >= 1 ? Color.warning : Color.border)),\n        Box(width: 44, height: 44, alignment: Anchor.center, onTap: SetState(state: \"rating\", value: 2), ariaLabel: \"Two stars\", child: Icon(name: Icons.star, size: Size.lg, color: state.rating >= 2 ? Color.warning : Color.border)),\n        Box(width: 44, height: 44, alignment: Anchor.center, onTap: SetState(state: \"rating\", value: 3), ariaLabel: \"Three stars\", child: Icon(name: Icons.star, size: Size.lg, color: state.rating >= 3 ? Color.warning : Color.border)),\n        Box(width: 44, height: 44, alignment: Anchor.center, onTap: SetState(state: \"rating\", value: 4), ariaLabel: \"Four stars\", child: Icon(name: Icons.star, size: Size.lg, color: state.rating >= 4 ? Color.warning : Color.border)),\n        Box(width: 44, height: 44, alignment: Anchor.center, onTap: SetState(state: \"rating\", value: 5), ariaLabel: \"Five stars\", child: Icon(name: Icons.star, size: Size.lg, color: state.rating >= 5 ? Color.warning : Color.border))\n      ]),\n      If(condition: review != null, then: Text(child: \"Thanks for your review.\", color: Color.textMuted), else: Button(label: \"Send review\", disabled: state.rating == 0, onTap: SubmitReview(foodRating: state.rating)))\n    ])\n  )], data: [Data(name: \"review\", from: Client.review(), fetch: \"client\", type: OrderReview)],\n)\n"
+}

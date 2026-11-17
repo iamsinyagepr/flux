@@ -1,0 +1,41 @@
+{
+ "name": "Data names",
+ "source": "",
+ "shellSource": "",
+ "entryPageId": "dish",
+ "apiUrl": "https://shop.example.com",
+ "pages": [
+  {
+   "id": "dish",
+   "name": "Dish",
+   "path": "/dish/$dishId",
+   "source": "Component(dsl: 1, id: \"test/dish\", name: \"dish\", kind: Kind.section, description: \"Golden case\",\n  \n  variants: [Variant(id: \"default\", label: \"Default\", build: Column(children: [Text(child: dish.name), Text(child: formatMoney(dish.display_price_cents)), Text(child: info.facts.calories), ForEach(items: info.items, as: \"row\", child: Text(child: row.label)), Text(child: dish.nonsense)]))])",
+   "data": [
+    {
+     "name": "dish",
+     "source": "tenant",
+     "resource": "product",
+     "params": [
+      {
+       "name": "id",
+       "from": "route",
+       "value": "dishId"
+      }
+     ]
+    },
+    {
+     "name": "info",
+     "source": "external",
+     "url": "https://info.example.com/{id}",
+     "params": [
+      {
+       "name": "id",
+       "from": "import",
+       "value": "dish.id"
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

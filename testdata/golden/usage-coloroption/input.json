@@ -1,0 +1,4 @@
+{
+ "name": "usage",
+ "source": "Component(id: \"test/usage\", name: \"usage\", kind: Kind.section, description: \"Golden case\")\n\nOptions(accent: Color(default: Color.primary, allowCustom: false))\n\nBuild(\n  Text(child: \"x\")\n)\n"
+}

@@ -1,0 +1,19 @@
+{
+ "name": "Components",
+ "pages": [
+  {
+   "id": "home",
+   "name": "home",
+   "path": "/",
+   "source": "Component(dsl: 1, id: \"test/home\", name: \"home\", kind: Kind.section, description: \"Golden case\",\n  \n  variants: [Variant(id: \"default\", label: \"Default\", build: Column(children: [Card(title: \"Hi\", onPick: ShowMessage(message: \"x\")), Broken(), Card(variant: \"big\")]))])"
+  }
+ ],
+ "entryPageId": "home",
+ "shellSource": "",
+ "componentSources": {
+  "Card": "Component(dsl: 1, id: \"custom/card\", name: \"Card\", kind: Kind.section, description: \"Card\",\n      options: [StringOption(name: \"title\", label: \"Title\", maxLength: 40, default: \"Card\"), ActionOption(name: \"onPick\", label: \"Pick\")],\n      variants: [Variant(id: \"default\", label: \"Default\", build: Box(ariaLabel: \"Card\", onTap: RunAction(action: options.onPick, value: options.title), child: Text(child: options.title))),\n        Variant(id: \"big\", label: \"Big\", build: Text(child: options.title, size: FontSize.xxl))])",
+  "Broken": "Component(dsl: 1, id: \"custom/broken\", name: \"Broken\", kind: Kind.section, description: \"Broken\", variants: [Variant(id: \"default\", label: \"Default\", build: Text(child: nope.x))])",
+  "LoopA": "Component(dsl: 1, id: \"custom/loop-a\", name: \"LoopA\", kind: Kind.section, description: \"A\", variants: [Variant(id: \"default\", label: \"Default\", build: LoopB())])",
+  "LoopB": "Component(dsl: 1, id: \"custom/loop-b\", name: \"LoopB\", kind: Kind.section, description: \"B\", variants: [Variant(id: \"default\", label: \"Default\", build: LoopA())])"
+ }
+}

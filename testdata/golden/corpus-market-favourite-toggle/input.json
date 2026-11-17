@@ -1,0 +1,16 @@
+{
+ "name": "Favourite toggle",
+ "id": "market:favourite-toggle",
+ "description": "A heart that fills when tapped.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "favourite",
+  "toggle",
+  "heart"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/favourite-toggle\", name: \"Favourite toggle\", kind: Kind.section,\n  description: \"A heart that fills when tapped.\",\n  states: [BoolState(name: \"liked\", default: false)],\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Box(shape: BoxShape.circle, width: 44, height: 44, alignment: Anchor.center, background: state.liked ? Color.danger : Color.surface, border: Border(width: 1, color: state.liked ? Color.danger : Color.border), onTap: Toggle(state: \"liked\"), ariaLabel: \"Favourite\", child: Icon(name: Icons.heart, color: state.liked ? Color.primaryInk : Color.textMuted))\n  )],\n)\n"
+}

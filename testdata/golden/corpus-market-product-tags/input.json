@@ -1,0 +1,15 @@
+{
+ "name": "Product tags",
+ "id": "market:product-tags",
+ "description": "The product's tags as badges.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "tags",
+  "badges"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/product-tags\", name: \"Product tags\", kind: Kind.section,\n  description: \"The product's tags as badges.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Wrap(spacing: Space.xs, runSpacing: Space.xs, children: [ForEach(items: options.product.tags, as: \"t\", child: Badge(label: t, tone: Tone.neutral))])\n  )], options: [DataOption(name: \"product\", type: Product, required: true)],\n)\n"
+}

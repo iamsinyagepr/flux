@@ -1,0 +1,76 @@
+{
+ "name": "blocks-search",
+ "pages": [
+  {
+   "id": "home",
+   "name": "Home",
+   "path": "/",
+   "source": "Page(name: \"Home\", route: Route(path: \"/\"), seo: Seo(title: \"Find a kitchen\", sitemap: true))\n\nState(\n  city: String(default: \"Johannesburg\"),\n)\n\nBuild(\n  Button(label: \"Stores in ${state.city}\", onTap: Navigate(to: \"/stores\", search: Search(city: state.city, page: 2)))\n)\n",
+   "seo": {
+    "title": "\"Find a kitchen\"",
+    "sitemap": true
+   }
+  },
+  {
+   "id": "stores",
+   "name": "Stores",
+   "path": "/stores",
+   "source": "Page(name: \"Stores\", route: Route(path: \"/stores\", search: Search(city: String(default: \"\"), page: Number(default: 1), open: Bool())), seo: Seo(title: \"Stores\", sitemap: false))\n\nusingServer(\n  stores<Store[]>(src: Tenant.stores(city: query.city, limit: query.page)),\n)\n\nBuild(\n  Text(child: \"${stores.length} stores\")\n)\n",
+   "search": [
+    {
+     "name": "city",
+     "type": "String",
+     "default": ""
+    },
+    {
+     "name": "page",
+     "type": "Number",
+     "default": 1
+    },
+    {
+     "name": "open",
+     "type": "Bool"
+    }
+   ],
+   "data": [
+    {
+     "name": "stores",
+     "source": "tenant",
+     "resource": "stores",
+     "params": [
+      {
+       "name": "city",
+       "from": "query",
+       "value": "city",
+       "fallback": ""
+      },
+      {
+       "name": "limit",
+       "from": "query",
+       "value": "page",
+       "fallback": "1"
+      }
+     ],
+     "select": "data",
+     "type": "Store[]"
+    }
+   ],
+   "seo": {
+    "title": "\"Stores\"",
+    "sitemap": false
+   }
+  },
+  {
+   "id": "hidden",
+   "name": "Hidden",
+   "path": "/hidden",
+   "source": "Page(name: \"Hidden\", route: Route(path: \"/hidden\"), seo: Seo(title: \"Hidden\", index: false))\n\nBuild(\n  Text(child: \"Not for search engines\")\n)\n",
+   "seo": {
+    "title": "\"Hidden\"",
+    "index": false
+   }
+  }
+ ],
+ "entryPageId": "home",
+ "shellSource": ""
+}

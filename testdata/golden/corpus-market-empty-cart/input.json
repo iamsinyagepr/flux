@@ -1,0 +1,15 @@
+{
+ "name": "Empty cart",
+ "id": "market:empty-cart",
+ "description": "Shown only while the cart is empty, with a way back to the menu.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "cart",
+  "empty"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/empty-cart\", name: \"Empty cart\", kind: Kind.section,\n  description: \"Shown only while the cart is empty, with a way back to the menu.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    If(condition: cart.count == 0, then: Box(padding: Space.xl, radius: Radius.lg, background: Color.surfaceAlt, child: Column(gap: Space.sm, align: Align.center, children: [\n      Icon(name: Icons.cart, size: Size.lg, color: Color.textMuted),\n      Text(child: \"Your cart is empty\", size: FontSize.lg, weight: FontWeight.bold),\n      Button(label: \"Browse the menu\", onTap: Navigate(to: Route.menu))\n    ])))\n  )], data: [Data(name: \"cart\", from: Client.cart(), fetch: \"client\", type: Cart)],\n)\n"
+}

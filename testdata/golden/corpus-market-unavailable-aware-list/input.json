@@ -1,0 +1,15 @@
+{
+ "name": "Availability list",
+ "id": "market:unavailable-aware-list",
+ "description": "Products with a sold-out label on the ones that are unavailable.",
+ "type": "component",
+ "kind": "productCollection",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "availability",
+  "sold out"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/unavailable-aware-list\", name: \"Availability list\", kind: Kind.productCollection,\n  description: \"Products with a sold-out label on the ones that are unavailable.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Column(gap: Space.sm, children: [ForEach(items: options.products, as: \"p\", child: Row(gap: Space.sm, crossAxisAlignment: CrossAxisAlignment.center, children: [\n      Expanded(child: Text(child: p.name, color: p.is_available ? Color.text : Color.textMuted)),\n      If(condition: p.is_available, then: Text(child: formatMoney(p.display_price_cents), weight: FontWeight.semibold), else: Badge(label: \"Sold out\", tone: Tone.danger))\n    ]))])\n  )], options: [DataOption(name: \"products\", type: Product, list: true, required: true)],\n)\n"
+}

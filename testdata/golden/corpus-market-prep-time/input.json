@@ -1,0 +1,15 @@
+{
+ "name": "Preparation time",
+ "id": "market:prep-time",
+ "description": "How long the store takes to prepare an order, when it says.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "prep time",
+  "eta"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/prep-time\", name: \"Preparation time\", kind: Kind.section,\n  description: \"How long the store takes to prepare an order, when it says.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    If(condition: store.prep_time_minutes, then: Row(gap: Space.xs, crossAxisAlignment: CrossAxisAlignment.center, children: [Icon(name: Icons.clock, size: Size.sm, color: Color.primary), Text(child: \"Ready in about ${store.prep_time_minutes} minutes\", size: FontSize.sm)]))\n  )], data: [Data(name: \"store\", from: Client.store(), fetch: \"client\", type: Store)],\n)\n"
+}

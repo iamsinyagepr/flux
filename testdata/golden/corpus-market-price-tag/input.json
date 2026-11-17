@@ -1,0 +1,15 @@
+{
+ "name": "Price tag",
+ "id": "market:price-tag",
+ "description": "A price with the old price struck through and a saving badge.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "price",
+  "sale"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/price-tag\", name: \"Price tag\", kind: Kind.section,\n  description: \"A price with the old price struck through and a saving badge.\",\n  options: [NumberOption(name: \"price\", label: \"Price (cents)\", min: 0, max: 10000000, default: 8900), NumberOption(name: \"was\", label: \"Old price (cents)\", min: 0, max: 10000000, default: 11900)],\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Row(gap: Space.sm, crossAxisAlignment: CrossAxisAlignment.center, children: [\n      Text(child: formatMoney(options.price), size: FontSize.xl, weight: FontWeight.bold),\n      Text(child: formatMoney(options.was), color: Color.textMuted, decoration: TextDecoration.lineThrough),\n      Badge(label: \"Save\", tone: Tone.success)\n    ])\n  )],\n)\n"
+}

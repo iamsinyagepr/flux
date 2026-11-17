@@ -1,0 +1,4361 @@
+{
+ "constructors": [
+  {
+   "name": "AddConfiguredProduct",
+   "group": "Actions",
+   "parameters": [
+    [
+     "quantity",
+     "Number"
+    ]
+   ],
+   "required": []
+  },
+  {
+   "name": "SubmitExampleOrder",
+   "group": "Actions",
+   "parameters": [
+    [
+     "deliveryFee",
+     "Number"
+    ]
+   ],
+   "required": []
+  },
+  {
+   "name": "PlaceOrder",
+   "group": "Actions",
+   "parameters": [
+    [
+     "fulfilment",
+     "String"
+    ]
+   ],
+   "required": []
+  },
+  {
+   "name": "ToggleDarkMode",
+   "group": "Actions",
+   "parameters": [],
+   "required": []
+  },
+  {
+   "name": "ConfirmDeliveryPoint",
+   "group": "Actions",
+   "parameters": [
+    [
+     "latitude",
+     "Number"
+    ],
+    [
+     "longitude",
+     "Number"
+    ]
+   ],
+   "required": []
+  },
+  {
+   "name": "SetCheckout",
+   "group": "Actions",
+   "parameters": [
+    [
+     "field",
+     "String"
+    ],
+    [
+     "value",
+     "String or Number or Bool or null"
+    ]
+   ],
+   "required": [
+    "field",
+    "value"
+   ]
+  },
+  {
+   "name": "SetTip",
+   "group": "Actions",
+   "parameters": [
+    [
+     "cents",
+     "Number"
+    ],
+    [
+     "percent",
+     "Number"
+    ]
+   ],
+   "required": []
+  },
+  {
+   "name": "CancelOrder",
+   "group": "Actions",
+   "parameters": [],
+   "required": []
+  },
+  {
+   "name": "SubmitReview",
+   "group": "Actions",
+   "parameters": [
+    [
+     "foodRating",
+     "Number"
+    ],
+    [
+     "deliveryRating",
+     "Number"
+    ],
+    [
+     "foodComment",
+     "String"
+    ],
+    [
+     "deliveryComment",
+     "String"
+    ]
+   ],
+   "required": []
+  },
+  {
+   "name": "SavePreviewAddress",
+   "group": "Actions",
+   "parameters": [],
+   "required": []
+  },
+  {
+   "name": "ResetPreviewPassword",
+   "group": "Actions",
+   "parameters": [],
+   "required": []
+  },
+  {
+   "name": "SignOutPreviewCustomer",
+   "group": "Actions",
+   "parameters": [],
+   "required": []
+  },
+  {
+   "name": "PayOrder",
+   "group": "Actions",
+   "parameters": [
+    [
+     "order",
+     "Any"
+    ]
+   ],
+   "required": []
+  },
+  {
+   "name": "SignIn",
+   "group": "Actions",
+   "parameters": [
+    [
+     "email",
+     "String"
+    ],
+    [
+     "password",
+     "String"
+    ]
+   ],
+   "required": []
+  },
+  {
+   "name": "SignUp",
+   "group": "Actions",
+   "parameters": [
+    [
+     "email",
+     "String"
+    ],
+    [
+     "password",
+     "String"
+    ],
+    [
+     "name",
+     "String"
+    ]
+   ],
+   "required": []
+  },
+  {
+   "name": "SignOut",
+   "group": "Actions",
+   "parameters": [],
+   "required": []
+  },
+  {
+   "name": "SearchPlaces",
+   "group": "Actions",
+   "parameters": [
+    [
+     "query",
+     "String"
+    ]
+   ],
+   "required": [
+    "query"
+   ]
+  },
+  {
+   "name": "ChoosePlace",
+   "group": "Actions",
+   "parameters": [
+    [
+     "place",
+     "Any"
+    ]
+   ],
+   "required": [
+    "place"
+   ]
+  },
+  {
+   "name": "UseMyLocation",
+   "group": "Actions",
+   "parameters": [],
+   "required": []
+  },
+  {
+   "name": "ChooseCity",
+   "group": "Actions",
+   "parameters": [
+    [
+     "city",
+     "Any"
+    ]
+   ],
+   "required": [
+    "city"
+   ]
+  },
+  {
+   "name": "SearchStores",
+   "group": "Actions",
+   "parameters": [
+    [
+     "query",
+     "String"
+    ]
+   ],
+   "required": []
+  },
+  {
+   "name": "ChooseStore",
+   "group": "Actions",
+   "parameters": [
+    [
+     "store",
+     "Any"
+    ]
+   ],
+   "required": [
+    "store"
+   ]
+  },
+  {
+   "name": "ToggleOption",
+   "group": "Actions",
+   "parameters": [
+    [
+     "group",
+     "String"
+    ],
+    [
+     "choice",
+     "String"
+    ]
+   ],
+   "required": [
+    "group",
+    "choice"
+   ]
+  },
+  {
+   "name": "ChangeCartLine",
+   "group": "Actions",
+   "parameters": [
+    [
+     "line",
+     "Any"
+    ],
+    [
+     "by",
+     "Number"
+    ]
+   ],
+   "required": [
+    "line"
+   ]
+  },
+  {
+   "name": "RemoveCartLine",
+   "group": "Actions",
+   "parameters": [
+    [
+     "line",
+     "Any"
+    ]
+   ],
+   "required": [
+    "line"
+   ]
+  },
+  {
+   "name": "OpenOrder",
+   "group": "Actions",
+   "parameters": [
+    [
+     "order",
+     "Any"
+    ]
+   ],
+   "required": [
+    "order"
+   ]
+  },
+  {
+   "name": "RemoveAddress",
+   "group": "Actions",
+   "parameters": [
+    [
+     "address",
+     "Any"
+    ]
+   ],
+   "required": [
+    "address"
+   ]
+  },
+  {
+   "name": "Route.order",
+   "group": "Actions",
+   "parameters": [
+    [
+     "id",
+     "String"
+    ]
+   ],
+   "required": [
+    "id"
+   ]
+  },
+  {
+   "name": "Component",
+   "group": "Structure",
+   "parameters": [
+    [
+     "dsl",
+     "Number"
+    ],
+    [
+     "id",
+     "String"
+    ],
+    [
+     "name",
+     "String"
+    ],
+    [
+     "kind",
+     "Kind"
+    ],
+    [
+     "description",
+     "String"
+    ],
+    [
+     "aiHints",
+     "String"
+    ],
+    [
+     "options",
+     "List<Option>"
+    ],
+    [
+     "data",
+     "List<Data>"
+    ],
+    [
+     "states",
+     "List<State>"
+    ],
+    [
+     "parts",
+     "List<Part>"
+    ],
+    [
+     "defaultVariant",
+     "String"
+    ],
+    [
+     "variants",
+     "List<Variant>"
+    ]
+   ],
+   "required": [
+    "dsl",
+    "id",
+    "name",
+    "kind",
+    "description",
+    "variants"
+   ]
+  },
+  {
+   "name": "Page",
+   "group": "Structure",
+   "parameters": [
+    [
+     "name",
+     "String"
+    ],
+    [
+     "route",
+     "Route"
+    ],
+    [
+     "data",
+     "List<Data>"
+    ],
+    [
+     "seo",
+     "Seo"
+    ],
+    [
+     "states",
+     "List<State>"
+    ],
+    [
+     "parts",
+     "List<Part>"
+    ],
+    [
+     "build",
+     "Widget"
+    ]
+   ],
+   "required": [
+    "name",
+    "build"
+   ]
+  },
+  {
+   "name": "Variant",
+   "group": "Structure",
+   "parameters": [
+    [
+     "id",
+     "String"
+    ],
+    [
+     "label",
+     "String"
+    ],
+    [
+     "build",
+     "Widget"
+    ],
+    [
+     "options",
+     "List<Option>"
+    ]
+   ],
+   "required": [
+    "id",
+    "label",
+    "build"
+   ]
+  },
+  {
+   "name": "Part",
+   "group": "Structure",
+   "parameters": [
+    [
+     "name",
+     "String"
+    ],
+    [
+     "build",
+     "Widget"
+    ]
+   ],
+   "required": [
+    "name",
+    "build"
+   ]
+  },
+  {
+   "name": "Scaffold",
+   "group": "Layout",
+   "parameters": [
+    [
+     "body",
+     "Widget"
+    ],
+    [
+     "appBar",
+     "Widget"
+    ],
+    [
+     "bottomNavigationBar",
+     "Widget"
+    ],
+    [
+     "background",
+     "Color"
+    ]
+   ],
+   "required": [
+    "body"
+   ]
+  },
+  {
+   "name": "ScrollView",
+   "group": "Layout",
+   "parameters": [
+    [
+     "child",
+     "Widget"
+    ],
+    [
+     "direction",
+     "Axis"
+    ],
+    [
+     "padding",
+     "Space or Insets"
+    ],
+    [
+     "label",
+     "String"
+    ]
+   ],
+   "required": [
+    "child"
+   ]
+  },
+  {
+   "name": "Column",
+   "group": "Layout",
+   "parameters": [
+    [
+     "children",
+     "List<Widget>"
+    ],
+    [
+     "gap",
+     "Space"
+    ],
+    [
+     "align",
+     "Align"
+    ],
+    [
+     "justify",
+     "Justify"
+    ],
+    [
+     "padding",
+     "Space or Insets"
+    ],
+    [
+     "mainAxisAlignment",
+     "MainAxisAlignment"
+    ],
+    [
+     "crossAxisAlignment",
+     "CrossAxisAlignment"
+    ],
+    [
+     "mainAxisSize",
+     "MainAxisSize"
+    ]
+   ],
+   "required": [
+    "children"
+   ]
+  },
+  {
+   "name": "Row",
+   "group": "Layout",
+   "parameters": [
+    [
+     "children",
+     "List<Widget>"
+    ],
+    [
+     "gap",
+     "Space"
+    ],
+    [
+     "align",
+     "Align"
+    ],
+    [
+     "justify",
+     "Justify"
+    ],
+    [
+     "padding",
+     "Space or Insets"
+    ],
+    [
+     "wrap",
+     "Bool"
+    ],
+    [
+     "mainAxisAlignment",
+     "MainAxisAlignment"
+    ],
+    [
+     "crossAxisAlignment",
+     "CrossAxisAlignment"
+    ],
+    [
+     "mainAxisSize",
+     "MainAxisSize"
+    ]
+   ],
+   "required": [
+    "children"
+   ]
+  },
+  {
+   "name": "Flex",
+   "group": "Layout",
+   "parameters": [
+    [
+     "direction",
+     "Axis"
+    ],
+    [
+     "children",
+     "List<Widget>"
+    ],
+    [
+     "gap",
+     "Space"
+    ],
+    [
+     "padding",
+     "Space or Insets"
+    ],
+    [
+     "mainAxisAlignment",
+     "MainAxisAlignment"
+    ],
+    [
+     "crossAxisAlignment",
+     "CrossAxisAlignment"
+    ],
+    [
+     "mainAxisSize",
+     "MainAxisSize"
+    ]
+   ],
+   "required": [
+    "direction",
+    "children"
+   ]
+  },
+  {
+   "name": "Flexible",
+   "group": "Layout",
+   "parameters": [
+    [
+     "child",
+     "Widget"
+    ],
+    [
+     "flex",
+     "Number"
+    ],
+    [
+     "fit",
+     "FlexFit"
+    ]
+   ],
+   "required": [
+    "child"
+   ]
+  },
+  {
+   "name": "Wrap",
+   "group": "Layout",
+   "parameters": [
+    [
+     "children",
+     "List<Widget>"
+    ],
+    [
+     "direction",
+     "Axis"
+    ],
+    [
+     "spacing",
+     "Space"
+    ],
+    [
+     "runSpacing",
+     "Space"
+    ],
+    [
+     "alignment",
+     "WrapAlignment"
+    ],
+    [
+     "runAlignment",
+     "WrapAlignment"
+    ],
+    [
+     "crossAxisAlignment",
+     "WrapCrossAlignment"
+    ],
+    [
+     "padding",
+     "Space or Insets"
+    ]
+   ],
+   "required": [
+    "children"
+   ]
+  },
+  {
+   "name": "Animate",
+   "group": "Layout",
+   "parameters": [
+    [
+     "child",
+     "Widget"
+    ],
+    [
+     "effect",
+     "Effect"
+    ],
+    [
+     "duration",
+     "Number"
+    ],
+    [
+     "delay",
+     "Number"
+    ],
+    [
+     "curve",
+     "Curve"
+    ],
+    [
+     "distance",
+     "Number"
+    ]
+   ],
+   "required": [
+    "child"
+   ]
+  },
+  {
+   "name": "SizedBox",
+   "group": "Layout",
+   "parameters": [
+    [
+     "child",
+     "Widget"
+    ],
+    [
+     "width",
+     "Number"
+    ],
+    [
+     "height",
+     "Number"
+    ]
+   ],
+   "required": []
+  },
+  {
+   "name": "Stack",
+   "group": "Layout",
+   "parameters": [
+    [
+     "children",
+     "List<Widget>"
+    ],
+    [
+     "alignment",
+     "Anchor"
+    ],
+    [
+     "fit",
+     "StackFit"
+    ],
+    [
+     "clip",
+     "Bool"
+    ],
+    [
+     "width",
+     "Number"
+    ],
+    [
+     "height",
+     "Number"
+    ]
+   ],
+   "required": [
+    "children"
+   ]
+  },
+  {
+   "name": "Positioned",
+   "group": "Layout",
+   "parameters": [
+    [
+     "child",
+     "Widget"
+    ],
+    [
+     "top",
+     "Number"
+    ],
+    [
+     "right",
+     "Number"
+    ],
+    [
+     "bottom",
+     "Number"
+    ],
+    [
+     "left",
+     "Number"
+    ],
+    [
+     "width",
+     "Number"
+    ],
+    [
+     "height",
+     "Number"
+    ]
+   ],
+   "required": [
+    "child"
+   ]
+  },
+  {
+   "name": "Grid",
+   "group": "Layout",
+   "parameters": [
+    [
+     "children",
+     "List<Widget>"
+    ],
+    [
+     "cols",
+     "Number or Responsive"
+    ],
+    [
+     "minItemWidth",
+     "Number"
+    ],
+    [
+     "gap",
+     "Space"
+    ],
+    [
+     "padding",
+     "Space or Insets"
+    ]
+   ],
+   "required": [
+    "children"
+   ]
+  },
+  {
+   "name": "Box",
+   "group": "Layout",
+   "parameters": [
+    [
+     "child",
+     "Widget"
+    ],
+    [
+     "padding",
+     "Space or Insets"
+    ],
+    [
+     "margin",
+     "Space or Insets"
+    ],
+    [
+     "alignment",
+     "Anchor"
+    ],
+    [
+     "background",
+     "Color"
+    ],
+    [
+     "gradient",
+     "Gradient"
+    ],
+    [
+     "radius",
+     "Radius"
+    ],
+    [
+     "border",
+     "Border"
+    ],
+    [
+     "shadow",
+     "Shadow"
+    ],
+    [
+     "shape",
+     "BoxShape"
+    ],
+    [
+     "width",
+     "Number"
+    ],
+    [
+     "height",
+     "Number"
+    ],
+    [
+     "minWidth",
+     "Number"
+    ],
+    [
+     "minHeight",
+     "Number"
+    ],
+    [
+     "maxWidth",
+     "Number"
+    ],
+    [
+     "maxHeight",
+     "Number"
+    ],
+    [
+     "aspectRatio",
+     "Number"
+    ],
+    [
+     "rotate",
+     "Number"
+    ],
+    [
+     "scale",
+     "Number"
+    ],
+    [
+     "opacity",
+     "Number"
+    ],
+    [
+     "clip",
+     "Bool"
+    ],
+    [
+     "onTap",
+     "Action"
+    ],
+    [
+     "ariaLabel",
+     "String"
+    ],
+    [
+     "id",
+     "String"
+    ]
+   ],
+   "required": []
+  },
+  {
+   "name": "Layers",
+   "group": "Layout",
+   "parameters": [
+    [
+     "child",
+     "Widget"
+    ],
+    [
+     "layers",
+     "List<Layer>"
+    ]
+   ],
+   "required": [
+    "child",
+    "layers"
+   ]
+  },
+  {
+   "name": "Layer",
+   "group": "Layout",
+   "parameters": [
+    [
+     "anchor",
+     "Anchor"
+    ],
+    [
+     "inset",
+     "Space"
+    ],
+    [
+     "child",
+     "Widget"
+    ]
+   ],
+   "required": [
+    "anchor",
+    "child"
+   ]
+  },
+  {
+   "name": "Expanded",
+   "group": "Layout",
+   "parameters": [
+    [
+     "child",
+     "Widget"
+    ],
+    [
+     "flex",
+     "Number"
+    ]
+   ],
+   "required": [
+    "child"
+   ]
+  },
+  {
+   "name": "Spacer",
+   "group": "Layout",
+   "parameters": [
+    [
+     "size",
+     "Space"
+    ],
+    [
+     "flex",
+     "Number"
+    ]
+   ],
+   "required": []
+  },
+  {
+   "name": "Divider",
+   "group": "Layout",
+   "parameters": [
+    [
+     "color",
+     "Color"
+    ],
+    [
+     "thickness",
+     "Number"
+    ]
+   ],
+   "required": []
+  },
+  {
+   "name": "Text",
+   "group": "Content",
+   "parameters": [
+    [
+     "child",
+     "String or Number or null"
+    ],
+    [
+     "size",
+     "FontSize"
+    ],
+    [
+     "weight",
+     "FontWeight"
+    ],
+    [
+     "color",
+     "Color"
+    ],
+    [
+     "maxLines",
+     "Number"
+    ],
+    [
+     "align",
+     "TextAlign or Align"
+    ],
+    [
+     "strike",
+     "Bool"
+    ],
+    [
+     "role",
+     "TextRole"
+    ],
+    [
+     "level",
+     "Number"
+    ],
+    [
+     "fontStyle",
+     "FontStyle"
+    ],
+    [
+     "letterSpacing",
+     "Number"
+    ],
+    [
+     "wordSpacing",
+     "Number"
+    ],
+    [
+     "lineHeight",
+     "Number"
+    ],
+    [
+     "background",
+     "Color"
+    ],
+    [
+     "decoration",
+     "TextDecoration"
+    ],
+    [
+     "decorationColor",
+     "Color"
+    ],
+    [
+     "decorationStyle",
+     "TextDecorationStyle"
+    ],
+    [
+     "decorationThickness",
+     "Number"
+    ],
+    [
+     "fontFamily",
+     "String"
+    ],
+    [
+     "shadow",
+     "Shadow"
+    ],
+    [
+     "overflow",
+     "TextOverflow"
+    ],
+    [
+     "softWrap",
+     "Bool"
+    ],
+    [
+     "textDirection",
+     "TextDirection"
+    ],
+    [
+     "semanticsLabel",
+     "String"
+    ]
+   ],
+   "required": []
+  },
+  {
+   "name": "Image",
+   "group": "Content",
+   "parameters": [
+    [
+     "src",
+     "String or Asset or null"
+    ],
+    [
+     "alt",
+     "String"
+    ],
+    [
+     "decorative",
+     "Bool"
+    ],
+    [
+     "fit",
+     "Fit"
+    ],
+    [
+     "aspectRatio",
+     "Number"
+    ],
+    [
+     "width",
+     "Number"
+    ],
+    [
+     "height",
+     "Number"
+    ],
+    [
+     "radius",
+     "Radius"
+    ],
+    [
+     "fallback",
+     "ImageFallback"
+    ]
+   ],
+   "required": [
+    "alt"
+   ]
+  },
+  {
+   "name": "Icon",
+   "group": "Content",
+   "parameters": [
+    [
+     "name",
+     "Icons"
+    ],
+    [
+     "size",
+     "Size"
+    ],
+    [
+     "color",
+     "Color"
+    ]
+   ],
+   "required": [
+    "name"
+   ]
+  },
+  {
+   "name": "Badge",
+   "group": "Content",
+   "parameters": [
+    [
+     "label",
+     "String"
+    ],
+    [
+     "tone",
+     "Tone"
+    ]
+   ],
+   "required": [
+    "label"
+   ]
+  },
+  {
+   "name": "Button",
+   "group": "Content",
+   "parameters": [
+    [
+     "label",
+     "String"
+    ],
+    [
+     "icon",
+     "Icons"
+    ],
+    [
+     "onTap",
+     "Action"
+    ],
+    [
+     "style",
+     "ButtonStyle"
+    ],
+    [
+     "size",
+     "Size"
+    ],
+    [
+     "fullWidth",
+     "Bool"
+    ],
+    [
+     "disabled",
+     "Bool"
+    ],
+    [
+     "ariaLabel",
+     "String"
+    ]
+   ],
+   "required": [
+    "onTap"
+   ]
+  },
+  {
+   "name": "Form",
+   "group": "Forms",
+   "parameters": [
+    [
+     "id",
+     "String"
+    ],
+    [
+     "child",
+     "Widget"
+    ],
+    [
+     "onSubmit",
+     "Action"
+    ],
+    [
+     "onReset",
+     "Action"
+    ]
+   ],
+   "required": [
+    "id",
+    "child",
+    "onSubmit"
+   ]
+  },
+  {
+   "name": "TextField",
+   "group": "Forms",
+   "parameters": [
+    [
+     "state",
+     "String"
+    ],
+    [
+     "name",
+     "String"
+    ],
+    [
+     "label",
+     "String"
+    ],
+    [
+     "ariaLabel",
+     "String"
+    ],
+    [
+     "placeholder",
+     "String"
+    ],
+    [
+     "helperText",
+     "String"
+    ],
+    [
+     "type",
+     "InputType"
+    ],
+    [
+     "value",
+     "String or Number"
+    ],
+    [
+     "rows",
+     "Number"
+    ],
+    [
+     "required",
+     "Bool"
+    ],
+    [
+     "disabled",
+     "Bool"
+    ],
+    [
+     "minLength",
+     "Number"
+    ],
+    [
+     "maxLength",
+     "Number"
+    ],
+    [
+     "min",
+     "Number"
+    ],
+    [
+     "max",
+     "Number"
+    ],
+    [
+     "clearable",
+     "Bool"
+    ],
+    [
+     "onChanged",
+     "Action"
+    ],
+    [
+     "onSubmitted",
+     "Action"
+    ],
+    [
+     "background",
+     "Color"
+    ],
+    [
+     "color",
+     "Color"
+    ],
+    [
+     "border",
+     "Border"
+    ],
+    [
+     "radius",
+     "Radius"
+    ],
+    [
+     "padding",
+     "Space or Insets"
+    ],
+    [
+     "fontSize",
+     "FontSize"
+    ],
+    [
+     "labelColor",
+     "Color"
+    ],
+    [
+     "helperColor",
+     "Color"
+    ],
+    [
+     "placeholderColor",
+     "Color"
+    ],
+    [
+     "focusColor",
+     "Color"
+    ]
+   ],
+   "required": []
+  },
+  {
+   "name": "SearchField",
+   "group": "Forms",
+   "parameters": [
+    [
+     "state",
+     "String"
+    ],
+    [
+     "name",
+     "String"
+    ],
+    [
+     "label",
+     "String"
+    ],
+    [
+     "ariaLabel",
+     "String"
+    ],
+    [
+     "placeholder",
+     "String"
+    ],
+    [
+     "helperText",
+     "String"
+    ],
+    [
+     "value",
+     "String"
+    ],
+    [
+     "required",
+     "Bool"
+    ],
+    [
+     "disabled",
+     "Bool"
+    ],
+    [
+     "minLength",
+     "Number"
+    ],
+    [
+     "maxLength",
+     "Number"
+    ],
+    [
+     "onChanged",
+     "Action"
+    ],
+    [
+     "onSubmitted",
+     "Action"
+    ],
+    [
+     "background",
+     "Color"
+    ],
+    [
+     "color",
+     "Color"
+    ],
+    [
+     "border",
+     "Border"
+    ],
+    [
+     "radius",
+     "Radius"
+    ],
+    [
+     "padding",
+     "Space or Insets"
+    ],
+    [
+     "fontSize",
+     "FontSize"
+    ],
+    [
+     "labelColor",
+     "Color"
+    ],
+    [
+     "helperColor",
+     "Color"
+    ],
+    [
+     "placeholderColor",
+     "Color"
+    ],
+    [
+     "focusColor",
+     "Color"
+    ]
+   ],
+   "required": []
+  },
+  {
+   "name": "Checkbox",
+   "group": "Forms",
+   "parameters": [
+    [
+     "state",
+     "String"
+    ],
+    [
+     "name",
+     "String"
+    ],
+    [
+     "label",
+     "String"
+    ],
+    [
+     "value",
+     "Bool"
+    ],
+    [
+     "required",
+     "Bool"
+    ],
+    [
+     "disabled",
+     "Bool"
+    ],
+    [
+     "helperText",
+     "String"
+    ],
+    [
+     "onChanged",
+     "Action"
+    ],
+    [
+     "background",
+     "Color"
+    ],
+    [
+     "color",
+     "Color"
+    ],
+    [
+     "border",
+     "Border"
+    ],
+    [
+     "radius",
+     "Radius"
+    ],
+    [
+     "padding",
+     "Space or Insets"
+    ],
+    [
+     "fontSize",
+     "FontSize"
+    ],
+    [
+     "labelColor",
+     "Color"
+    ],
+    [
+     "helperColor",
+     "Color"
+    ],
+    [
+     "placeholderColor",
+     "Color"
+    ],
+    [
+     "focusColor",
+     "Color"
+    ]
+   ],
+   "required": [
+    "label"
+   ]
+  },
+  {
+   "name": "SelectField",
+   "group": "Forms",
+   "parameters": [
+    [
+     "state",
+     "String"
+    ],
+    [
+     "name",
+     "String"
+    ],
+    [
+     "label",
+     "String"
+    ],
+    [
+     "ariaLabel",
+     "String"
+    ],
+    [
+     "placeholder",
+     "String"
+    ],
+    [
+     "helperText",
+     "String"
+    ],
+    [
+     "value",
+     "String"
+    ],
+    [
+     "options",
+     "List<Widget>"
+    ],
+    [
+     "required",
+     "Bool"
+    ],
+    [
+     "disabled",
+     "Bool"
+    ],
+    [
+     "onChanged",
+     "Action"
+    ],
+    [
+     "background",
+     "Color"
+    ],
+    [
+     "color",
+     "Color"
+    ],
+    [
+     "border",
+     "Border"
+    ],
+    [
+     "radius",
+     "Radius"
+    ],
+    [
+     "padding",
+     "Space or Insets"
+    ],
+    [
+     "fontSize",
+     "FontSize"
+    ],
+    [
+     "labelColor",
+     "Color"
+    ],
+    [
+     "helperColor",
+     "Color"
+    ],
+    [
+     "placeholderColor",
+     "Color"
+    ],
+    [
+     "focusColor",
+     "Color"
+    ]
+   ],
+   "required": [
+    "options"
+   ]
+  },
+  {
+   "name": "SelectOption",
+   "group": "Forms",
+   "parameters": [
+    [
+     "value",
+     "String"
+    ],
+    [
+     "label",
+     "String"
+    ],
+    [
+     "disabled",
+     "Bool"
+    ]
+   ],
+   "required": [
+    "value",
+    "label"
+   ]
+  },
+  {
+   "name": "SubmitButton",
+   "group": "Forms",
+   "parameters": [
+    [
+     "label",
+     "String"
+    ],
+    [
+     "style",
+     "ButtonStyle"
+    ],
+    [
+     "disabled",
+     "Bool"
+    ],
+    [
+     "fullWidth",
+     "Bool"
+    ]
+   ],
+   "required": [
+    "label"
+   ]
+  },
+  {
+   "name": "ResetButton",
+   "group": "Forms",
+   "parameters": [
+    [
+     "label",
+     "String"
+    ],
+    [
+     "style",
+     "ButtonStyle"
+    ],
+    [
+     "disabled",
+     "Bool"
+    ],
+    [
+     "fullWidth",
+     "Bool"
+    ]
+   ],
+   "required": [
+    "label"
+   ]
+  },
+  {
+   "name": "TriggerButton",
+   "group": "Behavior",
+   "parameters": [
+    [
+     "label",
+     "String"
+    ],
+    [
+     "icon",
+     "Icons"
+    ],
+    [
+     "ariaLabel",
+     "String"
+    ],
+    [
+     "style",
+     "ButtonStyle"
+    ],
+    [
+     "size",
+     "Size"
+    ]
+   ],
+   "required": []
+  },
+  {
+   "name": "Drawer",
+   "group": "Behavior",
+   "parameters": [
+    [
+     "trigger",
+     "Widget"
+    ],
+    [
+     "child",
+     "Widget"
+    ],
+    [
+     "side",
+     "Side"
+    ],
+    [
+     "width",
+     "Number"
+    ],
+    [
+     "open",
+     "Bool"
+    ],
+    [
+     "onClose",
+     "Action"
+    ]
+   ],
+   "required": [
+    "child"
+   ]
+  },
+  {
+   "name": "Carousel",
+   "group": "Behavior",
+   "parameters": [
+    [
+     "children",
+     "List<Widget>"
+    ],
+    [
+     "itemWidth",
+     "Number"
+    ],
+    [
+     "gap",
+     "Space"
+    ],
+    [
+     "showDots",
+     "Bool"
+    ],
+    [
+     "showArrows",
+     "Bool"
+    ],
+    [
+     "snap",
+     "Bool"
+    ]
+   ],
+   "required": [
+    "children",
+    "itemWidth"
+   ]
+  },
+  {
+   "name": "Tabs",
+   "group": "Behavior",
+   "parameters": [
+    [
+     "tabs",
+     "List<Tab>"
+    ],
+    [
+     "initial",
+     "Number"
+    ],
+    [
+     "tabStyle",
+     "TabsStyle"
+    ]
+   ],
+   "required": [
+    "tabs"
+   ]
+  },
+  {
+   "name": "Tab",
+   "group": "Behavior",
+   "parameters": [
+    [
+     "label",
+     "String"
+    ],
+    [
+     "child",
+     "Widget"
+    ]
+   ],
+   "required": [
+    "label",
+    "child"
+   ]
+  },
+  {
+   "name": "If",
+   "group": "Composition",
+   "parameters": [
+    [
+     "condition",
+     "Bool"
+    ],
+    [
+     "then",
+     "Widget"
+    ],
+    [
+     "else",
+     "Widget"
+    ]
+   ],
+   "required": [
+    "condition",
+    "then"
+   ]
+  },
+  {
+   "name": "ForEach",
+   "group": "Composition",
+   "parameters": [
+    [
+     "items",
+     "List"
+    ],
+    [
+     "as",
+     "String"
+    ],
+    [
+     "indexAs",
+     "String"
+    ],
+    [
+     "limit",
+     "Number"
+    ],
+    [
+     "child",
+     "Widget"
+    ],
+    [
+     "empty",
+     "Widget"
+    ]
+   ],
+   "required": [
+    "items",
+    "as",
+    "child"
+   ]
+  },
+  {
+   "name": "Lottie",
+   "group": "Library",
+   "parameters": [
+    [
+     "src",
+     "String"
+    ],
+    [
+     "loop",
+     "Bool"
+    ],
+    [
+     "autoplay",
+     "Bool"
+    ],
+    [
+     "fit",
+     "Fit"
+    ],
+    [
+     "width",
+     "Number"
+    ],
+    [
+     "height",
+     "Number"
+    ],
+    [
+     "alt",
+     "String"
+    ]
+   ],
+   "required": [
+    "src"
+   ]
+  },
+  {
+   "name": "GoogleMap",
+   "group": "Library",
+   "parameters": [
+    [
+     "latitude",
+     "Number"
+    ],
+    [
+     "longitude",
+     "Number"
+    ],
+    [
+     "zoom",
+     "Number"
+    ],
+    [
+     "mapType",
+     "MapType"
+    ],
+    [
+     "height",
+     "Number"
+    ],
+    [
+     "interactive",
+     "Bool"
+    ],
+    [
+     "markers",
+     "List<MapMarker>"
+    ],
+    [
+     "onMarkerTap",
+     "Action"
+    ]
+   ],
+   "required": [
+    "latitude",
+    "longitude"
+   ]
+  },
+  {
+   "name": "MapMarker",
+   "group": "Values",
+   "parameters": [
+    [
+     "latitude",
+     "Number"
+    ],
+    [
+     "longitude",
+     "Number"
+    ],
+    [
+     "title",
+     "String"
+    ],
+    [
+     "id",
+     "String"
+    ]
+   ],
+   "required": [
+    "latitude",
+    "longitude"
+   ]
+  },
+  {
+   "name": "Embed",
+   "group": "Composition",
+   "parameters": [
+    [
+     "ref",
+     "ComponentRef"
+    ],
+    [
+     "component",
+     "String"
+    ],
+    [
+     "variant",
+     "String"
+    ],
+    [
+     "product",
+     "Product"
+    ],
+    [
+     "products",
+     "List"
+    ],
+    [
+     "items",
+     "List"
+    ],
+    [
+     "title",
+     "String"
+    ]
+   ],
+   "required": []
+  },
+  {
+   "name": "Use",
+   "group": "Composition",
+   "parameters": [
+    [
+     "part",
+     "String"
+    ]
+   ],
+   "required": [
+    "part"
+   ]
+  },
+  {
+   "name": "Empty",
+   "group": "Composition",
+   "parameters": [],
+   "required": []
+  },
+  {
+   "name": "Insets",
+   "group": "Values",
+   "parameters": [
+    [
+     "x",
+     "Space or Number"
+    ],
+    [
+     "y",
+     "Space or Number"
+    ],
+    [
+     "top",
+     "Space or Number"
+    ],
+    [
+     "right",
+     "Space or Number"
+    ],
+    [
+     "bottom",
+     "Space or Number"
+    ],
+    [
+     "left",
+     "Space or Number"
+    ]
+   ],
+   "required": []
+  },
+  {
+   "name": "Gradient",
+   "group": "Values",
+   "parameters": [
+    [
+     "from",
+     "Color"
+    ],
+    [
+     "to",
+     "Color"
+    ],
+    [
+     "via",
+     "List<Color>"
+    ],
+    [
+     "style",
+     "GradientStyle"
+    ],
+    [
+     "begin",
+     "Anchor"
+    ],
+    [
+     "end",
+     "Anchor"
+    ]
+   ],
+   "required": [
+    "from",
+    "to"
+   ]
+  },
+  {
+   "name": "Border",
+   "group": "Values",
+   "parameters": [
+    [
+     "width",
+     "Number"
+    ],
+    [
+     "color",
+     "Color"
+    ]
+   ],
+   "required": [
+    "width"
+   ]
+  },
+  {
+   "name": "Responsive",
+   "group": "Values",
+   "parameters": [
+    [
+     "base",
+     "Any"
+    ],
+    [
+     "md",
+     "Any"
+    ],
+    [
+     "lg",
+     "Any"
+    ]
+   ],
+   "required": [
+    "base"
+   ]
+  },
+  {
+   "name": "Asset",
+   "group": "Values",
+   "parameters": [
+    [
+     "name",
+     "String"
+    ]
+   ],
+   "required": [
+    "name"
+   ]
+  },
+  {
+   "name": "EnumOption",
+   "group": "Options",
+   "parameters": [
+    [
+     "name",
+     "String"
+    ],
+    [
+     "label",
+     "String"
+    ],
+    [
+     "values",
+     "List"
+    ],
+    [
+     "default",
+     "Any"
+    ]
+   ],
+   "required": [
+    "name",
+    "values",
+    "default"
+   ]
+  },
+  {
+   "name": "ActionOption",
+   "group": "Options",
+   "parameters": [
+    [
+     "name",
+     "String"
+    ],
+    [
+     "label",
+     "String"
+    ]
+   ],
+   "required": [
+    "name"
+   ]
+  },
+  {
+   "name": "BoolOption",
+   "group": "Options",
+   "parameters": [
+    [
+     "name",
+     "String"
+    ],
+    [
+     "label",
+     "String"
+    ],
+    [
+     "default",
+     "Bool"
+    ]
+   ],
+   "required": [
+    "name",
+    "default"
+   ]
+  },
+  {
+   "name": "NumberOption",
+   "group": "Options",
+   "parameters": [
+    [
+     "name",
+     "String"
+    ],
+    [
+     "label",
+     "String"
+    ],
+    [
+     "min",
+     "Number"
+    ],
+    [
+     "max",
+     "Number"
+    ],
+    [
+     "step",
+     "Number"
+    ],
+    [
+     "default",
+     "Number"
+    ]
+   ],
+   "required": [
+    "name",
+    "min",
+    "max",
+    "default"
+   ]
+  },
+  {
+   "name": "DataOption",
+   "group": "Options",
+   "parameters": [
+    [
+     "name",
+     "String"
+    ],
+    [
+     "type",
+     "DataType"
+    ],
+    [
+     "list",
+     "Bool"
+    ],
+    [
+     "required",
+     "Bool"
+    ],
+    [
+     "label",
+     "String"
+    ]
+   ],
+   "required": [
+    "name",
+    "type"
+   ]
+  },
+  {
+   "name": "StringOption",
+   "group": "Options",
+   "parameters": [
+    [
+     "name",
+     "String"
+    ],
+    [
+     "label",
+     "String"
+    ],
+    [
+     "maxLength",
+     "Number"
+    ],
+    [
+     "default",
+     "String"
+    ]
+   ],
+   "required": [
+    "name",
+    "maxLength",
+    "default"
+   ]
+  },
+  {
+   "name": "ColorOption",
+   "group": "Options",
+   "parameters": [
+    [
+     "name",
+     "String"
+    ],
+    [
+     "label",
+     "String"
+    ],
+    [
+     "default",
+     "Color"
+    ],
+    [
+     "allowCustom",
+     "Bool"
+    ]
+   ],
+   "required": [
+    "name",
+    "default"
+   ]
+  },
+  {
+   "name": "ComponentOption",
+   "group": "Options",
+   "parameters": [
+    [
+     "name",
+     "String"
+    ],
+    [
+     "label",
+     "String"
+    ],
+    [
+     "kind",
+     "Kind"
+    ],
+    [
+     "default",
+     "String"
+    ],
+    [
+     "defaultVariant",
+     "String"
+    ]
+   ],
+   "required": [
+    "name",
+    "kind",
+    "default"
+   ]
+  },
+  {
+   "name": "StringState",
+   "group": "Options",
+   "parameters": [
+    [
+     "name",
+     "String"
+    ],
+    [
+     "default",
+     "String"
+    ]
+   ],
+   "required": [
+    "name",
+    "default"
+   ]
+  },
+  {
+   "name": "NumberState",
+   "group": "Options",
+   "parameters": [
+    [
+     "name",
+     "String"
+    ],
+    [
+     "default",
+     "Number"
+    ]
+   ],
+   "required": [
+    "name",
+    "default"
+   ]
+  },
+  {
+   "name": "BoolState",
+   "group": "Options",
+   "parameters": [
+    [
+     "name",
+     "String"
+    ],
+    [
+     "default",
+     "Bool"
+    ]
+   ],
+   "required": [
+    "name",
+    "default"
+   ]
+  },
+  {
+   "name": "Navigate",
+   "group": "Actions",
+   "parameters": [
+    [
+     "to",
+     "Route or String"
+    ],
+    [
+     "search",
+     "Search"
+    ]
+   ],
+   "required": [
+    "to"
+   ]
+  },
+  {
+   "name": "OpenProduct",
+   "group": "Actions",
+   "parameters": [
+    [
+     "product",
+     "Product"
+    ]
+   ],
+   "required": [
+    "product"
+   ]
+  },
+  {
+   "name": "AddToCart",
+   "group": "Actions",
+   "parameters": [
+    [
+     "product",
+     "Product"
+    ],
+    [
+     "quantity",
+     "Number"
+    ]
+   ],
+   "required": [
+    "product"
+   ]
+  },
+  {
+   "name": "RunAction",
+   "group": "Actions",
+   "parameters": [
+    [
+     "action",
+     "Action"
+    ],
+    [
+     "value",
+     "Any"
+    ]
+   ],
+   "required": [
+    "action"
+   ]
+  },
+  {
+   "name": "SetState",
+   "group": "Actions",
+   "parameters": [
+    [
+     "state",
+     "String"
+    ],
+    [
+     "value",
+     "String or Number or Bool or null"
+    ]
+   ],
+   "required": [
+    "state",
+    "value"
+   ]
+  },
+  {
+   "name": "Actions",
+   "group": "Actions",
+   "parameters": [
+    [
+     "actions",
+     "List<Action>"
+    ]
+   ],
+   "required": [
+    "actions"
+   ]
+  },
+  {
+   "name": "SubmitForm",
+   "group": "Actions",
+   "parameters": [
+    [
+     "form",
+     "String"
+    ]
+   ],
+   "required": []
+  },
+  {
+   "name": "ResetForm",
+   "group": "Actions",
+   "parameters": [
+    [
+     "form",
+     "String"
+    ]
+   ],
+   "required": []
+  },
+  {
+   "name": "ShowMessage",
+   "group": "Actions",
+   "parameters": [
+    [
+     "message",
+     "String"
+    ]
+   ],
+   "required": [
+    "message"
+   ]
+  },
+  {
+   "name": "Toggle",
+   "group": "Actions",
+   "parameters": [
+    [
+     "state",
+     "String"
+    ]
+   ],
+   "required": [
+    "state"
+   ]
+  },
+  {
+   "name": "ScrollTo",
+   "group": "Actions",
+   "parameters": [
+    [
+     "id",
+     "String"
+    ]
+   ],
+   "required": [
+    "id"
+   ]
+  },
+  {
+   "name": "Route.product",
+   "group": "Actions",
+   "parameters": [
+    [
+     "id",
+     "String"
+    ]
+   ],
+   "required": [
+    "id"
+   ]
+  },
+  {
+   "name": "Route.category",
+   "group": "Actions",
+   "parameters": [
+    [
+     "id",
+     "String"
+    ]
+   ],
+   "required": [
+    "id"
+   ]
+  },
+  {
+   "name": "Route",
+   "group": "Page",
+   "parameters": [
+    [
+     "path",
+     "String"
+    ],
+    [
+     "search",
+     "Search"
+    ]
+   ],
+   "required": [
+    "path"
+   ]
+  },
+  {
+   "name": "Search",
+   "group": "Page",
+   "parameters": [],
+   "required": []
+  },
+  {
+   "name": "Data",
+   "group": "Page",
+   "parameters": [
+    [
+     "name",
+     "String"
+    ],
+    [
+     "from",
+     "Tenant or Http"
+    ],
+    [
+     "select",
+     "String"
+    ],
+    [
+     "fetch",
+     "String"
+    ]
+   ],
+   "required": [
+    "name",
+    "from"
+   ]
+  },
+  {
+   "name": "Http",
+   "group": "Page",
+   "parameters": [
+    [
+     "url",
+     "String"
+    ],
+    [
+     "params",
+     "List<Param>"
+    ],
+    [
+     "secret",
+     "String"
+    ],
+    [
+     "header",
+     "String"
+    ]
+   ],
+   "required": [
+    "url"
+   ]
+  },
+  {
+   "name": "Param",
+   "group": "Page",
+   "parameters": [
+    [
+     "name",
+     "String"
+    ],
+    [
+     "value",
+     "Any"
+    ]
+   ],
+   "required": [
+    "name",
+    "value"
+   ]
+  },
+  {
+   "name": "Seo",
+   "group": "Page",
+   "parameters": [
+    [
+     "title",
+     "String"
+    ],
+    [
+     "description",
+     "String"
+    ],
+    [
+     "image",
+     "String"
+    ],
+    [
+     "schema",
+     "Schema"
+    ],
+    [
+     "sitemap",
+     "Bool"
+    ],
+    [
+     "index",
+     "Bool"
+    ]
+   ],
+   "required": []
+  },
+  {
+   "name": "Schema.product",
+   "group": "Page",
+   "parameters": [
+    [
+     "of",
+     "Any"
+    ]
+   ],
+   "required": [
+    "of"
+   ]
+  },
+  {
+   "name": "Schema.restaurant",
+   "group": "Page",
+   "parameters": [
+    [
+     "of",
+     "Any"
+    ]
+   ],
+   "required": [
+    "of"
+   ]
+  },
+  {
+   "name": "Tenant.store",
+   "group": "Page",
+   "parameters": [
+    [
+     "store",
+     "Any"
+    ]
+   ],
+   "required": [
+    "store"
+   ]
+  },
+  {
+   "name": "Tenant.menu",
+   "group": "Page",
+   "parameters": [
+    [
+     "store",
+     "Any"
+    ]
+   ],
+   "required": [
+    "store"
+   ]
+  },
+  {
+   "name": "Tenant.stores",
+   "group": "Page",
+   "parameters": [
+    [
+     "q",
+     "Any"
+    ],
+    [
+     "city",
+     "Any"
+    ],
+    [
+     "cuisine",
+     "Any"
+    ],
+    [
+     "limit",
+     "Any"
+    ]
+   ],
+   "required": []
+  },
+  {
+   "name": "Tenant.product",
+   "group": "Page",
+   "parameters": [
+    [
+     "id",
+     "Any"
+    ]
+   ],
+   "required": [
+    "id"
+   ]
+  },
+  {
+   "name": "Tenant.products",
+   "group": "Page",
+   "parameters": [
+    [
+     "store",
+     "Any"
+    ],
+    [
+     "category_id",
+     "Any"
+    ],
+    [
+     "limit",
+     "Any"
+    ]
+   ],
+   "required": [
+    "store"
+   ]
+  },
+  {
+   "name": "Tenant.categories",
+   "group": "Page",
+   "parameters": [
+    [
+     "store",
+     "Any"
+    ]
+   ],
+   "required": [
+    "store"
+   ]
+  },
+  {
+   "name": "Tenant.category",
+   "group": "Page",
+   "parameters": [
+    [
+     "id",
+     "Any"
+    ]
+   ],
+   "required": [
+    "id"
+   ]
+  },
+  {
+   "name": "Tenant.cuisines",
+   "group": "Page",
+   "parameters": [],
+   "required": []
+  },
+  {
+   "name": "Tenant.cities",
+   "group": "Page",
+   "parameters": [],
+   "required": []
+  },
+  {
+   "name": "Tenant.deliveryOptions",
+   "group": "Page",
+   "parameters": [
+    [
+     "store",
+     "Any"
+    ]
+   ],
+   "required": [
+    "store"
+   ]
+  },
+  {
+   "name": "Tenant.reviews",
+   "group": "Page",
+   "parameters": [
+    [
+     "store",
+     "Any"
+    ],
+    [
+     "limit",
+     "Any"
+    ]
+   ],
+   "required": [
+    "store"
+   ]
+  },
+  {
+   "name": "Tenant.me",
+   "group": "Page",
+   "parameters": [],
+   "required": []
+  },
+  {
+   "name": "Tenant.history",
+   "group": "Page",
+   "parameters": [
+    [
+     "limit",
+     "Any"
+    ]
+   ],
+   "required": []
+  },
+  {
+   "name": "Tenant.order",
+   "group": "Page",
+   "parameters": [
+    [
+     "id",
+     "Any"
+    ]
+   ],
+   "required": [
+    "id"
+   ]
+  },
+  {
+   "name": "Tenant.addresses",
+   "group": "Page",
+   "parameters": [],
+   "required": []
+  }
+ ],
+ "functions": [
+  {
+   "name": "isMobile",
+   "group": "Functions",
+   "parameters": [],
+   "required": []
+  },
+  {
+   "name": "isTablet",
+   "group": "Functions",
+   "parameters": [],
+   "required": []
+  },
+  {
+   "name": "isDesktop",
+   "group": "Functions",
+   "parameters": [],
+   "required": []
+  },
+  {
+   "name": "isDarkMode",
+   "group": "Functions",
+   "parameters": [],
+   "required": []
+  },
+  {
+   "name": "search",
+   "group": "Functions",
+   "parameters": [
+    [
+     "items",
+     "List"
+    ],
+    [
+     "query",
+     "String"
+    ],
+    [
+     "fields",
+     "List<String>"
+    ]
+   ],
+   "required": [
+    "items",
+    "query",
+    "fields"
+   ]
+  },
+  {
+   "name": "filter",
+   "group": "Functions",
+   "parameters": [
+    [
+     "items",
+     "List"
+    ],
+    [
+     "field",
+     "String"
+    ],
+    [
+     "value",
+     "Any"
+    ]
+   ],
+   "required": [
+    "items",
+    "field",
+    "value"
+   ]
+  },
+  {
+   "name": "currentRoute",
+   "group": "Functions",
+   "parameters": [],
+   "required": []
+  },
+  {
+   "name": "isCurrentRoute",
+   "group": "Functions",
+   "parameters": [
+    [
+     "target",
+     "Route or String (positional)"
+    ]
+   ],
+   "required": [
+    "target"
+   ]
+  },
+  {
+   "name": "upper",
+   "group": "Functions",
+   "parameters": [
+    [
+     "s",
+     "Positional argument"
+    ]
+   ],
+   "required": [
+    "s"
+   ]
+  },
+  {
+   "name": "lower",
+   "group": "Functions",
+   "parameters": [
+    [
+     "s",
+     "Positional argument"
+    ]
+   ],
+   "required": [
+    "s"
+   ]
+  },
+  {
+   "name": "truncate",
+   "group": "Functions",
+   "parameters": [
+    [
+     "s",
+     "Positional argument"
+    ],
+    [
+     "max",
+     "Positional argument"
+    ]
+   ],
+   "required": [
+    "s",
+    "max"
+   ]
+  },
+  {
+   "name": "length",
+   "group": "Functions",
+   "parameters": [
+    [
+     "x",
+     "Positional argument"
+    ]
+   ],
+   "required": [
+    "x"
+   ]
+  },
+  {
+   "name": "join",
+   "group": "Functions",
+   "parameters": [
+    [
+     "list",
+     "Positional argument"
+    ],
+    [
+     "separator",
+     "Positional argument"
+    ]
+   ],
+   "required": [
+    "list",
+    "separator"
+   ]
+  },
+  {
+   "name": "contains",
+   "group": "Functions",
+   "parameters": [
+    [
+     "value",
+     "Positional argument"
+    ],
+    [
+     "item",
+     "Positional argument"
+    ]
+   ],
+   "required": [
+    "value",
+    "item"
+   ]
+  },
+  {
+   "name": "isEmpty",
+   "group": "Functions",
+   "parameters": [
+    [
+     "x",
+     "Positional argument"
+    ]
+   ],
+   "required": [
+    "x"
+   ]
+  },
+  {
+   "name": "min",
+   "group": "Functions",
+   "parameters": [
+    [
+     "a",
+     "Positional argument"
+    ],
+    [
+     "b",
+     "Positional argument"
+    ]
+   ],
+   "required": [
+    "a",
+    "b"
+   ]
+  },
+  {
+   "name": "max",
+   "group": "Functions",
+   "parameters": [
+    [
+     "a",
+     "Positional argument"
+    ],
+    [
+     "b",
+     "Positional argument"
+    ]
+   ],
+   "required": [
+    "a",
+    "b"
+   ]
+  },
+  {
+   "name": "round",
+   "group": "Functions",
+   "parameters": [
+    [
+     "n",
+     "Positional argument"
+    ]
+   ],
+   "required": [
+    "n"
+   ]
+  },
+  {
+   "name": "floor",
+   "group": "Functions",
+   "parameters": [
+    [
+     "n",
+     "Positional argument"
+    ]
+   ],
+   "required": [
+    "n"
+   ]
+  },
+  {
+   "name": "ceil",
+   "group": "Functions",
+   "parameters": [
+    [
+     "n",
+     "Positional argument"
+    ]
+   ],
+   "required": [
+    "n"
+   ]
+  },
+  {
+   "name": "clamp",
+   "group": "Functions",
+   "parameters": [
+    [
+     "n",
+     "Positional argument"
+    ],
+    [
+     "low",
+     "Positional argument"
+    ],
+    [
+     "high",
+     "Positional argument"
+    ]
+   ],
+   "required": [
+    "n",
+    "low",
+    "high"
+   ]
+  },
+  {
+   "name": "formatMoney",
+   "group": "Functions",
+   "parameters": [
+    [
+     "cents",
+     "Positional argument"
+    ]
+   ],
+   "required": [
+    "cents"
+   ]
+  },
+  {
+   "name": "discountPercent",
+   "group": "Functions",
+   "parameters": [
+    [
+     "cents",
+     "Positional argument"
+    ],
+    [
+     "compareAt",
+     "Positional argument"
+    ]
+   ],
+   "required": [
+    "cents",
+    "compareAt"
+   ]
+  },
+  {
+   "name": "count",
+   "group": "Functions",
+   "parameters": [
+    [
+     "list",
+     "Positional argument"
+    ]
+   ],
+   "required": [
+    "list"
+   ]
+  },
+  {
+   "name": "take",
+   "group": "Functions",
+   "parameters": [
+    [
+     "list",
+     "Positional argument"
+    ],
+    [
+     "n",
+     "Positional argument"
+    ]
+   ],
+   "required": [
+    "list",
+    "n"
+   ]
+  },
+  {
+   "name": "first",
+   "group": "Functions",
+   "parameters": [
+    [
+     "list",
+     "Positional argument"
+    ]
+   ],
+   "required": [
+    "list"
+   ]
+  },
+  {
+   "name": "ratio",
+   "group": "Functions",
+   "parameters": [
+    [
+     "text",
+     "Positional argument"
+    ]
+   ],
+   "required": [
+    "text"
+   ]
+  }
+ ],
+ "tokenFamilies": [
+  [
+   "InputType",
+   [
+    "text",
+    "search",
+    "email",
+    "password",
+    "tel",
+    "url",
+    "number"
+   ]
+  ],
+  [
+   "Kind",
+   [
+    "productCard",
+    "productCollection",
+    "navigation",
+    "categoryNav",
+    "hero",
+    "storeInfo",
+    "footer",
+    "section"
+   ]
+  ],
+  [
+   "Space",
+   [
+    "none",
+    "xs",
+    "sm",
+    "md",
+    "lg",
+    "xl",
+    "xxl"
+   ]
+  ],
+  [
+   "Radius",
+   [
+    "none",
+    "sm",
+    "md",
+    "lg",
+    "xl",
+    "full"
+   ]
+  ],
+  [
+   "Shadow",
+   [
+    "none",
+    "sm",
+    "md",
+    "lg"
+   ]
+  ],
+  [
+   "Color",
+   [
+    "primary",
+    "primaryInk",
+    "background",
+    "surface",
+    "surfaceAlt",
+    "text",
+    "textMuted",
+    "border",
+    "success",
+    "danger",
+    "warning"
+   ]
+  ],
+  [
+   "FontSize",
+   [
+    "xs",
+    "sm",
+    "md",
+    "lg",
+    "xl",
+    "xxl",
+    "display"
+   ]
+  ],
+  [
+   "FontWeight",
+   [
+    "regular",
+    "medium",
+    "semibold",
+    "bold"
+   ]
+  ],
+  [
+   "FontStyle",
+   [
+    "normal",
+    "italic"
+   ]
+  ],
+  [
+   "TextAlign",
+   [
+    "start",
+    "center",
+    "end",
+    "left",
+    "right",
+    "justify"
+   ]
+  ],
+  [
+   "TextDecoration",
+   [
+    "none",
+    "underline",
+    "overline",
+    "lineThrough"
+   ]
+  ],
+  [
+   "TextDecorationStyle",
+   [
+    "solid",
+    "double",
+    "dotted",
+    "dashed",
+    "wavy"
+   ]
+  ],
+  [
+   "TextOverflow",
+   [
+    "clip",
+    "fade",
+    "ellipsis",
+    "visible"
+   ]
+  ],
+  [
+   "TextDirection",
+   [
+    "ltr",
+    "rtl"
+   ]
+  ],
+  [
+   "BoxShape",
+   [
+    "rectangle",
+    "circle"
+   ]
+  ],
+  [
+   "Align",
+   [
+    "start",
+    "center",
+    "end",
+    "stretch"
+   ]
+  ],
+  [
+   "Justify",
+   [
+    "start",
+    "center",
+    "end",
+    "between",
+    "around",
+    "evenly"
+   ]
+  ],
+  [
+   "Axis",
+   [
+    "horizontal",
+    "vertical"
+   ]
+  ],
+  [
+   "MainAxisAlignment",
+   [
+    "start",
+    "center",
+    "end",
+    "spaceBetween",
+    "spaceAround",
+    "spaceEvenly"
+   ]
+  ],
+  [
+   "CrossAxisAlignment",
+   [
+    "start",
+    "center",
+    "end",
+    "stretch"
+   ]
+  ],
+  [
+   "MainAxisSize",
+   [
+    "min",
+    "max"
+   ]
+  ],
+  [
+   "FlexFit",
+   [
+    "loose",
+    "tight"
+   ]
+  ],
+  [
+   "StackFit",
+   [
+    "loose",
+    "expand"
+   ]
+  ],
+  [
+   "WrapAlignment",
+   [
+    "start",
+    "center",
+    "end",
+    "spaceBetween",
+    "spaceAround",
+    "spaceEvenly"
+   ]
+  ],
+  [
+   "WrapCrossAlignment",
+   [
+    "start",
+    "center",
+    "end"
+   ]
+  ],
+  [
+   "Anchor",
+   [
+    "topLeft",
+    "top",
+    "topRight",
+    "left",
+    "center",
+    "right",
+    "bottomLeft",
+    "bottom",
+    "bottomRight"
+   ]
+  ],
+  [
+   "Size",
+   [
+    "sm",
+    "md",
+    "lg"
+   ]
+  ],
+  [
+   "Fit",
+   [
+    "cover",
+    "contain"
+   ]
+  ],
+  [
+   "Side",
+   [
+    "left",
+    "right",
+    "bottom"
+   ]
+  ],
+  [
+   "Tone",
+   [
+    "neutral",
+    "primary",
+    "success",
+    "warning",
+    "danger"
+   ]
+  ],
+  [
+   "ButtonStyle",
+   [
+    "primary",
+    "secondary",
+    "ghost"
+   ]
+  ],
+  [
+   "TabsStyle",
+   [
+    "underline",
+    "pill",
+    "segmented"
+   ]
+  ],
+  [
+   "TextRole",
+   [
+    "body",
+    "heading",
+    "caption",
+    "label"
+   ]
+  ],
+  [
+   "Effect",
+   [
+    "fade",
+    "slideUp",
+    "slideDown",
+    "slideLeft",
+    "slideRight",
+    "scale",
+    "pop"
+   ]
+  ],
+  [
+   "Curve",
+   [
+    "linear",
+    "ease",
+    "easeIn",
+    "easeOut",
+    "easeInOut",
+    "easeOutBack"
+   ]
+  ],
+  [
+   "ImageFallback",
+   [
+    "placeholder",
+    "initials",
+    "none"
+   ]
+  ],
+  [
+   "MapType",
+   [
+    "roadmap",
+    "satellite",
+    "terrain",
+    "hybrid"
+   ]
+  ],
+  [
+   "GradientStyle",
+   [
+    "linear",
+    "radial",
+    "sweep"
+   ]
+  ],
+  [
+   "Icons",
+   [
+    "cart",
+    "menu",
+    "close",
+    "search",
+    "user",
+    "home",
+    "orders",
+    "star",
+    "clock",
+    "plus",
+    "minus",
+    "chevronLeft",
+    "chevronRight",
+    "chevronDown",
+    "settings",
+    "location",
+    "heart",
+    "email",
+    "check",
+    "basket",
+    "delivery",
+    "gift",
+    "tag",
+    "card",
+    "cash",
+    "coffee",
+    "phone",
+    "chat",
+    "bell",
+    "info",
+    "warning",
+    "help",
+    "thumbsUp",
+    "lock",
+    "eye",
+    "edit",
+    "delete",
+    "share",
+    "refresh",
+    "logout",
+    "camera",
+    "image",
+    "list",
+    "grid",
+    "calendar",
+    "map",
+    "navigation",
+    "arrowLeft",
+    "arrowRight",
+    "chevronUp",
+    "sun",
+    "moon"
+   ]
+  ],
+  [
+   "MaterialIcons",
+   [
+    "cart",
+    "menu",
+    "close",
+    "search",
+    "user",
+    "home",
+    "orders",
+    "star",
+    "clock",
+    "plus",
+    "minus",
+    "chevronLeft",
+    "chevronRight",
+    "chevronDown",
+    "settings",
+    "location",
+    "heart",
+    "email",
+    "check",
+    "basket",
+    "delivery",
+    "gift",
+    "tag",
+    "card",
+    "cash",
+    "coffee",
+    "phone",
+    "chat",
+    "bell",
+    "info",
+    "warning",
+    "help",
+    "thumbsUp",
+    "lock",
+    "eye",
+    "edit",
+    "delete",
+    "share",
+    "refresh",
+    "logout",
+    "camera",
+    "image",
+    "list",
+    "grid",
+    "calendar",
+    "map",
+    "navigation",
+    "arrowLeft",
+    "arrowRight",
+    "chevronUp",
+    "sun",
+    "moon"
+   ]
+  ],
+  [
+   "FeatherIcons",
+   [
+    "cart",
+    "menu",
+    "close",
+    "search",
+    "user",
+    "home",
+    "orders",
+    "star",
+    "clock",
+    "plus",
+    "minus",
+    "chevronLeft",
+    "chevronRight",
+    "chevronDown",
+    "settings",
+    "location",
+    "heart",
+    "email",
+    "check",
+    "basket",
+    "delivery",
+    "gift",
+    "tag",
+    "card",
+    "cash",
+    "coffee",
+    "phone",
+    "chat",
+    "bell",
+    "info",
+    "warning",
+    "help",
+    "thumbsUp",
+    "lock",
+    "eye",
+    "edit",
+    "delete",
+    "share",
+    "refresh",
+    "logout",
+    "camera",
+    "image",
+    "list",
+    "grid",
+    "calendar",
+    "map",
+    "navigation",
+    "arrowLeft",
+    "arrowRight",
+    "chevronUp",
+    "sun",
+    "moon"
+   ]
+  ],
+  [
+   "BootstrapIcons",
+   [
+    "cart",
+    "menu",
+    "close",
+    "search",
+    "user",
+    "home",
+    "orders",
+    "star",
+    "clock",
+    "plus",
+    "minus",
+    "chevronLeft",
+    "chevronRight",
+    "chevronDown",
+    "settings",
+    "location",
+    "heart",
+    "email",
+    "check",
+    "basket",
+    "delivery",
+    "gift",
+    "tag",
+    "card",
+    "cash",
+    "coffee",
+    "phone",
+    "chat",
+    "bell",
+    "info",
+    "warning",
+    "help",
+    "thumbsUp",
+    "lock",
+    "eye",
+    "edit",
+    "delete",
+    "share",
+    "refresh",
+    "logout",
+    "camera",
+    "image",
+    "list",
+    "grid",
+    "calendar",
+    "map",
+    "navigation",
+    "arrowLeft",
+    "arrowRight",
+    "chevronUp",
+    "sun",
+    "moon"
+   ]
+  ],
+  [
+   "Route",
+   [
+    "home",
+    "menu",
+    "cart",
+    "checkout",
+    "orders",
+    "account",
+    "addresses",
+    "resetPassword",
+    "tracking",
+    "location",
+    "stores"
+   ]
+  ]
+ ],
+ "sizeDefaults": {
+  "spacing": [
+   [
+    "none",
+    0
+   ],
+   [
+    "xs",
+    4
+   ],
+   [
+    "sm",
+    8
+   ],
+   [
+    "md",
+    16
+   ],
+   [
+    "lg",
+    24
+   ],
+   [
+    "xl",
+    32
+   ],
+   [
+    "xxl",
+    48
+   ]
+  ],
+  "radii": [
+   [
+    "none",
+    0
+   ],
+   [
+    "sm",
+    4
+   ],
+   [
+    "md",
+    8
+   ],
+   [
+    "lg",
+    16
+   ],
+   [
+    "xl",
+    24
+   ],
+   [
+    "full",
+    9999
+   ]
+  ],
+  "fontSizes": [
+   [
+    "xs",
+    11
+   ],
+   [
+    "sm",
+    13
+   ],
+   [
+    "md",
+    16
+   ],
+   [
+    "lg",
+    20
+   ],
+   [
+    "xl",
+    26
+   ],
+   [
+    "xxl",
+    36
+   ],
+   [
+    "display",
+    48
+   ]
+  ],
+  "iconSizes": [
+   [
+    "sm",
+    16
+   ],
+   [
+    "md",
+    22
+   ],
+   [
+    "lg",
+    30
+   ]
+  ]
+ },
+ "colorVariables": [
+  "primary",
+  "primaryInk",
+  "background",
+  "surface",
+  "surfaceAlt",
+  "text",
+  "textMuted",
+  "border",
+  "success",
+  "danger",
+  "warning"
+ ],
+ "iconNames": [
+  "cart",
+  "menu",
+  "close",
+  "search",
+  "user",
+  "home",
+  "orders",
+  "star",
+  "clock",
+  "plus",
+  "minus",
+  "chevronLeft",
+  "chevronRight",
+  "chevronDown",
+  "settings",
+  "location",
+  "heart",
+  "email",
+  "check",
+  "basket",
+  "delivery",
+  "gift",
+  "tag",
+  "card",
+  "cash",
+  "coffee",
+  "phone",
+  "chat",
+  "bell",
+  "info",
+  "warning",
+  "help",
+  "thumbsUp",
+  "lock",
+  "eye",
+  "edit",
+  "delete",
+  "share",
+  "refresh",
+  "logout",
+  "camera",
+  "image",
+  "list",
+  "grid",
+  "calendar",
+  "map",
+  "navigation",
+  "arrowLeft",
+  "arrowRight",
+  "chevronUp",
+  "sun",
+  "moon"
+ ],
+ "iconGlyphs": {
+  "MaterialIcons": {
+   "cart": "Icons.shopping_bag",
+   "menu": "Icons.menu",
+   "close": "Icons.close",
+   "search": "Icons.search",
+   "user": "Icons.person",
+   "home": "Icons.home",
+   "orders": "Icons.receipt",
+   "star": "Icons.star",
+   "clock": "Icons.access_time",
+   "plus": "Icons.add",
+   "minus": "Icons.remove",
+   "chevronLeft": "Icons.chevron_left",
+   "chevronRight": "Icons.chevron_right",
+   "chevronDown": "Icons.expand_more",
+   "settings": "Icons.settings",
+   "location": "Icons.location_on",
+   "heart": "Icons.favorite",
+   "email": "Icons.email",
+   "check": "Icons.check",
+   "basket": "Icons.shopping_cart",
+   "delivery": "Icons.local_shipping",
+   "gift": "Icons.card_giftcard",
+   "tag": "Icons.local_offer",
+   "card": "Icons.credit_card",
+   "cash": "Icons.payments",
+   "coffee": "Icons.local_cafe",
+   "phone": "Icons.phone",
+   "chat": "Icons.chat",
+   "bell": "Icons.notifications",
+   "info": "Icons.info",
+   "warning": "Icons.warning",
+   "help": "Icons.help",
+   "thumbsUp": "Icons.thumb_up",
+   "lock": "Icons.lock",
+   "eye": "Icons.visibility",
+   "edit": "Icons.edit",
+   "delete": "Icons.delete",
+   "share": "Icons.share",
+   "refresh": "Icons.refresh",
+   "logout": "Icons.logout",
+   "camera": "Icons.photo_camera",
+   "image": "Icons.image",
+   "list": "Icons.list",
+   "grid": "Icons.grid_view",
+   "calendar": "Icons.calendar_today",
+   "map": "Icons.map",
+   "navigation": "Icons.navigation",
+   "arrowLeft": "Icons.arrow_back",
+   "arrowRight": "Icons.arrow_forward",
+   "chevronUp": "Icons.expand_less",
+   "sun": "Icons.light_mode",
+   "moon": "Icons.dark_mode"
+  },
+  "FeatherIcons": {
+   "cart": "LucideIcons.shoppingBag",
+   "menu": "LucideIcons.menu",
+   "close": "LucideIcons.x",
+   "search": "LucideIcons.search",
+   "user": "LucideIcons.user",
+   "home": "LucideIcons.house",
+   "orders": "LucideIcons.fileText",
+   "star": "LucideIcons.star",
+   "clock": "LucideIcons.clock",
+   "plus": "LucideIcons.plus",
+   "minus": "LucideIcons.minus",
+   "chevronLeft": "LucideIcons.chevronLeft",
+   "chevronRight": "LucideIcons.chevronRight",
+   "chevronDown": "LucideIcons.chevronDown",
+   "settings": "LucideIcons.settings",
+   "location": "LucideIcons.mapPin",
+   "heart": "LucideIcons.heart",
+   "email": "LucideIcons.mail",
+   "check": "LucideIcons.check",
+   "basket": "LucideIcons.shoppingCart",
+   "delivery": "LucideIcons.truck",
+   "gift": "LucideIcons.gift",
+   "tag": "LucideIcons.tag",
+   "card": "LucideIcons.creditCard",
+   "cash": "LucideIcons.banknote",
+   "coffee": "LucideIcons.coffee",
+   "phone": "LucideIcons.phone",
+   "chat": "LucideIcons.messageCircle",
+   "bell": "LucideIcons.bell",
+   "info": "LucideIcons.info",
+   "warning": "LucideIcons.triangleAlert",
+   "help": "LucideIcons.circleHelp",
+   "thumbsUp": "LucideIcons.thumbsUp",
+   "lock": "LucideIcons.lock",
+   "eye": "LucideIcons.eye",
+   "edit": "LucideIcons.pencil",
+   "delete": "LucideIcons.trash2",
+   "share": "LucideIcons.share2",
+   "refresh": "LucideIcons.refreshCw",
+   "logout": "LucideIcons.logOut",
+   "camera": "LucideIcons.camera",
+   "image": "LucideIcons.image",
+   "list": "LucideIcons.list",
+   "grid": "LucideIcons.layoutGrid",
+   "calendar": "LucideIcons.calendar",
+   "map": "LucideIcons.map",
+   "navigation": "LucideIcons.navigation",
+   "arrowLeft": "LucideIcons.arrowLeft",
+   "arrowRight": "LucideIcons.arrowRight",
+   "chevronUp": "LucideIcons.chevronUp",
+   "sun": "LucideIcons.sun",
+   "moon": "LucideIcons.moon"
+  },
+  "BootstrapIcons": {
+   "cart": "BootstrapIcons.bag_fill",
+   "menu": "BootstrapIcons.list",
+   "close": "BootstrapIcons.x",
+   "search": "BootstrapIcons.search",
+   "user": "BootstrapIcons.person_fill",
+   "home": "BootstrapIcons.house_fill",
+   "orders": "BootstrapIcons.receipt",
+   "star": "BootstrapIcons.star_fill",
+   "clock": "BootstrapIcons.clock",
+   "plus": "BootstrapIcons.plus",
+   "minus": "BootstrapIcons.dash",
+   "chevronLeft": "BootstrapIcons.chevron_left",
+   "chevronRight": "BootstrapIcons.chevron_right",
+   "chevronDown": "BootstrapIcons.chevron_down",
+   "settings": "BootstrapIcons.gear_fill",
+   "location": "BootstrapIcons.geo_alt_fill",
+   "heart": "BootstrapIcons.heart_fill",
+   "email": "BootstrapIcons.envelope_fill",
+   "check": "BootstrapIcons.check",
+   "basket": "BootstrapIcons.cart",
+   "delivery": "BootstrapIcons.truck",
+   "gift": "BootstrapIcons.gift",
+   "tag": "BootstrapIcons.tag",
+   "card": "BootstrapIcons.credit_card",
+   "cash": "BootstrapIcons.cash",
+   "coffee": "BootstrapIcons.cup_hot",
+   "phone": "BootstrapIcons.telephone_fill",
+   "chat": "BootstrapIcons.chat_fill",
+   "bell": "BootstrapIcons.bell_fill",
+   "info": "BootstrapIcons.info_circle",
+   "warning": "BootstrapIcons.exclamation_triangle",
+   "help": "BootstrapIcons.question_circle",
+   "thumbsUp": "BootstrapIcons.hand_thumbs_up",
+   "lock": "BootstrapIcons.lock_fill",
+   "eye": "BootstrapIcons.eye",
+   "edit": "BootstrapIcons.pencil",
+   "delete": "BootstrapIcons.trash",
+   "share": "BootstrapIcons.share",
+   "refresh": "BootstrapIcons.arrow_clockwise",
+   "logout": "BootstrapIcons.box_arrow_right",
+   "camera": "BootstrapIcons.camera",
+   "image": "BootstrapIcons.image",
+   "list": "BootstrapIcons.list_ul",
+   "grid": "BootstrapIcons.grid",
+   "calendar": "BootstrapIcons.calendar",
+   "map": "BootstrapIcons.map",
+   "navigation": "BootstrapIcons.cursor",
+   "arrowLeft": "BootstrapIcons.arrow_left",
+   "arrowRight": "BootstrapIcons.arrow_right",
+   "chevronUp": "BootstrapIcons.chevron_up",
+   "sun": "BootstrapIcons.sun",
+   "moon": "BootstrapIcons.moon_fill"
+  }
+ }
+}

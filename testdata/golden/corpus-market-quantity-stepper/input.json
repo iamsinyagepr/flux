@@ -1,0 +1,16 @@
+{
+ "name": "Quantity stepper",
+ "id": "market:quantity-stepper",
+ "description": "Minus and plus buttons around a count that never goes below one.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "quantity",
+  "stepper",
+  "cart"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/quantity-stepper\", name: \"Quantity stepper\", kind: Kind.section,\n  description: \"Minus and plus buttons around a count that never goes below one.\",\n  states: [NumberState(name: \"quantity\", default: 1)],\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Row(gap: Space.md, crossAxisAlignment: CrossAxisAlignment.center, children: [\n      Box(shape: BoxShape.circle, width: 40, height: 40, alignment: Anchor.center, border: Border(width: 1), onTap: SetState(state: \"quantity\", value: state.quantity > 1 ? state.quantity - 1 : 1), ariaLabel: \"Fewer\", child: Icon(name: Icons.minus, size: Size.sm)),\n      Text(child: state.quantity, size: FontSize.lg, weight: FontWeight.bold),\n      Box(shape: BoxShape.circle, width: 40, height: 40, alignment: Anchor.center, background: Color.primary, onTap: SetState(state: \"quantity\", value: state.quantity + 1), ariaLabel: \"More\", child: Icon(name: Icons.plus, size: Size.sm, color: Color.primaryInk))\n    ])\n  )],\n)\n"
+}

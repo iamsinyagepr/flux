@@ -1,0 +1,4 @@
+{
+ "name": "usage",
+ "source": "Component(id: \"test/usage\", name: \"usage\", kind: Kind.section, description: \"Golden case\")\n\nOptions(columns: Number(label: \"Columns\", min: 1, max: 4, default: 2))\n\nBuild(\n  Text(child: \"x\")\n)\n"
+}

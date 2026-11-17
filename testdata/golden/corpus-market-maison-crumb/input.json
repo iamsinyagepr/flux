@@ -1,0 +1,335 @@
+{
+ "name": "Maison Crumb bakery",
+ "id": "market:maison-crumb",
+ "description": "An elegant bakery app: a serif identity on the full storefront flow, with the shop's address and hours on its menu page and collection or delivery as each shop offers.",
+ "type": "template",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "bakery",
+  "collection",
+  "full app"
+ ],
+ "source": "Page(name: \"Select location\", route: Route(path: \"/select-location\"))\n\nusingServer(\n  cities<StoreCity[]>(src: Tenant.cities()),\n)\n\nusingClient(\n  location<ClientLocation>(src: Client.location()),\n)\n\nBuild(\n  Scaffold(\n    appBar: BakeryHeader(),\n    body: ScrollView(label: \"Select location\", child: Column(gap: Space.md, padding: Insets(y: 12), children: [Column(gap: Space.lg, padding: Insets(x: 20, y: 12), children: [\n    Text(child: \"STEP ONE · YOUR ADDRESS\", size: FontSize.xs, weight: FontWeight.bold, letterSpacing: 3, color: Color.textMuted),\n    Text(child: \"Where shall we bake for?\", size: FontSize.display, fontFamily: \"Georgia\", lineHeight: 1.05),\n    Text(child: \"Search your address to find the nearest shop.\", fontStyle: FontStyle.italic, fontFamily: \"Georgia\", color: Color.textMuted),\n    Divider(),\n    Box(padding: Insets(y: 8), onTap: UseMyLocation(), ariaLabel: \"Use my current location\", child: Row(gap: Space.md, children: [Text(child: \"i.\", fontFamily: \"Georgia\", fontStyle: FontStyle.italic, color: Color.primary), Expanded(child: Text(child: location.locating ? \"Finding you...\" : \"Use my current location\", fontFamily: \"Georgia\")), Text(child: \"→\", fontFamily: \"Georgia\")])),\n    If(condition: location.error, then: Text(child: location.error, size: FontSize.sm, color: Color.danger)),\n    Divider(),\n    Row(gap: Space.md, crossAxisAlignment: CrossAxisAlignment.center, children: [Text(child: \"ii.\", fontFamily: \"Georgia\", fontStyle: FontStyle.italic, color: Color.primary), Expanded(child: SearchField(ariaLabel: \"Search address\", placeholder: \"Street, suburb or city\", onChanged: SearchPlaces(query: input.value), background: Color.background, border: Border(width: 1, color: Color.text), radius: Radius.none))]),\n    ForEach(items: location.places, as: \"place\", child: Column(children: [Box(padding: Insets(y: 10), onTap: ChoosePlace(place: place), ariaLabel: place.label, child: Row(gap: Space.md, crossAxisAlignment: CrossAxisAlignment.center, children: [Expanded(child: Column(children: [Text(child: place.main_text, fontFamily: \"Georgia\"), Text(child: place.secondary_text, size: FontSize.sm, fontStyle: FontStyle.italic, fontFamily: \"Georgia\", color: Color.textMuted)])), Text(child: \"→\", fontFamily: \"Georgia\")])), Divider()])),\n    If(condition: cities.length > 0, then: Column(gap: Space.sm, children: [Text(child: \"OR, BY CITY\", size: FontSize.xs, weight: FontWeight.bold, letterSpacing: 3, color: Color.textMuted), ScrollView(direction: Axis.horizontal, label: \"Cities\", child: Row(gap: Space.md, children: [ForEach(items: cities, as: \"city\", child: Box(padding: Insets(y: 4), onTap: ChooseCity(city: city), ariaLabel: city.name, child: Text(child: city.name, fontFamily: \"Georgia\", fontStyle: FontStyle.italic, color: Color.primary)))]))]))\n  ])])),\n  )\n)\n",
+ "pages": [
+  {
+   "id": "location",
+   "name": "Select location",
+   "path": "/select-location",
+   "source": "Page(name: \"Select location\", route: Route(path: \"/select-location\"))\n\nusingServer(\n  cities<StoreCity[]>(src: Tenant.cities()),\n)\n\nusingClient(\n  location<ClientLocation>(src: Client.location()),\n)\n\nBuild(\n  Scaffold(\n    appBar: BakeryHeader(),\n    body: ScrollView(label: \"Select location\", child: Column(gap: Space.md, padding: Insets(y: 12), children: [Column(gap: Space.lg, padding: Insets(x: 20, y: 12), children: [\n    Text(child: \"STEP ONE · YOUR ADDRESS\", size: FontSize.xs, weight: FontWeight.bold, letterSpacing: 3, color: Color.textMuted),\n    Text(child: \"Where shall we bake for?\", size: FontSize.display, fontFamily: \"Georgia\", lineHeight: 1.05),\n    Text(child: \"Search your address to find the nearest shop.\", fontStyle: FontStyle.italic, fontFamily: \"Georgia\", color: Color.textMuted),\n    Divider(),\n    Box(padding: Insets(y: 8), onTap: UseMyLocation(), ariaLabel: \"Use my current location\", child: Row(gap: Space.md, children: [Text(child: \"i.\", fontFamily: \"Georgia\", fontStyle: FontStyle.italic, color: Color.primary), Expanded(child: Text(child: location.locating ? \"Finding you...\" : \"Use my current location\", fontFamily: \"Georgia\")), Text(child: \"→\", fontFamily: \"Georgia\")])),\n    If(condition: location.error, then: Text(child: location.error, size: FontSize.sm, color: Color.danger)),\n    Divider(),\n    Row(gap: Space.md, crossAxisAlignment: CrossAxisAlignment.center, children: [Text(child: \"ii.\", fontFamily: \"Georgia\", fontStyle: FontStyle.italic, color: Color.primary), Expanded(child: SearchField(ariaLabel: \"Search address\", placeholder: \"Street, suburb or city\", onChanged: SearchPlaces(query: input.value), background: Color.background, border: Border(width: 1, color: Color.text), radius: Radius.none))]),\n    ForEach(items: location.places, as: \"place\", child: Column(children: [Box(padding: Insets(y: 10), onTap: ChoosePlace(place: place), ariaLabel: place.label, child: Row(gap: Space.md, crossAxisAlignment: CrossAxisAlignment.center, children: [Expanded(child: Column(children: [Text(child: place.main_text, fontFamily: \"Georgia\"), Text(child: place.secondary_text, size: FontSize.sm, fontStyle: FontStyle.italic, fontFamily: \"Georgia\", color: Color.textMuted)])), Text(child: \"→\", fontFamily: \"Georgia\")])), Divider()])),\n    If(condition: cities.length > 0, then: Column(gap: Space.sm, children: [Text(child: \"OR, BY CITY\", size: FontSize.xs, weight: FontWeight.bold, letterSpacing: 3, color: Color.textMuted), ScrollView(direction: Axis.horizontal, label: \"Cities\", child: Row(gap: Space.md, children: [ForEach(items: cities, as: \"city\", child: Box(padding: Insets(y: 4), onTap: ChooseCity(city: city), ariaLabel: city.name, child: Text(child: city.name, fontFamily: \"Georgia\", fontStyle: FontStyle.italic, color: Color.primary)))]))]))\n  ])])),\n  )\n)\n",
+   "data": [
+    {
+     "name": "cities",
+     "source": "tenant",
+     "resource": "cities",
+     "select": "data",
+     "type": "StoreCity[]"
+    },
+    {
+     "name": "location",
+     "source": "client",
+     "resource": "location",
+     "fetch": "client"
+    }
+   ]
+  },
+  {
+   "id": "stores",
+   "name": "Select store",
+   "path": "/select-store",
+   "source": "Page(name: \"Select store\", route: Route(path: \"/select-store\"))\n\nusingClient(\n  location<ClientLocation>(src: Client.location()),\n  stores<StoreSearch>(src: Client.stores()),\n)\n\nBuild(\n  Scaffold(\n    appBar: BakeryHeader(),\n    body: ScrollView(label: \"Select store\", child: Column(gap: Space.md, padding: Insets(y: 12), children: [Column(gap: Space.lg, padding: Insets(x: 20, y: 12), children: [\n    Text(child: \"STEP TWO · YOUR SHOP\", size: FontSize.xs, weight: FontWeight.bold, letterSpacing: 3, color: Color.textMuted),\n    Text(child: \"Choose your boulangerie\", size: FontSize.xxl, fontFamily: \"Georgia\", lineHeight: 1.05),\n    If(condition: location.set, then: Box(onTap: Navigate(to: Route.location), ariaLabel: \"Change address\", child: Text(child: location.set ? \"Near ${location.label}. Change\" : \"Choose your address first\", fontStyle: FontStyle.italic, fontFamily: \"Georgia\", color: Color.textMuted))),\n    SearchField(ariaLabel: \"Search stores\", placeholder: \"Store name or food\", onChanged: SearchStores(query: input.value), background: Color.background, border: Border(width: 1, color: Color.text), radius: Radius.none),\n    If(condition: stores.loading, then: Text(child: \"Finding stores...\", size: FontSize.sm, color: Color.textMuted)),\n    Divider(),\n    ForEach(items: stores.results, as: \"shop\", child: Column(children: [Box(padding: Insets(y: 12), onTap: ChooseStore(store: shop), ariaLabel: shop.name, child: Row(gap: Space.md, crossAxisAlignment: CrossAxisAlignment.center, children: [\n      Expanded(child: Column(gap: Space.xs, children: [Text(child: shop.name, size: FontSize.lg, fontFamily: \"Georgia\"), Text(child: shop.address_line1, size: FontSize.sm, fontStyle: FontStyle.italic, fontFamily: \"Georgia\", color: Color.textMuted)])),\n      Text(child: shop.is_open ? \"OPEN\" : \"CLOSED\", size: FontSize.xs, letterSpacing: 2, color: shop.is_open ? Color.success : Color.textMuted)\n    ])), Divider()]), empty: Column(gap: Space.sm, children: [Text(child: \"No shop nearby yet.\", fontFamily: \"Georgia\", fontStyle: FontStyle.italic), Button(label: \"SEE EVERY SHOP\", style: ButtonStyle.ghost, onTap: SearchStores(query: \"\"))]))\n  ])])),\n  )\n)\n",
+   "data": [
+    {
+     "name": "location",
+     "source": "client",
+     "resource": "location",
+     "fetch": "client"
+    },
+    {
+     "name": "stores",
+     "source": "client",
+     "resource": "stores",
+     "fetch": "client"
+    }
+   ]
+  },
+  {
+   "id": "menu",
+   "name": "Menu",
+   "path": "/stores/$storeId",
+   "source": "Page(\n  name: \"Menu\",\n  route: Route(path: \"/stores/$storeId\"),\n  seo: Seo(title: menu.store.name, description: menu.store.description, image: menu.store.banner_url, schema: Schema.restaurant(of: store)),\n)\n\nusingServer(\n  menu<Menu>(src: Tenant.menu(store: route.storeId)),\n)\n\nusingClient(\n  store<Store>(src: Client.store()),\n  products<Product[]>(src: Tenant.products(store: store.id)),\n)\n\nState(\n  category: String(default: \"\"),\n  query: String(default: \"\"),\n)\n\nBuild(\n  Scaffold(\n    appBar: BakeryHeader(),\n    body: ScrollView(label: \"Menu\", child: Column(gap: Space.md, padding: Insets(y: 12), children: [Column(gap: Space.lg, padding: Insets(x: 20, y: 12), children: [\n    Text(child: \"Bread worth getting up for.\", size: FontSize.display, fontFamily: \"Georgia\", lineHeight: 1.05),\n    Box(padding: Space.md, border: Border(width: 1, color: Color.text), child: Column(gap: Space.xs, children: [\n      Text(child: store.name, fontFamily: \"Georgia\", size: FontSize.lg),\n      Text(child: store.address_line1, color: Color.textMuted),\n      Text(child: store.is_open ? \"Open now\" : \"Closed right now\", size: FontSize.sm, color: store.is_open ? Color.success : Color.danger),\n      Wrap(spacing: Space.xs, runSpacing: Space.xs, children: [\n      If(condition: store.accepts_delivery, then: Badge(label: \"Delivery\", tone: Tone.success)),\n      If(condition: store.accepts_collect, then: Badge(label: \"Collection\", tone: Tone.primary))\n    ])\n    ])),\n    Text(child: \"THE SHOP\", size: FontSize.xs, weight: FontWeight.bold, letterSpacing: 3, color: Color.textMuted),\n    Text(child: \"Naturally leavened, baked before sunrise.\", fontFamily: \"Georgia\", fontStyle: FontStyle.italic, color: Color.textMuted),\n    ScrollView(direction: Axis.horizontal, label: \"Categories\", child: Row(gap: Space.lg, children: [\n      Box(padding: Insets(y: 4), onTap: SetState(state: \"category\", value: \"\"), ariaLabel: \"EVERYTHING\", child: Column(gap: Space.xs, children: [Text(child: \"EVERYTHING\", size: FontSize.xs, letterSpacing: 2, fontFamily: \"Georgia\", color: state.category == \"\" ? Color.text : Color.textMuted), Box(width: 24, height: 1, background: state.category == \"\" ? Color.primary : Color.background)])),\n      ForEach(items: menu.categories, as: \"cat\", child: Box(padding: Insets(y: 4), onTap: SetState(state: \"category\", value: cat.id), ariaLabel: cat.name, child: Column(gap: Space.xs, children: [Text(child: cat.name, size: FontSize.xs, letterSpacing: 2, fontFamily: \"Georgia\", color: state.category == cat.id ? Color.text : Color.textMuted), Box(width: 24, height: 1, background: state.category == cat.id ? Color.primary : Color.background)])))\n    ])),\n    SearchField(state: \"query\", ariaLabel: \"Search the menu\", placeholder: \"Search the menu\", background: Color.background, border: Border(width: 1, color: Color.text), radius: Radius.none),\n    Divider(),\n    ForEach(items: search(state.category == \"\" ? filter(products, \"is_available\", true) : filter(filter(products, \"is_available\", true), \"category_id\", state.category), state.query, [\"name\", \"description\"]), as: \"item\", child: Column(gap: Space.md, children: [Row(gap: Space.md, crossAxisAlignment: CrossAxisAlignment.center, children: [\n      Box(width: 76, onTap: OpenProduct(product: item), ariaLabel: item.name, child: Image(src: item.image_url, alt: item.name, aspectRatio: 1, radius: Radius.none)),\n      Expanded(child: Box(onTap: OpenProduct(product: item), ariaLabel: item.name, child: Column(gap: Space.xs, children: [Text(child: item.name, size: FontSize.lg, fontFamily: \"Georgia\"), Text(child: item.description, size: FontSize.sm, fontStyle: FontStyle.italic, fontFamily: \"Georgia\", color: Color.textMuted), Text(child: formatMoney(item.display_price_cents), fontFamily: \"Georgia\", color: Color.primary)]))),\n      Button(label: \"ADD\", style: ButtonStyle.secondary, size: Size.sm, onTap: AddToCart(product: item))\n    ]), Divider()]), empty: Text(child: \"Nothing by that name today.\", fontFamily: \"Georgia\", fontStyle: FontStyle.italic))\n  ])])),\n    bottomNavigationBar: BakeryTabs(),\n  )\n)\n",
+   "data": [
+    {
+     "name": "menu",
+     "source": "tenant",
+     "resource": "menu",
+     "params": [
+      {
+       "name": "store",
+       "from": "route",
+       "value": "storeId"
+      }
+     ]
+    },
+    {
+     "name": "store",
+     "source": "client",
+     "resource": "store",
+     "fetch": "client"
+    },
+    {
+     "name": "products",
+     "source": "tenant",
+     "resource": "products",
+     "params": [
+      {
+       "name": "store",
+       "from": "import",
+       "value": "store.id"
+      }
+     ],
+     "fetch": "client",
+     "select": "data",
+     "type": "Product[]"
+    }
+   ],
+   "seo": {
+    "title": "menu.store.name",
+    "description": "menu.store.description",
+    "image": "menu.store.banner_url",
+    "schema": "Restaurant",
+    "subject": "store"
+   }
+  },
+  {
+   "id": "product",
+   "name": "Product options",
+   "path": "/stores/$storeId/products/$productId",
+   "source": "Page(\n  name: \"Product options\",\n  route: Route(path: \"/stores/$storeId/products/$productId\"),\n  seo: Seo(title: \"${product.name} | ${store.name}\", description: product.description, image: product.image_url, schema: Schema.product(of: product)),\n)\n\nusingServer(\n  product<Product>(src: Tenant.product(id: route.productId)),\n  store<Store>(src: Tenant.store(store: route.storeId)),\n)\n\nusingClient(\n  choices<ProductChoices>(src: Client.choices()),\n)\n\nState(\n  quantity: Number(default: 1),\n)\n\nBuild(\n  Scaffold(\n    appBar: BakeryHeader(),\n    body: ScrollView(label: \"Product options\", child: Column(gap: Space.md, padding: Insets(y: 12), children: [Column(gap: Space.lg, padding: Insets(x: 20, y: 12), children: [\n    Button(label: \"← The shop\", style: ButtonStyle.ghost, onTap: Navigate(to: Route.menu)),\n    If(condition: product != null, then: Column(gap: Space.lg, children: [\n      Image(src: product.image_url, alt: product.name, aspectRatio: 1, radius: Radius.none),\n      Text(child: \"FROM THE OVEN\", size: FontSize.xs, weight: FontWeight.bold, letterSpacing: 3, color: Color.textMuted),\n      Text(child: product.name, size: FontSize.xxl, fontFamily: \"Georgia\", lineHeight: 1.05),\n      Text(child: formatMoney(product.display_price_cents), fontFamily: \"Georgia\", fontStyle: FontStyle.italic, size: FontSize.lg, color: Color.primary),\n      Text(child: product.description, fontFamily: \"Georgia\", color: Color.textMuted, lineHeight: 1.5),\n      Divider(),\n      If(condition: choices.groups.length > 0, then: Text(child: \"YOUR SELECTION\", size: FontSize.xs, weight: FontWeight.bold, letterSpacing: 3, color: Color.textMuted)),\n      ForEach(items: choices.groups, as: \"group\", child: Column(gap: Space.xs, children: [\n        Row(gap: Space.md, children: [Expanded(child: Text(child: group.depth > 0 ? \"— ${group.label}\" : group.label, fontFamily: \"Georgia\", size: FontSize.lg)), Text(child: group.single ? \"Choose one\" : \"Up to ${group.max}\", size: FontSize.xs, fontStyle: FontStyle.italic, color: Color.textMuted)]),\n        ForEach(items: group.choices, as: \"choice\", child: Box(padding: Insets(y: 6), onTap: ToggleOption(group: group.id, choice: choice.id), ariaLabel: choice.label, child: Row(gap: Space.md, children: [Text(child: choice.selected ? \"●\" : \"○\", fontFamily: \"Georgia\", color: Color.primary), Expanded(child: Text(child: choice.label, fontFamily: \"Georgia\", color: choice.disabled ? Color.textMuted : Color.text)), Text(child: choice.price_cents > 0 ? \"+ ${formatMoney(choice.price_cents)}\" : \"Included\", fontStyle: FontStyle.italic, fontFamily: \"Georgia\", color: Color.textMuted)]))),\n        Divider()\n      ])),\n      TextField(state: \"quantity\", label: \"Quantity\", type: InputType.number, min: 1, max: 99, background: Color.background, border: Border(width: 1, color: Color.text), radius: Radius.none),\n      Divider(),\n      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [Text(child: \"Total\", fontFamily: \"Georgia\", weight: FontWeight.bold), Text(child: formatMoney((product.display_price_cents + choices.addon_price_cents) * state.quantity), fontFamily: \"Georgia\", weight: FontWeight.bold)]),\n      Button(label: \"ADD TO BASKET\", fullWidth: true, disabled: !product.is_available, onTap: AddConfiguredProduct(quantity: state.quantity))\n    ]), else: Text(child: \"Choose from the shop.\", fontFamily: \"Georgia\", fontStyle: FontStyle.italic))\n  ])])),\n  )\n)\n",
+   "data": [
+    {
+     "name": "product",
+     "source": "tenant",
+     "resource": "product",
+     "params": [
+      {
+       "name": "id",
+       "from": "route",
+       "value": "productId"
+      }
+     ]
+    },
+    {
+     "name": "store",
+     "source": "tenant",
+     "resource": "store",
+     "params": [
+      {
+       "name": "store",
+       "from": "route",
+       "value": "storeId"
+      }
+     ]
+    },
+    {
+     "name": "choices",
+     "source": "client",
+     "resource": "choices",
+     "fetch": "client"
+    }
+   ],
+   "seo": {
+    "title": "\"${product.name} | ${store.name}\"",
+    "description": "product.description",
+    "image": "product.image_url",
+    "schema": "Product",
+    "subject": "product"
+   }
+  },
+  {
+   "id": "cart",
+   "name": "Cart",
+   "path": "/stores/$storeId/cart",
+   "source": "Page(name: \"Cart\", route: Route(path: \"/stores/$storeId/cart\"))\n\nusingServer(\n  store<Store>(src: Tenant.store(store: route.storeId)),\n)\n\nusingClient(\n  cart<Cart>(src: Client.cart()),\n)\n\nBuild(\n  Scaffold(\n    appBar: BakeryHeader(),\n    body: ScrollView(label: \"Cart\", child: Column(gap: Space.md, padding: Insets(y: 12), children: [Column(gap: Space.lg, padding: Insets(x: 20, y: 12), children: [\n    Text(child: \"YOUR SELECTION\", size: FontSize.xs, weight: FontWeight.bold, letterSpacing: 3, color: Color.textMuted),\n    Text(child: \"Your basket\", size: FontSize.xxl, fontFamily: \"Georgia\", lineHeight: 1.05),\n    Divider(),\n    ForEach(items: cart.lines, as: \"line\", child: Column(gap: Space.sm, children: [\n      Row(gap: Space.md, children: [Expanded(child: Text(child: \"${line.quantity} × ${line.name}\", size: FontSize.lg, fontFamily: \"Georgia\")), Text(child: formatMoney(line.line_total_cents), fontFamily: \"Georgia\")]),\n      Wrap(spacing: Space.sm, children: [ForEach(items: line.choices, as: \"choice\", child: Text(child: choice, size: FontSize.sm, fontStyle: FontStyle.italic, fontFamily: \"Georgia\", color: Color.textMuted))]),\n      Row(gap: Space.lg, children: [\n        Box(padding: Insets(y: 4), onTap: ChangeCartLine(line: line.id, by: -1), ariaLabel: \"One fewer\", child: Text(child: \"one fewer\", size: FontSize.sm, fontFamily: \"Georgia\", fontStyle: FontStyle.italic, color: Color.primary)),\n        Box(padding: Insets(y: 4), onTap: ChangeCartLine(line: line.id, by: 1), ariaLabel: \"One more\", child: Text(child: \"one more\", size: FontSize.sm, fontFamily: \"Georgia\", fontStyle: FontStyle.italic, color: Color.primary)),\n        Box(padding: Insets(y: 4), onTap: RemoveCartLine(line: line.id), ariaLabel: \"Remove\", child: Text(child: \"remove\", size: FontSize.sm, fontFamily: \"Georgia\", fontStyle: FontStyle.italic, color: Color.textMuted))\n      ]),\n      Divider()\n    ]), empty: Text(child: \"Your basket is empty.\", fontFamily: \"Georgia\", fontStyle: FontStyle.italic)),\n    If(condition: cart.count > 0, then: Column(gap: Space.md, children: [\n      Divider(),\n      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [Text(child: \"Subtotal\", fontFamily: \"Georgia\", weight: FontWeight.bold), Text(child: formatMoney(cart.total_cents), fontFamily: \"Georgia\", weight: FontWeight.bold)]),\n      Button(label: \"CONTINUE\", fullWidth: true, onTap: Navigate(to: Route.checkout))\n    ])),\n    Button(label: \"Return to the shop\", style: ButtonStyle.ghost, onTap: Navigate(to: Route.menu))\n  ])])),\n    bottomNavigationBar: BakeryTabs(),\n  )\n)\n",
+   "data": [
+    {
+     "name": "store",
+     "source": "tenant",
+     "resource": "store",
+     "params": [
+      {
+       "name": "store",
+       "from": "route",
+       "value": "storeId"
+      }
+     ]
+    },
+    {
+     "name": "cart",
+     "source": "client",
+     "resource": "cart",
+     "fetch": "client"
+    }
+   ]
+  },
+  {
+   "id": "checkout",
+   "name": "Checkout",
+   "path": "/stores/$storeId/checkout",
+   "source": "Page(name: \"Checkout\", route: Route(path: \"/stores/$storeId/checkout\"))\n\nusingServer(\n  store<Store>(src: Tenant.store(store: route.storeId)),\n)\n\nusingClient(\n  cart<Cart>(src: Client.cart()),\n  checkout<ClientCheckout>(src: Client.checkout()),\n  location<ClientLocation>(src: Client.location()),\n  deliveryOptions<DeliveryOptions>(src: Tenant.deliveryOptions(store: store.id)),\n)\n\nState(\n  fulfilment: String(default: \"pickup\"),\n  saveDetails: Bool(default: false),\n)\n\nBuild(\n  Scaffold(\n    appBar: BakeryHeader(),\n    body: ScrollView(label: \"Checkout\", child: Column(gap: Space.md, padding: Insets(y: 12), children: [Column(gap: Space.xl, padding: Insets(x: 20, y: 12), children: [\n    Text(child: \"Checkout\", size: FontSize.xxl, fontFamily: \"Georgia\", lineHeight: 1.05),\n    If(condition: cart.count > 0, then: Form(id: \"checkout\", onSubmit: PlaceOrder(fulfilment: state.fulfilment), child: Column(gap: Space.xl, children: [\n      Column(gap: Space.md, children: [Row(gap: Space.md, crossAxisAlignment: CrossAxisAlignment.center, children: [Text(child: \"I.\", size: FontSize.lg, fontFamily: \"Georgia\", fontStyle: FontStyle.italic, color: Color.primary), Text(child: \"Your details\", size: FontSize.lg, fontFamily: \"Georgia\")]), Divider(), TextField(name: \"name\", label: \"Name\", required: true, maxLength: 80, background: Color.background, border: Border(width: 1, color: Color.text), radius: Radius.none), TextField(name: \"phone\", label: \"Phone\", type: InputType.tel, required: true, maxLength: 24, background: Color.background, border: Border(width: 1, color: Color.text), radius: Radius.none)]),\n      Column(gap: Space.md, children: [Row(gap: Space.md, crossAxisAlignment: CrossAxisAlignment.center, children: [Text(child: \"II.\", size: FontSize.lg, fontFamily: \"Georgia\", fontStyle: FontStyle.italic, color: Color.primary), Text(child: \"Collection or delivery\", size: FontSize.lg, fontFamily: \"Georgia\")]), Divider(), Column(gap: Space.xs, children: [Box(padding: Insets(y: 8), onTap: SetState(state: \"fulfilment\", value: \"pickup\"), ariaLabel: \"Collection\", child: Row(gap: Space.md, children: [Text(child: state.fulfilment == \"pickup\" ? \"●\" : \"○\", fontFamily: \"Georgia\", color: Color.primary), Text(child: \"Collect from the shop\", fontFamily: \"Georgia\")])), Box(padding: Insets(y: 8), onTap: SetState(state: \"fulfilment\", value: \"delivery\"), ariaLabel: \"Delivery\", child: Row(gap: Space.md, children: [Text(child: state.fulfilment == \"delivery\" ? \"●\" : \"○\", fontFamily: \"Georgia\", color: Color.primary), Text(child: \"Deliver to me\", fontFamily: \"Georgia\")]))]),\n        If(condition: state.fulfilment == \"delivery\", then: Column(gap: Space.md, children: [\n          If(condition: deliveryOptions.mode == \"preset\", then: Column(gap: Space.sm, children: [\n            Text(child: \"Where should we deliver?\", fontFamily: \"Georgia\", weight: FontWeight.semibold),\n            ForEach(items: deliveryOptions.presets, as: \"spot\", child: Box(padding: Insets(y: 8), onTap: SetCheckout(field: \"delivery_preset_id\", value: spot.id), ariaLabel: spot.place_name, child: Row(gap: Space.md, children: [Text(child: checkout.delivery_preset_id == spot.id ? \"●\" : \"○\", fontFamily: \"Georgia\", color: Color.primary), Expanded(child: Text(child: spot.place_name, fontFamily: \"Georgia\")), Text(child: formatMoney(spot.fee_cents), fontFamily: \"Georgia\", fontStyle: FontStyle.italic, color: Color.textMuted)])))\n          ]), else: Column(gap: Space.sm, children: [\n            Text(child: \"Confirm where we deliver\", fontFamily: \"Georgia\", weight: FontWeight.semibold),\n            Text(child: \"We deliver to ${location.label}\", fontFamily: \"Georgia\", color: Color.textMuted),\n            Button(label: checkout.delivery_point_confirmed ? \"Location confirmed\" : \"Confirm this location\", style: checkout.delivery_point_confirmed ? ButtonStyle.secondary : ButtonStyle.primary, onTap: ConfirmDeliveryPoint()),\n            If(condition: checkout.delivery_point_confirmed, then: Text(child: \"Delivery location confirmed.\", fontFamily: \"Georgia\", size: FontSize.sm, color: Color.success), else: Text(child: \"Confirm the location above to continue.\", fontFamily: \"Georgia\", size: FontSize.sm, color: Color.textMuted))\n          ])),\n          TextField(name: \"address\", label: deliveryOptions.mode == \"preset\" ? \"Street, building and unit\" : \"Building, unit and any landmark\", required: true, maxLength: 200, background: Color.background, border: Border(width: 1, color: Color.text), radius: Radius.none),\n          TextField(name: \"instructions\", label: \"Delivery instructions\", maxLength: 200, background: Color.background, border: Border(width: 1, color: Color.text), radius: Radius.none)\n        ]))]),\n      Column(gap: Space.md, children: [Row(gap: Space.md, crossAxisAlignment: CrossAxisAlignment.center, children: [Text(child: \"III.\", size: FontSize.lg, fontFamily: \"Georgia\", fontStyle: FontStyle.italic, color: Color.primary), Text(child: \"Payment\", size: FontSize.lg, fontFamily: \"Georgia\")]), Divider(), SelectField(name: \"payment\", label: \"Payment\", value: \"cash\", background: Color.background, border: Border(width: 1, color: Color.text), radius: Radius.none, options: [SelectOption(value: \"cash\", label: \"Cash on collection / delivery\"), SelectOption(value: \"card\", label: \"Card on collection / delivery\")]),\n        Wrap(spacing: Space.lg, children: [Box(padding: Insets(y: 6), onTap: SetTip(cents: 0), ariaLabel: \"No tip\", border: Border(width: checkout.tip_cents == 0 ? 2 : 0, color: Color.primary), child: Text(child: \"No tip\", fontFamily: \"Georgia\", fontStyle: checkout.tip_cents == 0 ? FontStyle.italic : FontStyle.normal)), Box(padding: Insets(y: 6), onTap: SetTip(percent: 10), ariaLabel: \"10% tip\", border: Border(width: checkout.tip_cents == round(cart.total_cents * 10 / 100) ? 2 : 0, color: Color.primary), child: Text(child: \"10%\", fontFamily: \"Georgia\", fontStyle: checkout.tip_cents == round(cart.total_cents * 10 / 100) ? FontStyle.italic : FontStyle.normal)), Box(padding: Insets(y: 6), onTap: SetTip(percent: 15), ariaLabel: \"15% tip\", border: Border(width: checkout.tip_cents == round(cart.total_cents * 15 / 100) ? 2 : 0, color: Color.primary), child: Text(child: \"15%\", fontFamily: \"Georgia\", fontStyle: checkout.tip_cents == round(cart.total_cents * 15 / 100) ? FontStyle.italic : FontStyle.normal)), Box(padding: Insets(y: 6), onTap: SetTip(percent: 20), ariaLabel: \"20% tip\", border: Border(width: checkout.tip_cents == round(cart.total_cents * 20 / 100) ? 2 : 0, color: Color.primary), child: Text(child: \"20%\", fontFamily: \"Georgia\", fontStyle: checkout.tip_cents == round(cart.total_cents * 20 / 100) ? FontStyle.italic : FontStyle.normal))])]),\n      Column(gap: Space.md, children: [Row(gap: Space.md, crossAxisAlignment: CrossAxisAlignment.center, children: [Text(child: \"IV.\", size: FontSize.lg, fontFamily: \"Georgia\", fontStyle: FontStyle.italic, color: Color.primary), Text(child: \"A note for the bakers\", size: FontSize.lg, fontFamily: \"Georgia\")]), Divider(), TextField(name: \"notes\", label: \"Order notes\", rows: 3, maxLength: 400, background: Color.background, border: Border(width: 1, color: Color.text), radius: Radius.none), Box(padding: Insets(y: 6), onTap: SetState(state: \"saveDetails\", value: !state.saveDetails), ariaLabel: \"Save my details for next time\", child: Row(gap: Space.sm, crossAxisAlignment: CrossAxisAlignment.center, children: [Box(width: 22, height: 22, radius: Radius.sm, alignment: Anchor.center, border: Border(width: 2, color: Color.primary), background: state.saveDetails ? Color.primary : Color.surface, child: If(condition: state.saveDetails, then: Icon(name: Icons.check, size: Size.sm, color: Color.primaryInk))), Expanded(child: Text(child: \"Save my details for next time\"))])), If(condition: state.saveDetails, then: Column(gap: Space.md, children: [TextField(name: \"email\", label: \"Email\", type: InputType.email, required: true, background: Color.background, border: Border(width: 1, color: Color.text), radius: Radius.none), TextField(name: \"password\", label: \"Password\", type: InputType.password, minLength: 8, required: true, background: Color.background, border: Border(width: 1, color: Color.text), radius: Radius.none)]))]),\n      Column(gap: Space.sm, children: [\n        Divider(),\n        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [Text(child: \"Subtotal\", fontFamily: \"Georgia\"), Text(child: formatMoney(checkout.quote.items_subtotal_cents), fontFamily: \"Georgia\")]),\n        If(condition: state.fulfilment == \"delivery\", then: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [Text(child: \"Delivery\", fontFamily: \"Georgia\"), Text(child: formatMoney(checkout.quote.delivery_fee_cents), fontFamily: \"Georgia\")])),\n        If(condition: checkout.tip_cents > 0, then: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [Text(child: \"Tip\", fontFamily: \"Georgia\"), Text(child: formatMoney(checkout.tip_cents), fontFamily: \"Georgia\")])),\n        Divider(),\n        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [Text(child: \"Total\", fontFamily: \"Georgia\", weight: FontWeight.bold), Text(child: formatMoney(cart.total_cents + checkout.tip_cents + (state.fulfilment == \"delivery\" ? checkout.quote.delivery_fee_cents : 0)), fontFamily: \"Georgia\", weight: FontWeight.bold)])\n      ]),\n      Text(child: \"The shop confirms the final total with your order.\", size: FontSize.sm, fontStyle: FontStyle.italic, fontFamily: \"Georgia\", color: Color.textMuted),\n      SubmitButton(label: \"CONFIRM ORDER\", fullWidth: true)\n    ])), else: Text(child: \"Your basket is empty.\", fontFamily: \"Georgia\", fontStyle: FontStyle.italic))\n  ])])),\n  )\n)\n",
+   "data": [
+    {
+     "name": "store",
+     "source": "tenant",
+     "resource": "store",
+     "params": [
+      {
+       "name": "store",
+       "from": "route",
+       "value": "storeId"
+      }
+     ]
+    },
+    {
+     "name": "cart",
+     "source": "client",
+     "resource": "cart",
+     "fetch": "client"
+    },
+    {
+     "name": "checkout",
+     "source": "client",
+     "resource": "checkout",
+     "fetch": "client"
+    },
+    {
+     "name": "location",
+     "source": "client",
+     "resource": "location",
+     "fetch": "client"
+    },
+    {
+     "name": "deliveryOptions",
+     "source": "tenant",
+     "resource": "deliveryOptions",
+     "params": [
+      {
+       "name": "store",
+       "from": "import",
+       "value": "store.id"
+      }
+     ],
+     "fetch": "client"
+    }
+   ]
+  },
+  {
+   "id": "orders",
+   "name": "Order history",
+   "path": "/orders",
+   "source": "Page(name: \"Order history\", route: Route(path: \"/orders\"))\n\nusingClient(\n  orders<Order[]>(src: Tenant.history()),\n)\n\nBuild(\n  Scaffold(\n    appBar: BakeryHeader(),\n    body: ScrollView(label: \"Order history\", child: Column(gap: Space.md, padding: Insets(y: 12), children: [Column(gap: Space.lg, padding: Insets(x: 20, y: 12), children: [\n    Text(child: \"ORDER HISTORY\", size: FontSize.xs, weight: FontWeight.bold, letterSpacing: 3, color: Color.textMuted),\n    Text(child: \"Your orders\", size: FontSize.xxl, fontFamily: \"Georgia\", lineHeight: 1.05),\n    Divider(),\n    ForEach(items: orders, as: \"past\", child: Column(children: [Box(padding: Insets(y: 10), onTap: OpenOrder(order: past.id), ariaLabel: \"Order ${past.order_number}\", child: Row(gap: Space.md, children: [Text(child: \"No. ${past.order_number}\", fontFamily: \"Georgia\"), Expanded(child: Text(child: past.status == \"pending\" ? \"Received\" : past.status == \"confirmed\" ? \"Confirmed\" : past.status == \"preparing\" ? \"Being prepared\" : past.status == \"ready\" ? \"Ready\" : past.status == \"out_for_delivery\" ? \"On its way\" : past.status == \"delivered\" ? \"Delivered\" : past.status == \"cancelled\" ? \"Cancelled\" : \"Not completed\", fontStyle: FontStyle.italic, fontFamily: \"Georgia\", color: Color.textMuted)), Text(child: formatMoney(past.total_cents), fontFamily: \"Georgia\")])), Divider()]), empty: Text(child: \"No orders yet.\", fontFamily: \"Georgia\", fontStyle: FontStyle.italic)),\n    Button(label: \"Visit the shop\", style: ButtonStyle.secondary, onTap: Navigate(to: Route.menu))\n  ])])),\n    bottomNavigationBar: BakeryTabs(),\n  )\n)\n",
+   "data": [
+    {
+     "name": "orders",
+     "source": "tenant",
+     "resource": "history",
+     "fetch": "client",
+     "select": "data",
+     "type": "Order[]"
+    }
+   ]
+  },
+  {
+   "id": "tracking",
+   "name": "Order tracking",
+   "path": "/orders/$orderId",
+   "source": "Page(name: \"Order tracking\", route: Route(path: \"/orders/$orderId\"))\n\nusingClient(\n  order<Order>(src: Tenant.order(id: route.orderId)),\n  review<OrderReview>(src: Client.review()),\n)\n\nBuild(\n  Scaffold(\n    appBar: BakeryHeader(),\n    body: ScrollView(label: \"Order tracking\", child: Column(gap: Space.md, padding: Insets(y: 12), children: [Column(gap: Space.lg, padding: Insets(x: 20, y: 12), children: [\n    Text(child: \"YOUR ORDER\", size: FontSize.xs, weight: FontWeight.bold, letterSpacing: 3, color: Color.textMuted),\n    If(condition: order != null, then: Column(gap: Space.lg, children: [\n      Text(child: order.order_number, size: FontSize.xxl, fontFamily: \"Georgia\", lineHeight: 1.05),\n      If(condition: order.status == \"cancelled\" || order.status == \"failed\", then: Text(child: order.status == \"pending\" ? \"Received\" : order.status == \"confirmed\" ? \"Confirmed\" : order.status == \"preparing\" ? \"Being prepared\" : order.status == \"ready\" ? \"Ready\" : order.status == \"out_for_delivery\" ? \"On its way\" : order.status == \"delivered\" ? \"Delivered\" : order.status == \"cancelled\" ? \"Cancelled\" : \"Not completed\", fontFamily: \"Georgia\", fontStyle: FontStyle.italic, color: Color.danger), else: Column(gap: Space.xs, children: [\n        Row(gap: Space.md, children: [Text(child: (order.status == \"pending\" || order.status == \"confirmed\" || order.status == \"preparing\" || order.status == \"ready\" || order.status == \"out_for_delivery\" || order.status == \"delivered\") ? \"✓\" : \"·\", fontFamily: \"Georgia\", color: Color.primary), Text(child: \"Received\", fontFamily: \"Georgia\", fontStyle: order.status == \"pending\" ? FontStyle.italic : FontStyle.normal, color: (order.status == \"pending\" || order.status == \"confirmed\" || order.status == \"preparing\" || order.status == \"ready\" || order.status == \"out_for_delivery\" || order.status == \"delivered\") ? Color.text : Color.textMuted)]),\n        Row(gap: Space.md, children: [Text(child: (order.status == \"confirmed\" || order.status == \"preparing\" || order.status == \"ready\" || order.status == \"out_for_delivery\" || order.status == \"delivered\") ? \"✓\" : \"·\", fontFamily: \"Georgia\", color: Color.primary), Text(child: \"Confirmed\", fontFamily: \"Georgia\", fontStyle: order.status == \"confirmed\" ? FontStyle.italic : FontStyle.normal, color: (order.status == \"confirmed\" || order.status == \"preparing\" || order.status == \"ready\" || order.status == \"out_for_delivery\" || order.status == \"delivered\") ? Color.text : Color.textMuted)]),\n        Row(gap: Space.md, children: [Text(child: (order.status == \"preparing\" || order.status == \"ready\" || order.status == \"out_for_delivery\" || order.status == \"delivered\") ? \"✓\" : \"·\", fontFamily: \"Georgia\", color: Color.primary), Text(child: \"Preparing\", fontFamily: \"Georgia\", fontStyle: order.status == \"preparing\" ? FontStyle.italic : FontStyle.normal, color: (order.status == \"preparing\" || order.status == \"ready\" || order.status == \"out_for_delivery\" || order.status == \"delivered\") ? Color.text : Color.textMuted)]),\n        Row(gap: Space.md, children: [Text(child: (order.status == \"ready\" || order.status == \"out_for_delivery\" || order.status == \"delivered\") ? \"✓\" : \"·\", fontFamily: \"Georgia\", color: Color.primary), Text(child: \"Ready\", fontFamily: \"Georgia\", fontStyle: order.status == \"ready\" ? FontStyle.italic : FontStyle.normal, color: (order.status == \"ready\" || order.status == \"out_for_delivery\" || order.status == \"delivered\") ? Color.text : Color.textMuted)]),\n        If(condition: order.fulfilment_type == \"delivery\", then: Row(gap: Space.md, children: [Text(child: (order.status == \"out_for_delivery\" || order.status == \"delivered\") ? \"✓\" : \"·\", fontFamily: \"Georgia\", color: Color.primary), Text(child: \"On its way\", fontFamily: \"Georgia\", fontStyle: order.status == \"out_for_delivery\" ? FontStyle.italic : FontStyle.normal, color: (order.status == \"out_for_delivery\" || order.status == \"delivered\") ? Color.text : Color.textMuted)])),\n        Row(gap: Space.md, children: [Text(child: (order.status == \"delivered\") ? \"✓\" : \"·\", fontFamily: \"Georgia\", color: Color.primary), Text(child: \"Delivered\", fontFamily: \"Georgia\", fontStyle: order.status == \"delivered\" ? FontStyle.italic : FontStyle.normal, color: (order.status == \"delivered\") ? Color.text : Color.textMuted)])\n      ])),\n      Divider(),\n      ForEach(items: order.items, as: \"line\", child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [Text(child: \"\\${line.quantity} × \\${line.product_name}\", fontFamily: \"Georgia\"), Text(child: formatMoney(line.line_total_cents), fontFamily: \"Georgia\")])),\n      Divider(),\n      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [Text(child: \"Delivery\", fontFamily: \"Georgia\"), Text(child: formatMoney(order.delivery_fee_cents), fontFamily: \"Georgia\")]),\n      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [Text(child: \"Total\", fontFamily: \"Georgia\", weight: FontWeight.bold), Text(child: formatMoney(order.total_cents), fontFamily: \"Georgia\", weight: FontWeight.bold)]),\n      If(condition: order.status == \"pending\" || order.status == \"confirmed\", then: Button(label: \"Cancel order\", style: ButtonStyle.ghost, onTap: CancelOrder())),\n      If(condition: order.status == \"delivered\" && review == null, then: Wrap(spacing: Space.sm, children: [\n        Text(child: \"Rate your food\"),\n        Button(label: \"5 stars\", style: ButtonStyle.secondary, size: Size.sm, onTap: SubmitReview(foodRating: 5)),\n        Button(label: \"4 stars\", style: ButtonStyle.ghost, size: Size.sm, onTap: SubmitReview(foodRating: 4)),\n      ])),\n      If(condition: review != null, then: Text(child: \"Thanks for your review: ${review.food_rating}/5\", color: Color.textMuted))\n    ]), else: Text(child: \"Place an order to follow it here.\", fontFamily: \"Georgia\", fontStyle: FontStyle.italic)),\n    Button(label: \"All orders\", style: ButtonStyle.ghost, onTap: Navigate(to: Route.orders))\n  ])])),\n  )\n)\n",
+   "data": [
+    {
+     "name": "order",
+     "source": "tenant",
+     "resource": "order",
+     "params": [
+      {
+       "name": "id",
+       "from": "route",
+       "value": "orderId"
+      }
+     ],
+     "fetch": "client"
+    },
+    {
+     "name": "review",
+     "source": "client",
+     "resource": "review",
+     "fetch": "client"
+    }
+   ]
+  },
+  {
+   "id": "account",
+   "name": "Account",
+   "path": "/account",
+   "source": "Page(name: \"Account\", route: Route(path: \"/account\"))\n\nusingClient(\n  me<Me>(src: Tenant.me()),\n)\n\nBuild(\n  Scaffold(\n    appBar: BakeryHeader(),\n    body: ScrollView(label: \"Account\", child: Column(gap: Space.md, padding: Insets(y: 12), children: [Column(gap: Space.lg, padding: Insets(x: 20, y: 12), children: [\n    Row(gap: Space.md, crossAxisAlignment: CrossAxisAlignment.center, children: [\n      Box(width: 56, height: 56, alignment: Anchor.center, border: Border(width: 1, color: Color.text), child: Text(child: \"MC\", fontFamily: \"Georgia\", size: FontSize.lg)),\n      Expanded(child: Column(gap: Space.xs, children: [Text(child: me.is_anonymous ? \"Account\" : me.display_name, size: FontSize.xl, fontFamily: \"Georgia\", lineHeight: 1.05), Text(child: me.is_anonymous ? \"Order as a guest or keep your details.\" : me.email, fontStyle: FontStyle.italic, color: Color.textMuted)]))\n    ]),\n    Divider(),\n    Button(label: \"Order history\", style: ButtonStyle.ghost, onTap: Navigate(to: Route.orders)),\n    Divider(),\n    Button(label: \"Addresses\", style: ButtonStyle.ghost, onTap: Navigate(to: Route.addresses)),\n    Divider(),\n    Button(label: \"Password\", style: ButtonStyle.ghost, onTap: Navigate(to: Route.resetPassword)),\n    Divider(),\n    If(condition: !me.is_anonymous, then: Button(label: \"Sign out\", style: ButtonStyle.ghost, onTap: SignOutPreviewCustomer()))\n  ])])),\n    bottomNavigationBar: BakeryTabs(),\n  )\n)\n",
+   "data": [
+    {
+     "name": "me",
+     "source": "tenant",
+     "resource": "me",
+     "fetch": "client"
+    }
+   ]
+  },
+  {
+   "id": "addresses",
+   "name": "Addresses",
+   "path": "/addresses",
+   "source": "Page(name: \"Addresses\", route: Route(path: \"/addresses\"))\n\nusingClient(\n  addresses<Address[]>(src: Tenant.addresses()),\n)\n\nBuild(\n  Scaffold(\n    appBar: BakeryHeader(),\n    body: ScrollView(label: \"Addresses\", child: Column(gap: Space.md, padding: Insets(y: 12), children: [Column(gap: Space.lg, padding: Insets(x: 20, y: 12), children: [\n    Text(child: \"ADDRESSES\", size: FontSize.xs, weight: FontWeight.bold, letterSpacing: 3, color: Color.textMuted),\n    Text(child: \"Where we deliver\", size: FontSize.xxl, fontFamily: \"Georgia\", lineHeight: 1.05),\n    Divider(),\n    ForEach(items: addresses, as: \"saved\", child: Column(gap: Space.sm, children: [Row(gap: Space.md, crossAxisAlignment: CrossAxisAlignment.center, children: [Expanded(child: Column(gap: Space.xs, children: [Text(child: saved.is_default ? \"${saved.label} (default)\" : saved.label, fontFamily: \"Georgia\", size: FontSize.lg), Text(child: saved.line1, fontStyle: FontStyle.italic, fontFamily: \"Georgia\", color: Color.textMuted)])), Box(padding: Insets(y: 4), onTap: RemoveAddress(address: saved.id), ariaLabel: \"Remove\", child: Text(child: \"remove\", size: FontSize.sm, fontFamily: \"Georgia\", fontStyle: FontStyle.italic, color: Color.primary))]), Divider()]), empty: Text(child: \"No addresses kept yet.\", fontFamily: \"Georgia\", fontStyle: FontStyle.italic)),\n    Column(gap: Space.md, children: [Row(gap: Space.md, crossAxisAlignment: CrossAxisAlignment.center, children: [Text(child: \"+\", size: FontSize.lg, fontFamily: \"Georgia\", fontStyle: FontStyle.italic, color: Color.primary), Text(child: \"A new address\", size: FontSize.lg, fontFamily: \"Georgia\")]), Divider(), Form(id: \"address\", onSubmit: SavePreviewAddress(), child: Column(gap: Space.md, children: [TextField(name: \"label\", label: \"Label\", required: true, maxLength: 40, background: Color.background, border: Border(width: 1, color: Color.text), radius: Radius.none), TextField(name: \"address\", label: \"Address\", required: true, maxLength: 200, background: Color.background, border: Border(width: 1, color: Color.text), radius: Radius.none), SubmitButton(label: \"SAVE\", fullWidth: true)]))])\n  ])])),\n  )\n)\n",
+   "data": [
+    {
+     "name": "addresses",
+     "source": "tenant",
+     "resource": "addresses",
+     "fetch": "client",
+     "select": "data",
+     "type": "Address[]"
+    }
+   ]
+  },
+  {
+   "id": "reset-password",
+   "name": "Password reset",
+   "path": "/reset-password",
+   "source": "Page(name: \"Password reset\", route: Route(path: \"/reset-password\"))\n\nBuild(\n  Scaffold(\n    appBar: BakeryHeader(),\n    body: ScrollView(label: \"Password reset\", child: Column(gap: Space.md, padding: Insets(y: 12), children: [Column(gap: Space.lg, padding: Insets(x: 20, y: 24), align: Align.center, children: [\n    Text(child: \"ACCOUNT\", size: FontSize.xs, weight: FontWeight.bold, letterSpacing: 3, color: Color.textMuted),\n    Text(child: \"A new password\", size: FontSize.xxl, fontFamily: \"Georgia\", align: TextAlign.center),\n    Text(child: \"We will email you a link to choose it.\", fontStyle: FontStyle.italic, fontFamily: \"Georgia\", color: Color.textMuted, align: TextAlign.center),\n    Form(id: \"resetPassword\", onSubmit: ResetPreviewPassword(), child: Column(gap: Space.md, children: [TextField(name: \"email\", label: \"Your email\", type: InputType.email, required: true, background: Color.background, border: Border(width: 1, color: Color.text), radius: Radius.none), SubmitButton(label: \"SEND THE LINK\", fullWidth: true)])),\n    Button(label: \"← The shop\", style: ButtonStyle.ghost, onTap: Navigate(to: Route.menu))\n  ])])),\n  )\n)\n"
+  }
+ ],
+ "entryPageId": "location",
+ "shellSource": "",
+ "componentSources": {
+  "BakeryHeader": "Component(\n  id: \"maison-crumb/header\",\n  name: \"BakeryHeader\",\n  kind: Kind.navigation,\n  description: \"The store's header: brand, the chosen store and the cart\",\n)\n\nBuild(\n  Column(gap: Space.sm, align: Align.center, padding: Insets(y: 16), children: [\n    Text(child: \"MAISON CRUMB\", size: FontSize.xl, weight: FontWeight.bold, letterSpacing: 6, fontFamily: \"Georgia\", align: TextAlign.center),\n    Text(child: \"Boulangerie · since 1998\", size: FontSize.xs, fontStyle: FontStyle.italic, color: Color.textMuted, fontFamily: \"Georgia\"),\n    Divider()\n  ])\n)\n",
+  "BakeryTabs": "Component(\n  id: \"maison-crumb/nav\",\n  name: \"BakeryTabs\",\n  kind: Kind.navigation,\n  description: \"The app's bottom navigation: menu, cart, orders and account\",\n)\n\nusingClient(\n  cart<Cart>(src: Client.cart()),\n)\n\nBuild(\n  Column(children: [Divider(), Box(padding: Insets(x: 12, y: 14), background: Color.background, child: Row(children: [\n    Expanded(child: Box(padding: Insets(y: 4), alignment: Anchor.center, onTap: Navigate(to: Route.menu), ariaLabel: \"SHOP\", child: Column(gap: Space.xs, align: Align.center, children: [\n      Text(child: \"SHOP\", size: FontSize.xs, letterSpacing: 2, fontFamily: \"Georgia\", color: isCurrentRoute(Route.menu) ? Color.text : Color.textMuted),\n      Box(width: 20, height: 1, background: isCurrentRoute(Route.menu) ? Color.primary : Color.background)\n    ]))),\n    Expanded(child: Box(padding: Insets(y: 4), alignment: Anchor.center, onTap: Navigate(to: Route.cart), ariaLabel: \"BASKET\", child: Column(gap: Space.xs, align: Align.center, children: [\n      Text(child: cart.count > 0 ? \"BASKET ${cart.count}\" : \"BASKET\", size: FontSize.xs, letterSpacing: 2, fontFamily: \"Georgia\", color: isCurrentRoute(Route.cart) ? Color.text : Color.textMuted),\n      Box(width: 20, height: 1, background: isCurrentRoute(Route.cart) ? Color.primary : Color.background)\n    ]))),\n    Expanded(child: Box(padding: Insets(y: 4), alignment: Anchor.center, onTap: Navigate(to: Route.orders), ariaLabel: \"ORDERS\", child: Column(gap: Space.xs, align: Align.center, children: [\n      Text(child: \"ORDERS\", size: FontSize.xs, letterSpacing: 2, fontFamily: \"Georgia\", color: isCurrentRoute(Route.orders) ? Color.text : Color.textMuted),\n      Box(width: 20, height: 1, background: isCurrentRoute(Route.orders) ? Color.primary : Color.background)\n    ]))),\n    Expanded(child: Box(padding: Insets(y: 4), alignment: Anchor.center, onTap: Navigate(to: Route.account), ariaLabel: \"ACCOUNT\", child: Column(gap: Space.xs, align: Align.center, children: [\n      Text(child: \"ACCOUNT\", size: FontSize.xs, letterSpacing: 2, fontFamily: \"Georgia\", color: isCurrentRoute(Route.account) ? Color.text : Color.textMuted),\n      Box(width: 20, height: 1, background: isCurrentRoute(Route.account) ? Color.primary : Color.background)\n    ])))\n  ]))])\n)\n"
+ },
+ "config": {
+  "colors": {
+   "primary": "#6b4e2e",
+   "primaryInk": "#fffaf2",
+   "background": "#fffaf2",
+   "surface": "#ffffff",
+   "surfaceAlt": "#f4ead9",
+   "text": "#2a2118",
+   "textMuted": "#857463",
+   "border": "#e8dcc6"
+  },
+  "spacing": {},
+  "radii": {
+   "sm": 0,
+   "md": 2,
+   "lg": 4
+  },
+  "fontSizes": {},
+  "iconSizes": {},
+  "iconLibrary": "material"
+ }
+}

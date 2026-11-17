@@ -1,0 +1,16 @@
+{
+ "name": "Product collection",
+ "id": "product-collection",
+ "description": "Bring a menu together as a grid or a carousel.",
+ "kind": "product-collection",
+ "type": "component",
+ "variants": [
+  "grid",
+  "carousel"
+ ],
+ "tags": [
+  "product-collection",
+  "responsive"
+ ],
+ "source": "Component(\n  dsl: 1,\n  id: \"acme/collection-flex\",\n  name: \"Flexible product collection\",\n  kind: Kind.productCollection,\n  description: \"Shows a list of products as a grid or a swipeable carousel.\",\n  aiHints: \"Use when the owner wants to show a category or featured products as a grid or carousel. Options: columns, how many to show, card style.\",\n  options: [\n    ComponentOption(name: \"card\", label: \"Card style\", kind: Kind.productCard,\n      default: \"core/product-card\", defaultVariant: \"vertical\"),\n    NumberOption(name: \"columns\", label: \"Columns (mobile)\", min: 1, max: 4, default: 2),\n    NumberOption(name: \"limit\", label: \"How many to show\", min: 1, max: 48, default: 12),\n    BoolOption(name: \"showTitle\", label: \"Show title\", default: true),\n  DataOption(name: \"products\", type: Product, list: true, required: true)],\n  parts: [\n    Part(\n      name: \"header\",\n      build: If(\n        condition: options.showTitle && title != null,\n        then: Text(child: title, role: TextRole.heading, level: 2,\n                   size: FontSize.xl, weight: FontWeight.bold),\n      ),\n    ),\n  ],\n  variants: [\n    Variant(\n      id: \"grid\",\n      label: \"Grid\",\n      build: Column(\n        gap: Space.md,\n        children: [\n          Use(part: \"header\"),\n          Grid(\n            cols: Responsive(base: options.columns, md: options.columns + 1, lg: options.columns + 2),\n            gap: Space.md,\n            children: [\n              ForEach(\n                items: take(options.products, options.limit),\n                as: \"p\",\n                child: Embed(ref: options.card, product: p),\n              ),\n            ],\n          ),\n        ],\n      ),\n    ),\n    Variant(\n      id: \"carousel\",\n      label: \"Carousel\",\n      build: Column(\n        gap: Space.md,\n        children: [\n          Use(part: \"header\"),\n          Carousel(\n            itemWidth: 220,\n            gap: Space.md,\n            snap: true,\n            children: [\n              ForEach(\n                items: take(options.products, options.limit),\n                as: \"p\",\n                child: Embed(ref: options.card, product: p),\n              ),\n            ],\n          ),\n        ],\n      ),\n    ),\n  ],\n)\n"
+}

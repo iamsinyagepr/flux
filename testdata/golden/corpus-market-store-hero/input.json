@@ -1,0 +1,16 @@
+{
+ "name": "Store hero",
+ "id": "market:store-hero",
+ "description": "The chosen store's banner, name and description.",
+ "type": "component",
+ "kind": "hero",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "store",
+  "hero",
+  "banner"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/store-hero\", name: \"Store hero\", kind: Kind.hero,\n  description: \"The chosen store's banner, name and description.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Column(gap: Space.sm, children: [\n      Image(src: store.banner_url, alt: store.name, aspectRatio: 2.4, fit: Fit.cover, radius: Radius.lg),\n      Text(child: store.name, size: FontSize.xxl, weight: FontWeight.bold),\n      If(condition: store.description, then: Text(child: store.description, color: Color.textMuted, lineHeight: 1.5))\n    ])\n  )], data: [Data(name: \"store\", from: Client.store(), fetch: \"client\", type: Store)],\n)\n"
+}

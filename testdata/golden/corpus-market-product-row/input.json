@@ -1,0 +1,16 @@
+{
+ "name": "Product row",
+ "id": "market:product-row",
+ "description": "A compact horizontal product with a thumbnail.",
+ "type": "component",
+ "kind": "productCard",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "product",
+  "row",
+  "list"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/product-row\", name: \"Product row\", kind: Kind.productCard,\n  description: \"A compact horizontal product with a thumbnail.\",\n  options: [StringOption(name: \"name\", label: \"Name\", maxLength: 40, default: \"Iced latte\"), StringOption(name: \"detail\", label: \"Detail\", maxLength: 60, default: \"Oat milk · 350 ml\"), NumberOption(name: \"price\", label: \"Price (cents)\", min: 0, max: 10000000, default: 4200)],\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Box(padding: Space.sm, radius: Radius.md, background: Color.surface, border: Border(width: 1), child: Row(gap: Space.md, crossAxisAlignment: CrossAxisAlignment.center, children: [\n      Image(src: null, alt: options.name, width: 64, height: 64, radius: Radius.md, fit: Fit.cover),\n      Expanded(child: Column(gap: Space.xs, children: [Text(child: options.name, weight: FontWeight.semibold), Text(child: options.detail, size: FontSize.sm, color: Color.textMuted)])),\n      Text(child: formatMoney(options.price), weight: FontWeight.bold)\n    ]))\n  )],\n)\n"
+}

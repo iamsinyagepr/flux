@@ -1,0 +1,16 @@
+{
+ "name": "Category chips",
+ "id": "market:category-chips",
+ "description": "A scrolling row of categories; one is selected.",
+ "type": "component",
+ "kind": "categoryNav",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "categories",
+  "chips",
+  "filter"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/category-chips\", name: \"Category chips\", kind: Kind.categoryNav,\n  description: \"A scrolling row of categories; one is selected.\",\n  options: [StringOption(name: \"first\", label: \"First\", maxLength: 20, default: \"Coffee\"), StringOption(name: \"second\", label: \"Second\", maxLength: 20, default: \"Bakery\"), StringOption(name: \"third\", label: \"Third\", maxLength: 20, default: \"Lunch\"), StringOption(name: \"fourth\", label: \"Fourth\", maxLength: 20, default: \"Drinks\")],\n  states: [StringState(name: \"category\", default: \"all\")],\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    ScrollView(direction: Axis.horizontal, label: \"Categories\", child: Row(gap: Space.sm, children: [\n      Box(padding: Insets(x: 14, y: 8), radius: Radius.full, background: state.category == \"all\" ? Color.primary : Color.surface, border: Border(width: 1, color: state.category == \"all\" ? Color.primary : Color.border), onTap: SetState(state: \"category\", value: \"all\"), ariaLabel: \"All\", child: Text(child: \"All\", weight: FontWeight.medium, color: state.category == \"all\" ? Color.primaryInk : Color.text)),\n      Box(padding: Insets(x: 14, y: 8), radius: Radius.full, background: state.category == options.first ? Color.primary : Color.surface, border: Border(width: 1, color: state.category == options.first ? Color.primary : Color.border), onTap: SetState(state: \"category\", value: options.first), ariaLabel: options.first, child: Text(child: options.first, weight: FontWeight.medium, color: state.category == options.first ? Color.primaryInk : Color.text)),\n      Box(padding: Insets(x: 14, y: 8), radius: Radius.full, background: state.category == options.second ? Color.primary : Color.surface, border: Border(width: 1, color: state.category == options.second ? Color.primary : Color.border), onTap: SetState(state: \"category\", value: options.second), ariaLabel: options.second, child: Text(child: options.second, weight: FontWeight.medium, color: state.category == options.second ? Color.primaryInk : Color.text)),\n      Box(padding: Insets(x: 14, y: 8), radius: Radius.full, background: state.category == options.third ? Color.primary : Color.surface, border: Border(width: 1, color: state.category == options.third ? Color.primary : Color.border), onTap: SetState(state: \"category\", value: options.third), ariaLabel: options.third, child: Text(child: options.third, weight: FontWeight.medium, color: state.category == options.third ? Color.primaryInk : Color.text)),\n      Box(padding: Insets(x: 14, y: 8), radius: Radius.full, background: state.category == options.fourth ? Color.primary : Color.surface, border: Border(width: 1, color: state.category == options.fourth ? Color.primary : Color.border), onTap: SetState(state: \"category\", value: options.fourth), ariaLabel: options.fourth, child: Text(child: options.fourth, weight: FontWeight.medium, color: state.category == options.fourth ? Color.primaryInk : Color.text))\n    ]))\n  )],\n)\n"
+}

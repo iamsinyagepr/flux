@@ -1,0 +1,15 @@
+{
+ "name": "Category list",
+ "id": "market:category-list",
+ "description": "Every menu category with its description.",
+ "type": "component",
+ "kind": "categoryNav",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "categories",
+  "list"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/category-list\", name: \"Category list\", kind: Kind.categoryNav,\n  description: \"Every menu category with its description.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Column(gap: Space.sm, children: [ForEach(items: options.menu.categories, as: \"c\", child: Box(padding: Space.md, radius: Radius.md, background: Color.surface, border: Border(width: 1), child: Column(gap: Space.xs, children: [Text(child: c.name, weight: FontWeight.semibold), If(condition: c.description, then: Text(child: c.description, size: FontSize.sm, color: Color.textMuted))])))])\n  )], options: [DataOption(name: \"menu\", type: Menu, required: true)],\n)\n"
+}

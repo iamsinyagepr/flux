@@ -1,0 +1,7 @@
+{
+ "name": "Bad",
+ "source": "Component(dsl: 1, id: \"test/x\", name: \"x\", kind: Kind.section, description: \"Golden case\",\n  \n  variants: [Variant(id: \"default\", label: \"Default\", build: Text(child: \"x\"))])",
+ "componentSources": {
+  "lowercase": "Component(dsl: 1, id: \"test/y\", name: \"y\", kind: Kind.section, description: \"Golden case\",\n  \n  variants: [Variant(id: \"default\", label: \"Default\", build: Text(child: \"y\"))])"
+ }
+}

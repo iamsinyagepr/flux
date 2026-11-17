@@ -1,0 +1,16 @@
+{
+ "name": "Time slot picker",
+ "id": "market:time-slots",
+ "description": "Choose when to collect or receive the order.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "time",
+  "slot",
+  "schedule"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/time-slots\", name: \"Time slot picker\", kind: Kind.section,\n  description: \"Choose when to collect or receive the order.\",\n  states: [StringState(name: \"slot\", default: \"asap\")],\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Column(gap: Space.sm, children: [\n      Text(child: \"When?\", weight: FontWeight.semibold),\n      Wrap(spacing: Space.sm, runSpacing: Space.sm, children: [\n        Box(width: 76, alignment: Anchor.center, padding: Insets(y: 8), radius: Radius.md, background: state.slot == \"asap\" ? Color.primary : Color.surface, border: Border(width: 1), onTap: SetState(state: \"slot\", value: \"asap\"), ariaLabel: \"As soon as possible\", child: Text(child: \"ASAP\", weight: FontWeight.medium, color: state.slot == \"asap\" ? Color.primaryInk : Color.text)),\n        Box(width: 76, alignment: Anchor.center, padding: Insets(y: 8), radius: Radius.md, background: state.slot == \"12:00\" ? Color.primary : Color.surface, border: Border(width: 1), onTap: SetState(state: \"slot\", value: \"12:00\"), ariaLabel: \"12:00\", child: Text(child: \"12:00\", weight: FontWeight.medium, color: state.slot == \"12:00\" ? Color.primaryInk : Color.text)),\n        Box(width: 76, alignment: Anchor.center, padding: Insets(y: 8), radius: Radius.md, background: state.slot == \"12:30\" ? Color.primary : Color.surface, border: Border(width: 1), onTap: SetState(state: \"slot\", value: \"12:30\"), ariaLabel: \"12:30\", child: Text(child: \"12:30\", weight: FontWeight.medium, color: state.slot == \"12:30\" ? Color.primaryInk : Color.text)),\n        Box(width: 76, alignment: Anchor.center, padding: Insets(y: 8), radius: Radius.md, background: state.slot == \"13:00\" ? Color.primary : Color.surface, border: Border(width: 1), onTap: SetState(state: \"slot\", value: \"13:00\"), ariaLabel: \"13:00\", child: Text(child: \"13:00\", weight: FontWeight.medium, color: state.slot == \"13:00\" ? Color.primaryInk : Color.text)),\n        Box(width: 76, alignment: Anchor.center, padding: Insets(y: 8), radius: Radius.md, background: state.slot == \"13:30\" ? Color.primary : Color.surface, border: Border(width: 1), onTap: SetState(state: \"slot\", value: \"13:30\"), ariaLabel: \"13:30\", child: Text(child: \"13:30\", weight: FontWeight.medium, color: state.slot == \"13:30\" ? Color.primaryInk : Color.text))\n      ])\n    ])\n  )],\n)\n"
+}

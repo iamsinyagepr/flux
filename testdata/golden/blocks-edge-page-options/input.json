@@ -1,0 +1,4 @@
+{
+ "name": "Edge",
+ "source": "Page(name: \"P\")\nOptions(a: Bool(default: true))\nBuild(Text(child: \"x\"))"
+}

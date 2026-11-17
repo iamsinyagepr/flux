@@ -1,0 +1,4 @@
+{
+ "name": "VARIANTS_EXAMPLE.md",
+ "source": "Component(\n  dsl: 1, id: \"example/variant-page\", name: \"VariantPage\", kind: Kind.section,\n  description: \"Choose page and component layouts independently.\",\n  defaultVariant: \"standard\",\n  states: [StringState(name: \"selected\", default: \"none\")],\n  variants: [\n    Variant(id: \"standard\", label: \"Standard\", build: Column(gap: Space.md, children: [\n      Text(child: \"Standard page\"),\n      Text(child: \"Selected: ${state.selected}\"),\n      VariantCard(title: \"First\"),\n      VariantCard(variant: \"detailed\", title: \"Second\", onChoose: SetState(state: \"selected\", value: \"second\")),\n      VariantCard(variant: isMobile() ? \"compact\" : \"detailed\", title: \"Conditional\"),\n    ])),\n    Variant(id: \"alternate\", label: \"Alternate\", build: Column(gap: Space.md, children: [\n      Text(child: \"Alternate page\"),\n      VariantCard(title: \"Alternate\"),\n    ])),\n  ],\n)\n"
+}

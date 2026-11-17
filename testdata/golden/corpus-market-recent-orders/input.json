@@ -1,0 +1,16 @@
+{
+ "name": "Recent orders",
+ "id": "market:recent-orders",
+ "description": "The last three orders with their status and total; tap to track.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "orders",
+  "recent",
+  "reorder"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/recent-orders\", name: \"Recent orders\", kind: Kind.section,\n  description: \"The last three orders with their status and total; tap to track.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Column(gap: Space.sm, children: [\n      Text(child: \"Recent orders\", size: FontSize.lg, weight: FontWeight.bold),\n      ForEach(items: options.orders, as: \"o\", limit: 3, empty: Text(child: \"No orders yet.\", color: Color.textMuted), child: Box(padding: Space.md, radius: Radius.md, background: Color.surface, border: Border(width: 1), onTap: Navigate(to: Route.order(id: o.id)), ariaLabel: \"Order ${o.order_number}\", child: Row(gap: Space.md, crossAxisAlignment: CrossAxisAlignment.center, children: [\n        Expanded(child: Column(gap: Space.xs, children: [Text(child: \"Order ${o.order_number}\", weight: FontWeight.semibold), Text(child: o.store_name, size: FontSize.sm, color: Color.textMuted)])),\n        Badge(label: o.status, tone: Tone.primary),\n        Text(child: formatMoney(o.total_cents), weight: FontWeight.bold)\n      ])))\n    ])\n  )], options: [DataOption(name: \"orders\", type: Order, list: true, required: true)],\n)\n"
+}

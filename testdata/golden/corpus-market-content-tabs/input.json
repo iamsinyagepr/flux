@@ -1,0 +1,15 @@
+{
+ "name": "Content tabs",
+ "id": "market:content-tabs",
+ "description": "Tabs that switch between menu, reviews and info.",
+ "type": "component",
+ "kind": "navigation",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "tabs",
+  "sections"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/content-tabs\", name: \"Content tabs\", kind: Kind.navigation,\n  description: \"Tabs that switch between menu, reviews and info.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Tabs(tabStyle: TabsStyle.pill, tabs: [\n      Tab(label: \"Menu\", child: Text(child: \"Our full menu, updated daily.\")),\n      Tab(label: \"Reviews\", child: Text(child: \"4.8 stars from 1 200 customers.\")),\n      Tab(label: \"Info\", child: Text(child: \"Open 07:00 – 18:00, seven days a week.\"))\n    ])\n  )],\n)\n"
+}

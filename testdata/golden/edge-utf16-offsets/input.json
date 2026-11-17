@@ -1,0 +1,4 @@
+{
+ "name": "utf16-offsets",
+ "source": "Component(dsl: 1, id: \"test/utf16-offsets\", name: \"utf16-offsets\", kind: Kind.section, description: \"Golden case\",\n  \n  variants: [Variant(id: \"default\", label: \"Default\", build: Column(children: [Text(child: \"héllo 😀 wörld\"), Text(child: \"x\", mystery: 1)]))])"
+}

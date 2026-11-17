@@ -1,0 +1,16 @@
+{
+ "name": "Live cart bar",
+ "id": "market:live-cart-bar",
+ "description": "Appears once something is in the cart: count, total and a way in.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "cart",
+  "sticky",
+  "total"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/live-cart-bar\", name: \"Live cart bar\", kind: Kind.section,\n  description: \"Appears once something is in the cart: count, total and a way in.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    If(condition: cart.count > 0, then: Box(padding: Insets(x: 16, y: 12), radius: Radius.lg, background: Color.primary, shadow: Shadow.lg, onTap: Navigate(to: Route.cart), ariaLabel: \"View cart\", child: Row(gap: Space.md, crossAxisAlignment: CrossAxisAlignment.center, children: [\n      Box(shape: BoxShape.circle, width: 26, height: 26, alignment: Anchor.center, background: Color.primaryInk, child: Text(child: cart.count, size: FontSize.sm, weight: FontWeight.bold, color: Color.primary)),\n      Expanded(child: Text(child: \"View cart\", weight: FontWeight.semibold, color: Color.primaryInk)),\n      Text(child: formatMoney(cart.total_cents), weight: FontWeight.bold, color: Color.primaryInk)\n    ])))\n  )], data: [Data(name: \"cart\", from: Client.cart(), fetch: \"client\", type: Cart)],\n)\n"
+}

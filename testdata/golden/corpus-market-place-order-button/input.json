@@ -1,0 +1,16 @@
+{
+ "name": "Place order button",
+ "id": "market:place-order-button",
+ "description": "Places the cart as an order with the checkout's choices, then opens tracking.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "place order",
+  "checkout",
+  "button"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/place-order-button\", name: \"Place order button\", kind: Kind.section,\n  description: \"Places the cart as an order with the checkout's choices, then opens tracking.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Button(label: cart.count > 0 ? \"Place order · ${formatMoney(checkout.quote.total_cents)}\" : \"Your cart is empty\", fullWidth: true, size: Size.lg, disabled: cart.count == 0, onTap: PlaceOrder(fulfilment: checkout.fulfilment))\n  )], data: [Data(name: \"cart\", from: Client.cart(), fetch: \"client\", type: Cart), Data(name: \"checkout\", from: Client.checkout(), fetch: \"client\", type: ClientCheckout)],\n)\n"
+}

@@ -1,0 +1,16 @@
+{
+ "name": "Delivery pricing",
+ "id": "market:delivery-pricing",
+ "description": "How the store prices delivery: a base fee plus per kilometre.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "delivery",
+  "pricing",
+  "fee"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/delivery-pricing\", name: \"Delivery pricing\", kind: Kind.section,\n  description: \"How the store prices delivery: a base fee plus per kilometre.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Box(padding: Space.md, radius: Radius.md, border: Border(width: 1), child: Column(gap: Space.xs, children: [\n      Text(child: \"Delivery pricing\", weight: FontWeight.semibold),\n      Text(child: \"${formatMoney(store.delivery_base_fee_cents)} plus ${formatMoney(store.delivery_per_km_cents)} per km\", color: Color.textMuted),\n      Text(child: \"Between ${formatMoney(store.delivery_min_fee_cents)} and ${formatMoney(store.delivery_max_fee_cents)}\", size: FontSize.sm, color: Color.textMuted)\n    ]))\n  )], data: [Data(name: \"store\", from: Client.store(), fetch: \"client\", type: Store)],\n)\n"
+}

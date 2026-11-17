@@ -1,0 +1,4 @@
+{
+ "name": "forms",
+ "source": "Component(dsl: 1, id: \"test/forms\", name: \"forms\", kind: Kind.section, description: \"Golden case\",\n  states: [StringState(name: \"agree\", default: \"no\")],\n  variants: [Variant(id: \"default\", label: \"Default\", build: Column(children: [Form(id: \"f\", child: Column(children: [TextField(name: \"email\", label: \"Email\", minLength: 5, maxLength: 2), TextField(name: \"email\", ariaLabel: \"Again\"), Checkbox(state: \"agree\", label: \"Agree\"), Form(id: \"f\", child: Text(child: \"nested\"))])), SubmitButton(label: \"Go\"), SelectOption(value: \"a\", label: \"A\")]))])"
+}

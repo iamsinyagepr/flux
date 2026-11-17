@@ -1,0 +1,4 @@
+{
+ "name": "usage",
+ "source": "Component(dsl: 1, id: \"test/usage\", name: \"usage\", kind: Kind.section, description: \"Golden case\",\n  states: [StringState(name: \"quantity\", default: \"1\"), BoolState(name: \"open\", default: false)],\n  variants: [Variant(id: \"default\", label: \"Default\", build: Grid(cols: Responsive(base: 2, md: 3, lg: 4), gap: Space.md, children: [Text(child: \"One\"), Text(child: \"Two\")]))])"
+}

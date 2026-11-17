@@ -1,0 +1,16 @@
+{
+ "name": "Delivery or pickup",
+ "id": "market:fulfilment-switch",
+ "description": "Switches the checkout between delivery and pickup, as the store offers them.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "delivery",
+  "pickup",
+  "fulfilment"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/fulfilment-switch\", name: \"Delivery or pickup\", kind: Kind.section,\n  description: \"Switches the checkout between delivery and pickup, as the store offers them.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Wrap(spacing: Space.xs, runSpacing: Space.xs, children: [\n      If(condition: store.accepts_delivery, then: Box(width: 130, padding: Insets(y: 10), radius: Radius.full, alignment: Anchor.center, background: checkout.fulfilment == \"delivery\" ? Color.primary : Color.surfaceAlt, onTap: SetCheckout(field: \"fulfilment\", value: \"delivery\"), ariaLabel: \"Delivery\", child: Text(child: \"Delivery\", weight: FontWeight.semibold, color: checkout.fulfilment == \"delivery\" ? Color.primaryInk : Color.text))),\n      If(condition: store.accepts_collect, then: Box(width: 130, padding: Insets(y: 10), radius: Radius.full, alignment: Anchor.center, background: checkout.fulfilment == \"pickup\" ? Color.primary : Color.surfaceAlt, onTap: SetCheckout(field: \"fulfilment\", value: \"pickup\"), ariaLabel: \"Pickup\", child: Text(child: \"Pickup\", weight: FontWeight.semibold, color: checkout.fulfilment == \"pickup\" ? Color.primaryInk : Color.text)))\n    ])\n  )], data: [Data(name: \"store\", from: Client.store(), fetch: \"client\", type: Store), Data(name: \"checkout\", from: Client.checkout(), fetch: \"client\", type: ClientCheckout)],\n)\n"
+}

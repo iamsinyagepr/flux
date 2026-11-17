@@ -1,0 +1,15 @@
+{
+ "name": "Section heading",
+ "id": "market:section-heading",
+ "description": "An eyebrow, a heading and a short line under it.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "heading",
+  "title"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/section-heading\", name: \"Section heading\", kind: Kind.section,\n  description: \"An eyebrow, a heading and a short line under it.\",\n  options: [StringOption(name: \"eyebrow\", label: \"Eyebrow\", maxLength: 24, default: \"Fresh today\"), StringOption(name: \"title\", label: \"Heading\", maxLength: 60, default: \"Made by hand, every morning\"), StringOption(name: \"subtitle\", label: \"Subtitle\", maxLength: 120, default: \"Small batches, local flour and nothing you can't pronounce.\")],\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Column(gap: Space.xs, children: [\n      Text(child: options.eyebrow, size: FontSize.xs, weight: FontWeight.bold, color: Color.primary, letterSpacing: 1.2),\n      Text(child: options.title, role: TextRole.heading, level: 2, size: FontSize.xl, weight: FontWeight.bold, lineHeight: 1.2),\n      Text(child: options.subtitle, color: Color.textMuted, lineHeight: 1.5)\n    ])\n  )],\n)\n"
+}

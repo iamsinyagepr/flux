@@ -1,0 +1,4 @@
+{
+ "name": "Variants",
+ "source": "Component(id: \"test/variants\", name: \"Variants\", kind: Kind.section, description: \"Rules\", defaultVariant: isMobile() ? \"compact\" : \"wide\")\n\nOptions(\n  title: String(label: \"Title\", maxLength: 40, default: \"Hello\"),\n  pick<Product>(required: true),\n  tags<Category[]>(),\n  onTap: Action(label: \"Tapped\"),\n)\n\nState(\n  open: Bool(default: false),\n  count: Number(default: 2),\n)\n\nParts(\n  heading: Text(child: options.title),\n)\n\nVariants(\n  compact: Variant(label: \"Compact\", options: Options(size: Number(label: \"Size\", min: 1, max: 50, default: 12)), Build(\n    Text(child: options.title, size: options.size)\n  )),\n  wide: Variant(label: \"Wide\", Build(Column(children: [Use(part: \"heading\"), Text(child: options.pick.name)]))),\n)\n"
+}

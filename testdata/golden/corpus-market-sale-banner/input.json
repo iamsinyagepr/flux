@@ -1,0 +1,16 @@
+{
+ "name": "Sale banner",
+ "id": "market:sale-banner",
+ "description": "A bold limited-time offer with a badge.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "sale",
+  "offer",
+  "banner"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/sale-banner\", name: \"Sale banner\", kind: Kind.section,\n  description: \"A bold limited-time offer with a badge.\",\n  options: [StringOption(name: \"title\", label: \"Offer\", maxLength: 40, default: \"2 for 1 on all pastries\"), StringOption(name: \"when\", label: \"When\", maxLength: 40, default: \"Today only, until 14:00\")],\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Box(padding: Space.lg, radius: Radius.lg, background: Color.warning, shadow: Shadow.md, child: Row(gap: Space.md, crossAxisAlignment: CrossAxisAlignment.center, children: [\n      Expanded(child: Column(gap: Space.xs, children: [Badge(label: \"Limited time\", tone: Tone.danger), Text(child: options.title, size: FontSize.xl, weight: FontWeight.bold), Text(child: options.when, size: FontSize.sm)])),\n      Box(rotate: -8, padding: Space.sm, radius: Radius.md, background: Color.surface, child: Text(child: \"SALE\", weight: FontWeight.bold, letterSpacing: 2, color: Color.danger))\n    ]))\n  )],\n)\n"
+}

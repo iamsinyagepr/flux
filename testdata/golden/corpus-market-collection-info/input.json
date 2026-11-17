@@ -1,0 +1,16 @@
+{
+ "name": "Collection info",
+ "id": "market:collection-info",
+ "description": "Where to collect, shown only when the store offers collection.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "collection",
+  "pickup",
+  "address"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/collection-info\", name: \"Collection info\", kind: Kind.section,\n  description: \"Where to collect, shown only when the store offers collection.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    If(condition: store.accepts_collect, then: Box(padding: Space.md, radius: Radius.md, background: Color.surfaceAlt, child: Row(gap: Space.sm, crossAxisAlignment: CrossAxisAlignment.center, children: [\n      Icon(name: Icons.home, color: Color.primary),\n      Expanded(child: Column(gap: Space.xs, children: [Text(child: \"Collect it yourself\", weight: FontWeight.semibold), Text(child: \"${store.address_line1}, ${store.city}\", size: FontSize.sm, color: Color.textMuted)]))\n    ])))\n  )], data: [Data(name: \"store\", from: Client.store(), fetch: \"client\", type: Store)],\n)\n"
+}

@@ -1,0 +1,16 @@
+{
+ "name": "Order notes",
+ "id": "market:order-notes",
+ "description": "Instructions for the driver and a contact-free option, sent with the order.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "notes",
+  "delivery",
+  "checkout"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/order-notes\", name: \"Order notes\", kind: Kind.section,\n  description: \"Instructions for the driver and a contact-free option, sent with the order.\",\n  states: [StringState(name: \"notes\", default: \"\"), BoolState(name: \"leaveAtDoor\", default: false)],\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Column(gap: Space.sm, children: [\n      TextField(state: \"notes\", label: \"Notes for the driver\", placeholder: \"Gate code, landmarks\", rows: 3, maxLength: 200, onChanged: SetCheckout(field: \"delivery_instructions\", value: input.value)),\n      Checkbox(state: \"leaveAtDoor\", label: \"Leave it at the door\", onChanged: SetCheckout(field: \"notes\", value: input.checked ? \"Please leave it at the door.\" : \"\"))\n    ])\n  )],\n)\n"
+}

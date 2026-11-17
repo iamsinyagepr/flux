@@ -1,0 +1,4 @@
+{
+ "name": "syntax-too-deep",
+ "source": "Component(dsl: 1, id: \"test/syntax-too-deep\", name: \"syntax-too-deep\", kind: Kind.section, description: \"Golden case\",\n  \n  variants: [Variant(id: \"default\", label: \"Default\", build: Text(child: ((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((\"x\"))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))])"
+}

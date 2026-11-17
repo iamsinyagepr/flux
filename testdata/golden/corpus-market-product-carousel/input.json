@@ -1,0 +1,15 @@
+{
+ "name": "Product carousel",
+ "id": "market:product-carousel",
+ "description": "Swipe through the first eight products.",
+ "type": "component",
+ "kind": "productCollection",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "products",
+  "carousel"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/product-carousel\", name: \"Product carousel\", kind: Kind.productCollection,\n  description: \"Swipe through the first eight products.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Carousel(itemWidth: 180, gap: Space.md, showArrows: true, children: [ForEach(items: options.products, as: \"p\", limit: 8, child: Box(radius: Radius.lg, background: Color.surface, border: Border(width: 1), clip: true, child: Column(children: [\n        Image(src: p.image_url, alt: p.name, aspectRatio: 1.33, fit: Fit.cover),\n        Column(padding: Space.sm, gap: Space.xs, children: [\n          Text(child: p.name, weight: FontWeight.semibold, maxLines: 1, overflow: TextOverflow.ellipsis),\n          Text(child: formatMoney(p.display_price_cents), weight: FontWeight.bold),\n          Button(label: \"View\", size: Size.sm, style: ButtonStyle.secondary, fullWidth: true, onTap: OpenProduct(product: p))\n        ])\n      ])))])\n  )], options: [DataOption(name: \"products\", type: Product, list: true, required: true)],\n)\n"
+}

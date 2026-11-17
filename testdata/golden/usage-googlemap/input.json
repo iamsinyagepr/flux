@@ -1,0 +1,4 @@
+{
+ "name": "usage",
+ "source": "Component(dsl: 1, id: \"test/usage\", name: \"usage\", kind: Kind.section, description: \"Golden case\",\n  states: [StringState(name: \"quantity\", default: \"1\"), BoolState(name: \"open\", default: false)],\n  variants: [Variant(id: \"default\", label: \"Default\", build: GoogleMap(latitude: -26.2041, longitude: 28.0473, zoom: 13, markers: [MapMarker(id: \"rosebank\", title: \"Rosebank\", latitude: -26.1458, longitude: 28.0436)], onMarkerTap: ShowMessage(message: event.title)))])"
+}

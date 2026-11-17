@@ -1,0 +1,15 @@
+{
+ "name": "Cancel order button",
+ "id": "market:cancel-order-button",
+ "description": "Cancels the open order while the store hasn't started it.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "cancel",
+  "order"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/cancel-order-button\", name: \"Cancel order button\", kind: Kind.section,\n  description: \"Cancels the open order while the store hasn't started it.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    If(condition: options.order.status == \"pending\" || options.order.status == \"confirmed\", then: Button(label: \"Cancel order\", style: ButtonStyle.secondary, fullWidth: true, onTap: CancelOrder()), else: Text(child: \"This order can no longer be cancelled.\", size: FontSize.sm, color: Color.textMuted))\n  )], options: [DataOption(name: \"order\", type: Order, required: true)],\n)\n"
+}

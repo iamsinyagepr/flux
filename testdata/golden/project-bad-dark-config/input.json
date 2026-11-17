@@ -1,0 +1,16 @@
+{
+ "name": "Config",
+ "source": "Component(dsl: 1, id: \"test/x\", name: \"x\", kind: Kind.section, description: \"Golden case\",\n  \n  variants: [Variant(id: \"default\", label: \"Default\", build: Text(child: \"x\"))])",
+ "config": {
+  "colors": {},
+  "darkColors": {
+   "unknownToken": "#000000"
+  },
+  "themeMode": "dusk",
+  "spacing": {},
+  "radii": {},
+  "fontSizes": {},
+  "iconSizes": {},
+  "iconLibrary": "material"
+ }
+}

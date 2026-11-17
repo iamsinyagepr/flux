@@ -1,0 +1,16 @@
+{
+ "name": "Testimonial card",
+ "id": "market:testimonial-card",
+ "description": "Five stars, a review and the customer's name.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "review",
+  "testimonial",
+  "stars"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/testimonial-card\", name: \"Testimonial card\", kind: Kind.section,\n  description: \"Five stars, a review and the customer's name.\",\n  options: [StringOption(name: \"review\", label: \"Review\", maxLength: 200, default: \"Ordered at 7, at my desk by 7:25. Still hot. Unreal.\"), StringOption(name: \"name\", label: \"Name\", maxLength: 40, default: \"Sipho M.\")],\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Box(padding: Space.lg, radius: Radius.lg, background: Color.surface, shadow: Shadow.sm, child: Column(gap: Space.sm, children: [\n      Row(gap: Space.xs, children: [Icon(name: Icons.star, size: Size.sm, color: Color.warning), Icon(name: Icons.star, size: Size.sm, color: Color.warning), Icon(name: Icons.star, size: Size.sm, color: Color.warning), Icon(name: Icons.star, size: Size.sm, color: Color.warning), Icon(name: Icons.star, size: Size.sm, color: Color.warning)]),\n      Text(child: options.review, lineHeight: 1.5),\n      Text(child: options.name, size: FontSize.sm, weight: FontWeight.semibold, color: Color.textMuted)\n    ]))\n  )],\n)\n"
+}

@@ -1,0 +1,15 @@
+{
+ "name": "Search bar",
+ "id": "market:search-bar",
+ "description": "A rounded search field that remembers what was typed.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "search",
+  "field"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/search-bar\", name: \"Search bar\", kind: Kind.section,\n  description: \"A rounded search field that remembers what was typed.\",\n  states: [StringState(name: \"query\", default: \"\")],\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Column(gap: Space.xs, children: [\n      SearchField(state: \"query\", ariaLabel: \"Search the menu\", placeholder: \"Search the menu\", radius: Radius.full, background: Color.surface),\n      If(condition: state.query != \"\", then: Text(child: \"Showing results for ${state.query}\", size: FontSize.sm, color: Color.textMuted))\n    ])\n  )],\n)\n"
+}

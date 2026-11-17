@@ -1,0 +1,15 @@
+{
+ "name": "Cart total",
+ "id": "market:cart-total-line",
+ "description": "The cart's item count and total in one line.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "cart",
+  "total"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/cart-total-line\", name: \"Cart total\", kind: Kind.section,\n  description: \"The cart's item count and total in one line.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Row(crossAxisAlignment: CrossAxisAlignment.center, children: [Expanded(child: Text(child: \"${cart.count} items\", color: Color.textMuted)), Text(child: formatMoney(cart.total_cents), size: FontSize.lg, weight: FontWeight.bold)])\n  )], data: [Data(name: \"cart\", from: Client.cart(), fetch: \"client\", type: Cart)],\n)\n"
+}

@@ -1,0 +1,16 @@
+{
+ "name": "Store reviews",
+ "id": "market:store-reviews",
+ "description": "What customers said about the store, with their ratings.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "reviews",
+  "ratings",
+  "store"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/store-reviews\", name: \"Store reviews\", kind: Kind.section,\n  description: \"What customers said about the store, with their ratings.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Column(gap: Space.sm, children: [\n      Row(gap: Space.sm, crossAxisAlignment: CrossAxisAlignment.center, children: [\n        Text(child: \"Reviews\", size: FontSize.lg, weight: FontWeight.bold),\n        If(condition: store.rating_count > 0, then: Badge(label: \"${store.rating} · ${store.rating_count} ratings\", tone: Tone.neutral))\n      ]),\n      ForEach(items: options.reviews, as: \"r\", limit: 5, empty: Text(child: \"No reviews yet.\", color: Color.textMuted), child: Box(padding: Space.md, radius: Radius.md, background: Color.surface, border: Border(width: 1), child: Column(gap: Space.xs, children: [\n        Row(children: [Expanded(child: Text(child: r.customer_name, weight: FontWeight.semibold)), If(condition: r.food_rating, then: Text(child: \"${r.food_rating}/5\", weight: FontWeight.bold, color: Color.primary))]),\n        If(condition: r.food_comment, then: Text(child: r.food_comment, color: Color.textMuted))\n      ])))\n    ])\n  )], data: [Data(name: \"store\", from: Client.store(), fetch: \"client\", type: Store)],\noptions: [DataOption(name: \"reviews\", type: OrderReview, list: true, required: true)],\n)\n"
+}

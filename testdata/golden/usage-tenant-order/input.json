@@ -1,0 +1,28 @@
+{
+ "name": "Usage",
+ "pages": [
+  {
+   "id": "usage",
+   "name": "Usage",
+   "path": "/usage/$store/$id/$dish",
+   "source": "Page(name: \"Usage\", route: Route(path: \"/usage/$store/$id/$dish\"))\n\nusingClient(order<Order>(src: Tenant.order(id: route.id)))\n\nBuild(\n  Text(child: \"x\")\n)\n",
+   "data": [
+    {
+     "name": "order",
+     "source": "tenant",
+     "resource": "order",
+     "params": [
+      {
+       "name": "id",
+       "from": "route",
+       "value": "id"
+      }
+     ],
+     "fetch": "client"
+    }
+   ]
+  }
+ ],
+ "entryPageId": "usage",
+ "shellSource": ""
+}

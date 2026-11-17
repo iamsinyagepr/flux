@@ -1,0 +1,4 @@
+{
+ "name": "animate",
+ "source": "Component(dsl: 1, id: \"test/animate\", name: \"animate\", kind: Kind.section, description: \"Golden case\",\n  \n  variants: [Variant(id: \"default\", label: \"Default\", build: Column(children: [Animate(child: Text(child: \"Default\")), Animate(effect: Effect.slideUp, duration: 300, delay: 120, curve: Curve.easeOut, distance: 32, child: Text(child: \"Up\")), Animate(effect: Effect.slideDown, curve: Curve.linear, child: Text(child: \"Down\")), Animate(effect: Effect.slideLeft, curve: Curve.ease, child: Text(child: \"Left\")), Animate(effect: Effect.slideRight, curve: Curve.easeIn, child: Text(child: \"Right\")), Animate(effect: Effect.scale, curve: Curve.easeInOut, child: Text(child: \"Scale\")), Animate(effect: Effect.pop, curve: Curve.easeOutBack, child: Text(child: \"Pop\")), ForEach(items: [1, 2, 3], as: \"n\", indexAs: \"i\", child: Animate(effect: Effect.fade, delay: i * 60, child: Text(child: \"Item ${n}\")))]))])"
+}

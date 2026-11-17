@@ -1,0 +1,15 @@
+{
+ "name": "Icon buttons",
+ "id": "market:icon-buttons",
+ "description": "Round icon buttons for search, favourites and the cart.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "button",
+  "icon"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/icon-buttons\", name: \"Icon buttons\", kind: Kind.section,\n  description: \"Round icon buttons for search, favourites and the cart.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Row(gap: Space.sm, children: [\n      Box(shape: BoxShape.circle, width: 44, height: 44, alignment: Anchor.center, background: Color.surface, border: Border(width: 1), onTap: Navigate(to: Route.menu), ariaLabel: \"Search\", child: Icon(name: Icons.search, size: Size.md)),\n      Box(shape: BoxShape.circle, width: 44, height: 44, alignment: Anchor.center, background: Color.surface, border: Border(width: 1), onTap: ShowMessage(message: \"Added to favourites\"), ariaLabel: \"Favourite\", child: Icon(name: Icons.heart, size: Size.md, color: Color.danger)),\n      Box(shape: BoxShape.circle, width: 44, height: 44, alignment: Anchor.center, background: Color.primary, onTap: Navigate(to: Route.cart), ariaLabel: \"Cart\", child: Icon(name: Icons.cart, size: Size.md, color: Color.primaryInk))\n    ])\n  )],\n)\n"
+}

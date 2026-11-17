@@ -1,0 +1,16 @@
+{
+ "name": "Pill toggle",
+ "id": "market:pill-toggle",
+ "description": "An on/off pill, for filters such as vegetarian only.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "filter",
+  "toggle",
+  "pill"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/pill-toggle\", name: \"Pill toggle\", kind: Kind.section,\n  description: \"An on/off pill, for filters such as vegetarian only.\",\n  states: [BoolState(name: \"on\", default: false)],\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Box(padding: Insets(x: 14, y: 8), radius: Radius.full, background: state.on ? Color.primary : Color.surface, border: Border(width: 1, color: state.on ? Color.primary : Color.border), onTap: Toggle(state: \"on\"), ariaLabel: \"Vegetarian only\", child: Row(gap: Space.xs, mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.center, children: [Icon(name: state.on ? Icons.check : Icons.plus, size: Size.sm, color: state.on ? Color.primaryInk : Color.text), Text(child: \"Vegetarian only\", weight: FontWeight.medium, color: state.on ? Color.primaryInk : Color.text)]))\n  )],\n)\n"
+}

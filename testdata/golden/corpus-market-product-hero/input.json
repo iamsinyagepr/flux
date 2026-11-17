@@ -1,0 +1,15 @@
+{
+ "name": "Product hero",
+ "id": "market:product-hero",
+ "description": "The open product's photo, name, description and price.",
+ "type": "component",
+ "kind": "productCard",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "product",
+  "hero"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/product-hero\", name: \"Product hero\", kind: Kind.productCard,\n  description: \"The open product's photo, name, description and price.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Column(gap: Space.sm, children: [\n      Image(src: options.product.image_url, alt: options.product.name, aspectRatio: 1.33, fit: Fit.cover, radius: Radius.lg),\n      Text(child: options.product.name, size: FontSize.xl, weight: FontWeight.bold),\n      If(condition: options.product.description, then: Text(child: options.product.description, color: Color.textMuted, lineHeight: 1.5)),\n      Text(child: formatMoney(options.product.display_price_cents), size: FontSize.lg, weight: FontWeight.bold, color: Color.primary)\n    ])\n  )], options: [DataOption(name: \"product\", type: Product, required: true)],\n)\n"
+}

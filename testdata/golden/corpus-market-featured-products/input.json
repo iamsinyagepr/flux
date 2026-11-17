@@ -1,0 +1,15 @@
+{
+ "name": "Featured products",
+ "id": "market:featured-products",
+ "description": "Only the products the business has marked as featured.",
+ "type": "component",
+ "kind": "productCollection",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "featured",
+  "products"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/featured-products\", name: \"Featured products\", kind: Kind.productCollection,\n  description: \"Only the products the business has marked as featured.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Column(gap: Space.sm, children: [\n      Text(child: \"Featured\", size: FontSize.lg, weight: FontWeight.bold),\n      Grid(cols: 2, gap: Space.md, children: [ForEach(items: options.products, as: \"p\", child: If(condition: p.is_featured, then: Box(radius: Radius.lg, background: Color.surface, border: Border(width: 1), clip: true, child: Column(children: [\n        Image(src: p.image_url, alt: p.name, aspectRatio: 1.33, fit: Fit.cover),\n        Column(padding: Space.sm, gap: Space.xs, children: [\n          Text(child: p.name, weight: FontWeight.semibold, maxLines: 1, overflow: TextOverflow.ellipsis),\n          Text(child: formatMoney(p.display_price_cents), weight: FontWeight.bold),\n          Button(label: \"Add\", size: Size.sm, fullWidth: true, onTap: AddToCart(product: p, quantity: 1))\n        ])\n      ]))))])\n    ])\n  )], options: [DataOption(name: \"products\", type: Product, list: true, required: true)],\n)\n"
+}

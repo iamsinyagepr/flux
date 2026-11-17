@@ -1,0 +1,16 @@
+{
+ "name": "Order receipt",
+ "id": "market:order-receipt",
+ "description": "The open order's number, fulfilment and totals.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "receipt",
+  "order",
+  "totals"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/order-receipt\", name: \"Order receipt\", kind: Kind.section,\n  description: \"The open order's number, fulfilment and totals.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Box(padding: Space.lg, radius: Radius.lg, background: Color.surface, border: Border(width: 1), child: Column(gap: Space.sm, children: [\n      Row(children: [Expanded(child: Text(child: \"Order ${options.order.order_number}\", weight: FontWeight.bold)), Badge(label: options.order.status, tone: Tone.primary)]),\n      Text(child: options.order.fulfilment_type == \"delivery\" ? \"Delivery to ${options.order.delivery_address_line1}\" : \"Collection from ${options.order.store_name}\", color: Color.textMuted),\n      Divider(),\n      Row(children: [Expanded(child: Text(child: \"Subtotal\", color: Color.textMuted)), Text(child: formatMoney(options.order.subtotal_cents))]),\n      Row(children: [Expanded(child: Text(child: \"Delivery\", color: Color.textMuted)), Text(child: formatMoney(options.order.delivery_fee_cents))]),\n      Row(children: [Expanded(child: Text(child: \"Total\", weight: FontWeight.bold)), Text(child: formatMoney(options.order.total_cents), weight: FontWeight.bold)])\n    ]))\n  )], options: [DataOption(name: \"order\", type: Order, required: true)],\n)\n"
+}

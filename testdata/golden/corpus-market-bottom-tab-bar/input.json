@@ -1,0 +1,16 @@
+{
+ "name": "Bottom tab bar",
+ "id": "market:bottom-tab-bar",
+ "description": "Home, menu, orders and account, with the current one highlighted.",
+ "type": "component",
+ "kind": "navigation",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "tabs",
+  "bottom bar",
+  "navigation"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/bottom-tab-bar\", name: \"Bottom tab bar\", kind: Kind.navigation,\n  description: \"Home, menu, orders and account, with the current one highlighted.\",\n  states: [StringState(name: \"tab\", default: \"home\")],\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Box(padding: Insets(x: 8, y: 6), background: Color.surface, border: Border(width: 1), child: Row(children: [\n      Expanded(child: Box(padding: Space.xs, alignment: Anchor.center, onTap: Actions(actions: [SetState(state: \"tab\", value: \"home\"), Navigate(to: Route.home)]), ariaLabel: \"Home\", child: Column(gap: Space.xs, align: Align.center, children: [Icon(name: Icons.home, color: state.tab == \"home\" ? Color.primary : Color.textMuted), Text(child: \"Home\", size: FontSize.xs, color: state.tab == \"home\" ? Color.primary : Color.textMuted)]))),\n      Expanded(child: Box(padding: Space.xs, alignment: Anchor.center, onTap: Actions(actions: [SetState(state: \"tab\", value: \"menu\"), Navigate(to: Route.menu)]), ariaLabel: \"Menu\", child: Column(gap: Space.xs, align: Align.center, children: [Icon(name: Icons.menu, color: state.tab == \"menu\" ? Color.primary : Color.textMuted), Text(child: \"Menu\", size: FontSize.xs, color: state.tab == \"menu\" ? Color.primary : Color.textMuted)]))),\n      Expanded(child: Box(padding: Space.xs, alignment: Anchor.center, onTap: Actions(actions: [SetState(state: \"tab\", value: \"orders\"), Navigate(to: Route.orders)]), ariaLabel: \"Orders\", child: Column(gap: Space.xs, align: Align.center, children: [Icon(name: Icons.orders, color: state.tab == \"orders\" ? Color.primary : Color.textMuted), Text(child: \"Orders\", size: FontSize.xs, color: state.tab == \"orders\" ? Color.primary : Color.textMuted)]))),\n      Expanded(child: Box(padding: Space.xs, alignment: Anchor.center, onTap: Actions(actions: [SetState(state: \"tab\", value: \"account\"), Navigate(to: Route.account)]), ariaLabel: \"Account\", child: Column(gap: Space.xs, align: Align.center, children: [Icon(name: Icons.user, color: state.tab == \"account\" ? Color.primary : Color.textMuted), Text(child: \"Account\", size: FontSize.xs, color: state.tab == \"account\" ? Color.primary : Color.textMuted)])))\n    ]))\n  )],\n)\n"
+}

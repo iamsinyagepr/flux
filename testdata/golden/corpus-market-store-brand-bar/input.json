@@ -1,0 +1,16 @@
+{
+ "name": "Store brand bar",
+ "id": "market:store-brand-bar",
+ "description": "The store's logo and name in a slim bar.",
+ "type": "component",
+ "kind": "navigation",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "store",
+  "logo",
+  "header"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/store-brand-bar\", name: \"Store brand bar\", kind: Kind.navigation,\n  description: \"The store's logo and name in a slim bar.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Row(gap: Space.sm, crossAxisAlignment: CrossAxisAlignment.center, children: [\n      Image(src: store.logo_url, alt: store.name, width: 36, height: 36, radius: Radius.full, fit: Fit.cover, fallback: ImageFallback.initials),\n      Expanded(child: Text(child: store.name, weight: FontWeight.bold)),\n      If(condition: store.is_open, then: Badge(label: \"Open\", tone: Tone.success))\n    ])\n  )], data: [Data(name: \"store\", from: Client.store(), fetch: \"client\", type: Store)],\n)\n"
+}

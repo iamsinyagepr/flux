@@ -1,0 +1,4 @@
+{
+ "name": "syntax-unclosed-string",
+ "source": "Component(dsl: 1, id: \"test/syntax-unclosed-string\", name: \"syntax-unclosed-string\", kind: Kind.section, description: \"Golden case\",\n  \n  variants: [Variant(id: \"default\", label: \"Default\", build: Text(child: \"never closed))])"
+}

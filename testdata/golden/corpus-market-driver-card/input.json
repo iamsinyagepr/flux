@@ -1,0 +1,16 @@
+{
+ "name": "Driver card",
+ "id": "market:driver-card",
+ "description": "The driver's name and number, once a driver is assigned.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "driver",
+  "delivery",
+  "tracking"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/driver-card\", name: \"Driver card\", kind: Kind.section,\n  description: \"The driver's name and number, once a driver is assigned.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    If(condition: options.order.driver_name, then: Box(padding: Space.md, radius: Radius.md, background: Color.surface, border: Border(width: 1), child: Row(gap: Space.md, crossAxisAlignment: CrossAxisAlignment.center, children: [\n      Box(shape: BoxShape.circle, width: 44, height: 44, alignment: Anchor.center, background: Color.primary, child: Icon(name: Icons.user, color: Color.primaryInk)),\n      Expanded(child: Column(gap: Space.xs, children: [Text(child: options.order.driver_name, weight: FontWeight.semibold), Text(child: \"Your driver\", size: FontSize.sm, color: Color.textMuted)])),\n      If(condition: options.order.driver_phone, then: Text(child: options.order.driver_phone, weight: FontWeight.medium))\n    ])))\n  )], options: [DataOption(name: \"order\", type: Order, required: true)],\n)\n"
+}

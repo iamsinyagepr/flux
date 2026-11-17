@@ -1,0 +1,4 @@
+{
+ "name": "parameter-types",
+ "source": "Component(dsl: 1, id: \"test/parameter-types\", name: \"parameter-types\", kind: Kind.section, description: \"Golden case\",\n  \n  variants: [Variant(id: \"default\", label: \"Default\", build: Column(children: [Text(child: \"a\", maxLines: \"two\"), Button(label: 3, onTap: \"go\"), Box(child: \"text\", ariaLabel: \"x\"), Grid(cols: 2, minItemWidth: 100, children: []), Divider(thickness: true)]))])"
+}

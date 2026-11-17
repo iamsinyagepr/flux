@@ -1,0 +1,16 @@
+{
+ "name": "FAQ",
+ "id": "market:faq",
+ "description": "Questions that open to show their answers.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "faq",
+  "questions",
+  "accordion"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/faq\", name: \"FAQ\", kind: Kind.section,\n  description: \"Questions that open to show their answers.\",\n  states: [BoolState(name: \"one\", default: true), BoolState(name: \"two\", default: false), BoolState(name: \"three\", default: false)],\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Column(gap: Space.sm, children: [\n      Box(padding: Space.md, radius: Radius.md, border: Border(width: 1), onTap: Toggle(state: \"one\"), ariaLabel: \"Do you deliver?\", child: Column(gap: Space.sm, children: [Row(children: [Expanded(child: Text(child: \"Do you deliver?\", weight: FontWeight.semibold)), Icon(name: Icons.chevronDown, size: Size.sm, color: Color.textMuted)]), If(condition: state.one, then: Text(child: \"Yes, within 8 km of each store, every day from 08:00.\", color: Color.textMuted))])),\n      Box(padding: Space.md, radius: Radius.md, border: Border(width: 1), onTap: Toggle(state: \"two\"), ariaLabel: \"Can I order ahead?\", child: Column(gap: Space.sm, children: [Row(children: [Expanded(child: Text(child: \"Can I order ahead?\", weight: FontWeight.semibold)), Icon(name: Icons.chevronDown, size: Size.sm, color: Color.textMuted)]), If(condition: state.two, then: Text(child: \"Pick a time slot at checkout, up to seven days ahead.\", color: Color.textMuted))])),\n      Box(padding: Space.md, radius: Radius.md, border: Border(width: 1), onTap: Toggle(state: \"three\"), ariaLabel: \"Do you cater for allergies?\", child: Column(gap: Space.sm, children: [Row(children: [Expanded(child: Text(child: \"Do you cater for allergies?\", weight: FontWeight.semibold)), Icon(name: Icons.chevronDown, size: Size.sm, color: Color.textMuted)]), If(condition: state.three, then: Text(child: \"Every dish lists its allergens. Ask in store about swaps.\", color: Color.textMuted))]))\n    ])\n  )],\n)\n"
+}

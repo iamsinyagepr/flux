@@ -1,0 +1,27 @@
+{
+ "name": "Usage",
+ "pages": [
+  {
+   "id": "usage",
+   "name": "Usage",
+   "path": "/dishes/$dish",
+   "source": "Page(name: \"Dish\", route: Route(path: \"/dishes/$dish\"))\n\nusingServer(\n  dish<Product>(src: Tenant.product(id: route.dish)),\n)\n\nBuild(\n  Scaffold(body: Text(child: dish.name))\n)",
+   "data": [
+    {
+     "name": "dish",
+     "source": "tenant",
+     "resource": "product",
+     "params": [
+      {
+       "name": "id",
+       "from": "route",
+       "value": "dish"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "entryPageId": "usage",
+ "shellSource": ""
+}

@@ -1,0 +1,15 @@
+{
+ "name": "Product rows",
+ "id": "market:product-rows",
+ "description": "Products in a list with a thumbnail; tap to see options.",
+ "type": "component",
+ "kind": "productCollection",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "products",
+  "list"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/product-rows\", name: \"Product rows\", kind: Kind.productCollection,\n  description: \"Products in a list with a thumbnail; tap to see options.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Column(gap: Space.sm, children: [ForEach(items: options.products, as: \"p\", child: Box(padding: Space.sm, radius: Radius.md, background: Color.surface, border: Border(width: 1), onTap: OpenProduct(product: p), ariaLabel: p.name, child: Row(gap: Space.md, crossAxisAlignment: CrossAxisAlignment.center, children: [\n      Image(src: p.image_url, alt: p.name, width: 64, height: 64, radius: Radius.md, fit: Fit.cover),\n      Expanded(child: Column(gap: Space.xs, children: [Text(child: p.name, weight: FontWeight.semibold), Text(child: formatMoney(p.display_price_cents), color: Color.textMuted)])),\n      Icon(name: Icons.chevronRight, color: Color.textMuted)\n    ])))])\n  )], options: [DataOption(name: \"products\", type: Product, list: true, required: true)],\n)\n"
+}

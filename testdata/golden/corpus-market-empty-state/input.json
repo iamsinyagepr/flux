@@ -1,0 +1,15 @@
+{
+ "name": "Empty state",
+ "id": "market:empty-state",
+ "description": "What to show when a list or the cart is empty.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "empty",
+  "placeholder"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/empty-state\", name: \"Empty state\", kind: Kind.section,\n  description: \"What to show when a list or the cart is empty.\",\n  options: [StringOption(name: \"title\", label: \"Title\", maxLength: 40, default: \"Your cart is empty\"), StringOption(name: \"body\", label: \"Text\", maxLength: 120, default: \"Pick something from the menu and it will show up here.\")],\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Box(padding: Space.xl, radius: Radius.lg, background: Color.surfaceAlt, alignment: Anchor.center, child: Column(gap: Space.sm, align: Align.center, children: [\n      Box(shape: BoxShape.circle, width: 64, height: 64, alignment: Anchor.center, background: Color.surface, child: Icon(name: Icons.cart, size: Size.lg, color: Color.textMuted)),\n      Text(child: options.title, size: FontSize.lg, weight: FontWeight.bold, align: TextAlign.center),\n      Text(child: options.body, color: Color.textMuted, align: TextAlign.center),\n      Button(label: \"Browse the menu\", onTap: Navigate(to: Route.menu))\n    ]))\n  )],\n)\n"
+}

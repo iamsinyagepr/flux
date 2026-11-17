@@ -1,0 +1,16 @@
+{
+ "name": "Call-to-action strip",
+ "id": "market:cta-strip",
+ "description": "A strip that asks for one thing.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "cta",
+  "strip",
+  "reorder"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/cta-strip\", name: \"Call-to-action strip\", kind: Kind.section,\n  description: \"A strip that asks for one thing.\",\n  options: [StringOption(name: \"title\", label: \"Text\", maxLength: 60, default: \"Hungry? Your usual is one tap away.\")],\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Box(padding: Space.lg, radius: Radius.lg, background: Color.text, child: Row(gap: Space.md, crossAxisAlignment: CrossAxisAlignment.center, children: [\n      Expanded(child: Text(child: options.title, size: FontSize.lg, weight: FontWeight.bold, color: Color.background)),\n      Button(label: \"Reorder\", onTap: Navigate(to: Route.orders))\n    ]))\n  )],\n)\n"
+}

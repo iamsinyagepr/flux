@@ -1,0 +1,16 @@
+{
+ "name": "Product grid",
+ "id": "market:product-grid",
+ "description": "Every product as a card with an add button.",
+ "type": "component",
+ "kind": "productCollection",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "products",
+  "grid",
+  "add to cart"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/product-grid\", name: \"Product grid\", kind: Kind.productCollection,\n  description: \"Every product as a card with an add button.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Grid(cols: Responsive(base: 2, md: 3), gap: Space.md, children: [ForEach(items: options.products, as: \"p\", child: Box(radius: Radius.lg, background: Color.surface, border: Border(width: 1), clip: true, child: Column(children: [\n        Image(src: p.image_url, alt: p.name, aspectRatio: 1.33, fit: Fit.cover),\n        Column(padding: Space.sm, gap: Space.xs, children: [\n          Text(child: p.name, weight: FontWeight.semibold, maxLines: 1, overflow: TextOverflow.ellipsis),\n          Text(child: formatMoney(p.display_price_cents), weight: FontWeight.bold),\n          Button(label: \"Add\", size: Size.sm, fullWidth: true, onTap: AddToCart(product: p, quantity: 1))\n        ])\n      ])))])\n  )], options: [DataOption(name: \"products\", type: Product, list: true, required: true)],\n)\n"
+}

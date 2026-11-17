@@ -1,0 +1,4 @@
+{
+ "name": "Edge",
+ "source": "Component(id: \"test/edge\", name: \"Edge\", kind: Kind.section, description: \"Edge\")\nState(a: Text(child: 1))\nBuild(Text(child: \"x\"))"
+}

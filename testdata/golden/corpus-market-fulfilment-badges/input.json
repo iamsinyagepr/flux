@@ -1,0 +1,16 @@
+{
+ "name": "Delivery and collection badges",
+ "id": "market:fulfilment-badges",
+ "description": "Which of delivery and collection the chosen store offers.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "delivery",
+  "collection",
+  "badges"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/fulfilment-badges\", name: \"Delivery and collection badges\", kind: Kind.section,\n  description: \"Which of delivery and collection the chosen store offers.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Wrap(spacing: Space.xs, runSpacing: Space.xs, children: [\n      If(condition: store.accepts_delivery, then: Badge(label: \"Delivery\", tone: Tone.success)),\n      If(condition: store.accepts_collect, then: Badge(label: \"Collection\", tone: Tone.primary))\n    ])\n  )], data: [Data(name: \"store\", from: Client.store(), fetch: \"client\", type: Store)],\n)\n"
+}

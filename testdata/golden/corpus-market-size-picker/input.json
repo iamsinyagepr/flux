@@ -1,0 +1,16 @@
+{
+ "name": "Size picker",
+ "id": "market:size-picker",
+ "description": "Small, medium or large, each with its price.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "size",
+  "options",
+  "product"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/size-picker\", name: \"Size picker\", kind: Kind.section,\n  description: \"Small, medium or large, each with its price.\",\n  states: [StringState(name: \"size\", default: \"medium\")],\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Column(gap: Space.sm, children: [\n      Row(gap: Space.sm, crossAxisAlignment: CrossAxisAlignment.center, children: [Text(child: \"Size\", weight: FontWeight.semibold), Badge(label: \"Required\", tone: Tone.warning)]),\n      Box(padding: Space.md, radius: Radius.md, border: Border(width: state.size == \"small\" ? 2 : 1, color: state.size == \"small\" ? Color.primary : Color.border), onTap: SetState(state: \"size\", value: \"small\"), ariaLabel: \"Small\", child: Row(children: [Expanded(child: Text(child: \"Small\")), Text(child: \"Included\", color: Color.textMuted)])),\n      Box(padding: Space.md, radius: Radius.md, border: Border(width: state.size == \"medium\" ? 2 : 1, color: state.size == \"medium\" ? Color.primary : Color.border), onTap: SetState(state: \"size\", value: \"medium\"), ariaLabel: \"Medium\", child: Row(children: [Expanded(child: Text(child: \"Medium\")), Text(child: \"+ \" + formatMoney(1000), color: Color.textMuted)])),\n      Box(padding: Space.md, radius: Radius.md, border: Border(width: state.size == \"large\" ? 2 : 1, color: state.size == \"large\" ? Color.primary : Color.border), onTap: SetState(state: \"size\", value: \"large\"), ariaLabel: \"Large\", child: Row(children: [Expanded(child: Text(child: \"Large\")), Text(child: \"+ \" + formatMoney(2000), color: Color.textMuted)]))\n    ])\n  )],\n)\n"
+}

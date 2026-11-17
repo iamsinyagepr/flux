@@ -1,0 +1,26 @@
+{
+ "name": "Shop",
+ "apiUrl": "https://shop.example.com/api/v1",
+ "pages": [
+  {
+   "id": "home",
+   "name": "home",
+   "path": "/",
+   "source": "Component(dsl: 1, id: \"test/home\", name: \"home\", kind: Kind.section, description: \"Golden case\",\n  \n  variants: [Variant(id: \"default\", label: \"Default\", build: Scaffold(body: Text(child: \"Menu\")))])"
+  },
+  {
+   "id": "location",
+   "name": "location",
+   "path": "/select-location",
+   "source": "Component(dsl: 1, id: \"test/location\", name: \"location\", kind: Kind.section, description: \"Golden case\",\n  \n  variants: [Variant(id: \"default\", label: \"Default\", build: Text(child: \"Where?\"))])"
+  },
+  {
+   "id": "product-page",
+   "name": "product-page",
+   "path": "/product-page",
+   "source": "Component(dsl: 1, id: \"test/product-page\", name: \"product-page\", kind: Kind.section, description: \"Golden case\",\n  \n  variants: [Variant(id: \"default\", label: \"Default\", build: Text(child: \"Product\"))])"
+  }
+ ],
+ "entryPageId": "home",
+ "shellSource": "Component(dsl: 1, id: \"custom/shell\", name: \"Shell\", kind: Kind.navigation, description: \"Shell\", variants: [Variant(id: \"default\", label: \"Default\", build: Text(child: \"Shell\"))])"
+}

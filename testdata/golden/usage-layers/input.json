@@ -1,0 +1,4 @@
+{
+ "name": "usage",
+ "source": "Component(dsl: 1, id: \"test/usage\", name: \"usage\", kind: Kind.section, description: \"Golden case\",\n  states: [StringState(name: \"quantity\", default: \"1\"), BoolState(name: \"open\", default: false)],\n  variants: [Variant(id: \"default\", label: \"Default\", build: Layers(child: Image(src: product.image_url, alt: product.name), layers: [Layer(anchor: Anchor.topLeft, child: Badge(label: \"New\"))]))])"
+}

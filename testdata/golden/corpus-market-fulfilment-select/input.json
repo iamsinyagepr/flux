@@ -1,0 +1,16 @@
+{
+ "name": "Order type select",
+ "id": "market:fulfilment-select",
+ "description": "Delivery, collection or dine-in, from a dropdown.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "fulfilment",
+  "select",
+  "order type"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/fulfilment-select\", name: \"Order type select\", kind: Kind.section,\n  description: \"Delivery, collection or dine-in, from a dropdown.\",\n  states: [StringState(name: \"orderType\", default: \"delivery\")],\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    SelectField(state: \"orderType\", label: \"Order type\", options: [SelectOption(value: \"delivery\", label: \"Delivery\"), SelectOption(value: \"collection\", label: \"Collection\"), SelectOption(value: \"dine-in\", label: \"Dine in\")])\n  )],\n)\n"
+}

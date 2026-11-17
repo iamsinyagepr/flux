@@ -1,0 +1,16 @@
+{
+ "name": "Classic Food",
+ "id": "classic-food",
+ "description": "A welcoming hero, category chips and a product grid.",
+ "kind": "section",
+ "type": "template",
+ "variants": [
+  "classic"
+ ],
+ "tags": [
+  "template",
+  "food",
+  "responsive"
+ ],
+ "source": "Component(\n  dsl: 1,\n  id: \"studio/classic-food\",\n  name: \"Classic Food\",\n  kind: Kind.section,\n  description: \"A welcoming hero, category chips and a product grid.\",\n  aiHints: \"A simple introduction section.\",\n  variants: [\n    Variant(\n      id: \"classic\",\n      label: \"Classic Food\",\n      build: Text(child: store.name),\n    ),\n  ], data: [Data(name: \"store\", from: Client.store(), fetch: \"client\", type: Store)],\n)\n"
+}

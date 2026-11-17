@@ -1,0 +1,16 @@
+{
+ "name": "Loyalty stamps",
+ "id": "market:loyalty-card",
+ "description": "Eight stamps; the ninth coffee is free.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "loyalty",
+  "rewards",
+  "stamps"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/loyalty-card\", name: \"Loyalty stamps\", kind: Kind.section,\n  description: \"Eight stamps; the ninth coffee is free.\",\n  options: [NumberOption(name: \"stamps\", label: \"Stamps collected\", min: 0, max: 8, default: 5)],\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Box(padding: Space.lg, radius: Radius.lg, background: Color.surface, border: Border(width: 1), child: Column(gap: Space.md, children: [\n      Row(crossAxisAlignment: CrossAxisAlignment.center, children: [Expanded(child: Text(child: \"Coffee card\", weight: FontWeight.bold)), Text(child: \"${options.stamps} / 8\", color: Color.textMuted)]),\n      Wrap(spacing: Space.sm, runSpacing: Space.sm, children: [\n        Box(shape: BoxShape.circle, width: 32, height: 32, alignment: Anchor.center, background: options.stamps >= 1 ? Color.primary : Color.surfaceAlt, child: Icon(name: Icons.check, size: Size.sm, color: options.stamps >= 1 ? Color.primaryInk : Color.border)),\n        Box(shape: BoxShape.circle, width: 32, height: 32, alignment: Anchor.center, background: options.stamps >= 2 ? Color.primary : Color.surfaceAlt, child: Icon(name: Icons.check, size: Size.sm, color: options.stamps >= 2 ? Color.primaryInk : Color.border)),\n        Box(shape: BoxShape.circle, width: 32, height: 32, alignment: Anchor.center, background: options.stamps >= 3 ? Color.primary : Color.surfaceAlt, child: Icon(name: Icons.check, size: Size.sm, color: options.stamps >= 3 ? Color.primaryInk : Color.border)),\n        Box(shape: BoxShape.circle, width: 32, height: 32, alignment: Anchor.center, background: options.stamps >= 4 ? Color.primary : Color.surfaceAlt, child: Icon(name: Icons.check, size: Size.sm, color: options.stamps >= 4 ? Color.primaryInk : Color.border)),\n        Box(shape: BoxShape.circle, width: 32, height: 32, alignment: Anchor.center, background: options.stamps >= 5 ? Color.primary : Color.surfaceAlt, child: Icon(name: Icons.check, size: Size.sm, color: options.stamps >= 5 ? Color.primaryInk : Color.border)),\n        Box(shape: BoxShape.circle, width: 32, height: 32, alignment: Anchor.center, background: options.stamps >= 6 ? Color.primary : Color.surfaceAlt, child: Icon(name: Icons.check, size: Size.sm, color: options.stamps >= 6 ? Color.primaryInk : Color.border)),\n        Box(shape: BoxShape.circle, width: 32, height: 32, alignment: Anchor.center, background: options.stamps >= 7 ? Color.primary : Color.surfaceAlt, child: Icon(name: Icons.check, size: Size.sm, color: options.stamps >= 7 ? Color.primaryInk : Color.border)),\n        Box(shape: BoxShape.circle, width: 32, height: 32, alignment: Anchor.center, background: options.stamps >= 8 ? Color.primary : Color.surfaceAlt, child: Icon(name: Icons.check, size: Size.sm, color: options.stamps >= 8 ? Color.primaryInk : Color.border))\n      ]),\n      Text(child: options.stamps >= 8 ? \"Your next coffee is on us.\" : \"${8 - options.stamps} more for a free coffee\", size: FontSize.sm, color: Color.textMuted)\n    ]))\n  )],\n)\n"
+}

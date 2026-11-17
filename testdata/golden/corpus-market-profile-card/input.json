@@ -1,0 +1,16 @@
+{
+ "name": "Profile card",
+ "id": "market:profile-card",
+ "description": "A person's initials, name, role and a contact button.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "profile",
+  "team",
+  "person"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/profile-card\", name: \"Profile card\", kind: Kind.section,\n  description: \"A person's initials, name, role and a contact button.\",\n  options: [StringOption(name: \"name\", label: \"Name\", maxLength: 40, default: \"Lerato Dube\"), StringOption(name: \"role\", label: \"Role\", maxLength: 40, default: \"Head baker\")],\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Box(padding: Space.lg, radius: Radius.lg, background: Color.surface, border: Border(width: 1), child: Row(gap: Space.md, crossAxisAlignment: CrossAxisAlignment.center, children: [\n      Box(shape: BoxShape.circle, width: 52, height: 52, alignment: Anchor.center, background: Color.primary, child: Icon(name: Icons.user, color: Color.primaryInk)),\n      Expanded(child: Column(gap: Space.xs, children: [Text(child: options.name, weight: FontWeight.bold), Text(child: options.role, size: FontSize.sm, color: Color.textMuted)])),\n      Box(shape: BoxShape.circle, width: 40, height: 40, alignment: Anchor.center, border: Border(width: 1), onTap: ShowMessage(message: \"Message sent\"), ariaLabel: \"Message\", child: Icon(name: Icons.email, size: Size.sm))\n    ]))\n  )],\n)\n"
+}

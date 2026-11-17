@@ -1,0 +1,15 @@
+{
+ "name": "Checkout button",
+ "id": "market:checkout-button",
+ "description": "Goes to checkout; disabled while the cart is empty.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "checkout",
+  "button"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/checkout-button\", name: \"Checkout button\", kind: Kind.section,\n  description: \"Goes to checkout; disabled while the cart is empty.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Button(label: cart.count > 0 ? \"Checkout · ${formatMoney(cart.total_cents)}\" : \"Your cart is empty\", fullWidth: true, size: Size.lg, disabled: cart.count == 0, onTap: Navigate(to: Route.checkout))\n  )], data: [Data(name: \"cart\", from: Client.cart(), fetch: \"client\", type: Cart)],\n)\n"
+}

@@ -1,0 +1,27 @@
+{
+ "name": "Usage",
+ "pages": [
+  {
+   "id": "usage",
+   "name": "Usage",
+   "path": "/usage/$store/$id/$dish",
+   "source": "Page(name: \"Usage\", route: Route(path: \"/usage/$store/$id/$dish\"))\n\nusingServer(weather<Json>(src: Http(url: \"https://api.example.com/w?city={city}\", params: [Param(name: \"city\", value: query.city)])))\n\nBuild(\n  Text(child: \"x\")\n)\n",
+   "data": [
+    {
+     "name": "weather",
+     "source": "external",
+     "url": "https://api.example.com/w?city={city}",
+     "params": [
+      {
+       "name": "city",
+       "from": "query",
+       "value": "city"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "entryPageId": "usage",
+ "shellSource": ""
+}

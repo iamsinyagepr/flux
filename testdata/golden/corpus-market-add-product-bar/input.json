@@ -1,0 +1,15 @@
+{
+ "name": "Add to cart bar",
+ "id": "market:add-product-bar",
+ "description": "A full-width add button for the open product, with a quantity.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "add to cart",
+  "quantity"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/add-product-bar\", name: \"Add to cart bar\", kind: Kind.section,\n  description: \"A full-width add button for the open product, with a quantity.\",\n  states: [NumberState(name: \"quantity\", default: 1)],\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Box(padding: Space.md, background: Color.surface, border: Border(width: 1), child: Row(gap: Space.md, crossAxisAlignment: CrossAxisAlignment.center, children: [\n      Box(shape: BoxShape.circle, width: 36, height: 36, alignment: Anchor.center, border: Border(width: 1), onTap: SetState(state: \"quantity\", value: state.quantity > 1 ? state.quantity - 1 : 1), ariaLabel: \"Fewer\", child: Icon(name: Icons.minus, size: Size.sm)),\n      Text(child: state.quantity, weight: FontWeight.bold),\n      Box(shape: BoxShape.circle, width: 36, height: 36, alignment: Anchor.center, border: Border(width: 1), onTap: SetState(state: \"quantity\", value: state.quantity + 1), ariaLabel: \"More\", child: Icon(name: Icons.plus, size: Size.sm)),\n      Expanded(child: Button(label: \"Add ${state.quantity} to cart\", fullWidth: true, disabled: !options.product.is_available, onTap: AddConfiguredProduct(quantity: state.quantity)))\n    ]))\n  )], options: [DataOption(name: \"product\", type: Product, required: true)],\n)\n"
+}

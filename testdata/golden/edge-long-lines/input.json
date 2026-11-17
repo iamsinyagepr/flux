@@ -1,0 +1,4 @@
+{
+ "name": "long-lines",
+ "source": "Component(dsl: 1, id: \"test/long-lines\", name: \"long-lines\", kind: Kind.section, description: \"Golden case\",\n  \n  variants: [Variant(id: \"default\", label: \"Default\", build: Column(gap: Space.md, padding: Insets(x: Space.lg, top: Space.sm, bottom: Space.xl), children: [Text(child: \"A very long piece of text that will certainly not fit within eighty columns of Dart\", size: FontSize.xl, weight: FontWeight.bold, color: Color.textMuted, maxLines: 2, align: Align.center)]))])"
+}

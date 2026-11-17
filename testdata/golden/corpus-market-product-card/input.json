@@ -1,0 +1,15 @@
+{
+ "name": "Product card",
+ "id": "market:product-card",
+ "description": "A photo, name, price and an add button.",
+ "type": "component",
+ "kind": "productCard",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "product",
+  "card"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/product-card\", name: \"Product card\", kind: Kind.productCard,\n  description: \"A photo, name, price and an add button.\",\n  options: [StringOption(name: \"name\", label: \"Name\", maxLength: 40, default: \"Sourdough loaf\"), NumberOption(name: \"price\", label: \"Price (cents)\", min: 0, max: 10000000, default: 6500)],\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Box(radius: Radius.lg, background: Color.surface, border: Border(width: 1), clip: true, shadow: Shadow.sm, child: Column(children: [\n      Image(src: null, alt: options.name, aspectRatio: 1.33, fit: Fit.cover),\n      Column(padding: Space.md, gap: Space.xs, children: [\n        Text(child: options.name, weight: FontWeight.semibold, maxLines: 1, overflow: TextOverflow.ellipsis),\n        Row(crossAxisAlignment: CrossAxisAlignment.center, children: [Expanded(child: Text(child: formatMoney(options.price), weight: FontWeight.bold)), Button(label: \"Add\", size: Size.sm, onTap: ShowMessage(message: \"Added to cart\"))])\n      ])\n    ]))\n  )],\n)\n"
+}

@@ -1,0 +1,4 @@
+{
+ "name": "syntax-duplicate-param",
+ "source": "Component(dsl: 1, id: \"test/syntax-duplicate-param\", name: \"syntax-duplicate-param\", kind: Kind.section, description: \"Golden case\",\n  \n  variants: [Variant(id: \"default\", label: \"Default\", build: Text(child: \"a\", child: \"b\"))])"
+}

@@ -1,0 +1,16 @@
+{
+ "name": "Open or closed badge",
+ "id": "market:store-open-badge",
+ "description": "Whether the chosen store is taking orders now.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "store",
+  "open",
+  "badge"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/store-open-badge\", name: \"Open or closed badge\", kind: Kind.section,\n  description: \"Whether the chosen store is taking orders now.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    If(condition: store.is_open, then: Badge(label: \"Open now\", tone: Tone.success), else: Badge(label: \"Closed\", tone: Tone.danger))\n  )], data: [Data(name: \"store\", from: Client.store(), fetch: \"client\", type: Store)],\n)\n"
+}

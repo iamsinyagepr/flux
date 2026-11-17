@@ -1,0 +1,4 @@
+{
+ "name": "parts",
+ "source": "Component(dsl: 1, id: \"test/parts\", name: \"parts\", kind: Kind.section, description: \"Golden case\",\n  parts: [Part(name: \"a\", build: Use(part: \"b\")), Part(name: \"b\", build: Use(part: \"a\")), Part(name: \"a\", build: Text(child: \"dup\"))],\n  variants: [Variant(id: \"default\", label: \"Default\", build: Column(children: [Use(part: \"a\"), Use(part: \"missing\")]))])"
+}

@@ -1,0 +1,15 @@
+{
+ "name": "Product facts",
+ "id": "market:product-facts",
+ "description": "Calories and preparation time as small chips.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "calories",
+  "prep time"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/product-facts\", name: \"Product facts\", kind: Kind.section,\n  description: \"Calories and preparation time as small chips.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Wrap(spacing: Space.sm, runSpacing: Space.sm, children: [\n      If(condition: options.product.calories, then: Box(padding: Insets(x: 10, y: 6), radius: Radius.full, background: Color.surfaceAlt, child: Text(child: \"${options.product.calories} kcal\", size: FontSize.sm))),\n      If(condition: options.product.prep_time_minutes, then: Box(padding: Insets(x: 10, y: 6), radius: Radius.full, background: Color.surfaceAlt, child: Text(child: \"${options.product.prep_time_minutes} min\", size: FontSize.sm)))\n    ])\n  )], options: [DataOption(name: \"product\", type: Product, required: true)],\n)\n"
+}

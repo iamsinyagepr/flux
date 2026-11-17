@@ -1,0 +1,16 @@
+{
+ "name": "Order progress",
+ "id": "market:order-progress",
+ "description": "Received, preparing, on the way, delivered.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "tracking",
+  "progress",
+  "status"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/order-progress\", name: \"Order progress\", kind: Kind.section,\n  description: \"Received, preparing, on the way, delivered.\",\n  options: [NumberOption(name: \"step\", label: \"Current step (1–4)\", min: 1, max: 4, default: 2)],\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Column(gap: Space.sm, children: [\n      Row(gap: Space.sm, crossAxisAlignment: CrossAxisAlignment.center, children: [Icon(name: Icons.check, color: options.step >= 1 ? Color.success : Color.border), Text(child: \"Order received\", weight: options.step == 1 ? FontWeight.bold : FontWeight.regular)]),\n      Row(gap: Space.sm, crossAxisAlignment: CrossAxisAlignment.center, children: [Icon(name: Icons.clock, color: options.step >= 2 ? Color.success : Color.border), Text(child: \"Preparing\", weight: options.step == 2 ? FontWeight.bold : FontWeight.regular)]),\n      Row(gap: Space.sm, crossAxisAlignment: CrossAxisAlignment.center, children: [Icon(name: Icons.location, color: options.step >= 3 ? Color.success : Color.border), Text(child: \"On the way\", weight: options.step == 3 ? FontWeight.bold : FontWeight.regular)]),\n      Row(gap: Space.sm, crossAxisAlignment: CrossAxisAlignment.center, children: [Icon(name: Icons.home, color: options.step >= 4 ? Color.success : Color.border), Text(child: \"Delivered\", weight: options.step == 4 ? FontWeight.bold : FontWeight.regular)])\n    ])\n  )],\n)\n"
+}

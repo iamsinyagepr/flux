@@ -1,0 +1,4 @@
+{
+ "name": "unknown-things",
+ "source": "Component(dsl: 1, id: \"test/unknown-things\", name: \"unknown-things\", kind: Kind.section, description: \"Golden case\",\n  \n  variants: [Variant(id: \"default\", label: \"Default\", build: Column(children: [Mystery(a: 1), Text(child: nope.value), Text(child: store.notAField), Text(child: \"x\", color: Color.nope), Text(child: \"y\", size: FontSize.lg.deep)]))])"
+}

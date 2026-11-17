@@ -1,0 +1,23 @@
+{
+ "name": "Usage",
+ "pages": [
+  {
+   "id": "usage",
+   "name": "Usage",
+   "path": "/usage/$store/$id/$dish",
+   "source": "Page(name: \"Usage\", route: Route(path: \"/usage/$store/$id/$dish\"))\n\nusingClient(addresses<Address[]>(src: Tenant.addresses()))\n\nBuild(\n  Text(child: \"x\")\n)\n",
+   "data": [
+    {
+     "name": "addresses",
+     "source": "tenant",
+     "resource": "addresses",
+     "fetch": "client",
+     "select": "data",
+     "type": "Address[]"
+    }
+   ]
+  }
+ ],
+ "entryPageId": "usage",
+ "shellSource": ""
+}

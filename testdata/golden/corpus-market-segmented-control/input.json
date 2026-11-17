@@ -1,0 +1,16 @@
+{
+ "name": "Segmented control",
+ "id": "market:segmented-control",
+ "description": "Three options where one is always selected.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "segmented",
+  "size",
+  "choice"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/segmented-control\", name: \"Segmented control\", kind: Kind.section,\n  description: \"Three options where one is always selected.\",\n  states: [StringState(name: \"choice\", default: \"small\")],\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Box(padding: Space.xs, radius: Radius.full, background: Color.surfaceAlt, child: Row(gap: Space.xs, children: [\n      Expanded(child: Box(padding: Insets(y: 8), radius: Radius.full, alignment: Anchor.center, background: state.choice == \"small\" ? Color.surface : Color.surfaceAlt, shadow: state.choice == \"small\" ? Shadow.sm : Shadow.none, onTap: SetState(state: \"choice\", value: \"small\"), ariaLabel: \"Small\", child: Text(child: \"Small\", weight: FontWeight.semibold))),\n      Expanded(child: Box(padding: Insets(y: 8), radius: Radius.full, alignment: Anchor.center, background: state.choice == \"regular\" ? Color.surface : Color.surfaceAlt, shadow: state.choice == \"regular\" ? Shadow.sm : Shadow.none, onTap: SetState(state: \"choice\", value: \"regular\"), ariaLabel: \"Regular\", child: Text(child: \"Regular\", weight: FontWeight.semibold))),\n      Expanded(child: Box(padding: Insets(y: 8), radius: Radius.full, alignment: Anchor.center, background: state.choice == \"large\" ? Color.surface : Color.surfaceAlt, shadow: state.choice == \"large\" ? Shadow.sm : Shadow.none, onTap: SetState(state: \"choice\", value: \"large\"), ariaLabel: \"Large\", child: Text(child: \"Large\", weight: FontWeight.semibold)))\n    ]))\n  )],\n)\n"
+}

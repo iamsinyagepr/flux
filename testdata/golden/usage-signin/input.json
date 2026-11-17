@@ -1,0 +1,4 @@
+{
+ "name": "usage",
+ "source": "Component(dsl: 1, id: \"test/usage\", name: \"usage\", kind: Kind.section, description: \"Golden case\",\n  states: [StringState(name: \"quantity\", default: \"1\"), BoolState(name: \"open\", default: false)],\n  variants: [Variant(id: \"default\", label: \"Default\", build: Button(label: \"Go\", onTap: Form(id: \"signIn\", onSubmit: SignIn(), child: Column(children: [TextField(name: \"email\", label: \"Email\", type: InputType.email, required: true), TextField(name: \"password\", label: \"Password\", type: InputType.password, required: true), SubmitButton(label: \"Sign in\")]))))])"
+}

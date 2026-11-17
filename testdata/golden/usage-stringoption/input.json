@@ -1,0 +1,4 @@
+{
+ "name": "usage",
+ "source": "Component(id: \"test/usage\", name: \"usage\", kind: Kind.section, description: \"Golden case\")\n\nOptions(ctaLabel: String(label: \"Button text\", maxLength: 24, default: \"Add\"))\n\nBuild(\n  Text(child: \"x\")\n)\n"
+}

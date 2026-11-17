@@ -1,0 +1,16 @@
+{
+ "name": "Cart bar",
+ "id": "market:cart-bar",
+ "description": "A sticky bar with the item count, total and a checkout button.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "cart",
+  "checkout",
+  "sticky"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/cart-bar\", name: \"Cart bar\", kind: Kind.section,\n  description: \"A sticky bar with the item count, total and a checkout button.\",\n  options: [NumberOption(name: \"count\", label: \"Items\", min: 0, max: 99, default: 2), NumberOption(name: \"total\", label: \"Total (cents)\", min: 0, max: 10000000, default: 15400)],\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Box(padding: Insets(x: 16, y: 12), radius: Radius.lg, background: Color.text, shadow: Shadow.lg, child: Row(gap: Space.md, crossAxisAlignment: CrossAxisAlignment.center, children: [\n      Box(shape: BoxShape.circle, width: 28, height: 28, alignment: Anchor.center, background: Color.primary, child: Text(child: options.count, size: FontSize.sm, weight: FontWeight.bold, color: Color.primaryInk)),\n      Expanded(child: Text(child: \"View cart\", weight: FontWeight.semibold, color: Color.background)),\n      Text(child: formatMoney(options.total), weight: FontWeight.bold, color: Color.background),\n      Box(width: 32, height: 32, alignment: Anchor.center, onTap: Navigate(to: Route.cart), ariaLabel: \"View cart\", child: Icon(name: Icons.chevronRight, color: Color.background))\n    ]))\n  )],\n)\n"
+}

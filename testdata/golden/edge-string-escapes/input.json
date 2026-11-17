@@ -1,0 +1,4 @@
+{
+ "name": "string-escapes",
+ "source": "Component(dsl: 1, id: \"test/string-escapes\", name: \"string-escapes\", kind: Kind.section, description: \"Golden case\",\n  states: [StringState(name: \"who\", default: \"you\")],\n  variants: [Variant(id: \"default\", label: \"Default\", build: Column(children: [Text(child: \"dollar $ sign\"), Text(child: \"quote \\\" and \\\\ slash\"), Text(child: \"tab\\tnew\\nline\"), Text(child: \"sep   here\"), Text(child: \"Hi ${state.who}!\")]))])"
+}

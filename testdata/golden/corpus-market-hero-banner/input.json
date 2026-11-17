@@ -1,0 +1,16 @@
+{
+ "name": "Hero banner",
+ "id": "market:hero-banner",
+ "description": "A gradient hero with a headline, a line of copy and two buttons.",
+ "type": "component",
+ "kind": "hero",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "hero",
+  "banner",
+  "landing"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/hero-banner\", name: \"Hero banner\", kind: Kind.hero,\n  description: \"A gradient hero with a headline, a line of copy and two buttons.\",\n  options: [StringOption(name: \"title\", label: \"Headline\", maxLength: 60, default: \"Fresh, fast and made for you\"), StringOption(name: \"subtitle\", label: \"Text\", maxLength: 140, default: \"Order ahead and skip the queue, or have it delivered in under 40 minutes.\")],\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Box(padding: Space.xl, radius: Radius.lg, gradient: Gradient(from: Color.primary, to: Color.surfaceAlt, begin: Anchor.topLeft, end: Anchor.bottomRight), child: Column(gap: Space.md, children: [\n      Text(child: options.title, role: TextRole.heading, level: 1, size: FontSize.xxl, weight: FontWeight.bold, color: Color.primaryInk, lineHeight: 1.1),\n      Text(child: options.subtitle, color: Color.primaryInk, lineHeight: 1.5),\n      Row(gap: Space.sm, children: [Button(label: \"Order now\", style: ButtonStyle.secondary, onTap: Navigate(to: Route.menu)), Button(label: \"Find a store\", style: ButtonStyle.ghost, onTap: Navigate(to: Route.stores))])\n    ]))\n  )],\n)\n"
+}

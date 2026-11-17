@@ -1,0 +1,29 @@
+{
+ "name": "Usage",
+ "pages": [
+  {
+   "id": "usage",
+   "name": "Usage",
+   "path": "/usage/$store/$id/$dish",
+   "source": "Page(name: \"Usage\", route: Route(path: \"/usage/$store/$id/$dish\"))\n\nusingServer(reviews<OrderReview[]>(src: Tenant.reviews(store: route.store)))\n\nBuild(\n  Text(child: \"x\")\n)\n",
+   "data": [
+    {
+     "name": "reviews",
+     "source": "tenant",
+     "resource": "reviews",
+     "params": [
+      {
+       "name": "store",
+       "from": "route",
+       "value": "store"
+      }
+     ],
+     "select": "data",
+     "type": "OrderReview[]"
+    }
+   ]
+  }
+ ],
+ "entryPageId": "usage",
+ "shellSource": ""
+}

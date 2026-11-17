@@ -1,0 +1,4 @@
+{
+ "name": "usage",
+ "source": "Component(id: \"test/usage\", name: \"usage\", kind: Kind.section, description: \"Golden case\")\n\nParts(\n  price: Text(child: formatMoney(product.display_price_cents)),\n)\n\nBuild(\n  Text(child: \"x\")\n)\n"
+}

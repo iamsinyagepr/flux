@@ -1,0 +1,16 @@
+{
+ "name": "Promo code",
+ "id": "market:promo-code",
+ "description": "A code field with an apply button.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "promo",
+  "coupon",
+  "discount"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/promo-code\", name: \"Promo code\", kind: Kind.section,\n  description: \"A code field with an apply button.\",\n  states: [StringState(name: \"code\", default: \"\")],\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Row(gap: Space.sm, crossAxisAlignment: CrossAxisAlignment.end, children: [\n      Expanded(child: TextField(state: \"code\", label: \"Promo code\", placeholder: \"HELLO20\")),\n      Button(label: \"Apply\", style: ButtonStyle.secondary, onTap: ShowMessage(message: \"Code applied\"))\n    ])\n  )],\n)\n"
+}

@@ -1,0 +1,4 @@
+{
+ "name": "numbers-js-format",
+ "source": "Component(dsl: 1, id: \"test/numbers-js-format\", name: \"numbers-js-format\", kind: Kind.section, description: \"Golden case\",\n  \n  variants: [Variant(id: \"default\", label: \"Default\", build: Column(children: [Text(child: \"a\", size: 1.5), SizedBox(width: 100, height: 0.5, child: Text(child: \"b\")), Box(padding: 1000000000000000000000, child: Text(child: \"c\")), Box(padding: 0.0000001, child: Text(child: \"d\")), Text(child: 12.50)]))])"
+}

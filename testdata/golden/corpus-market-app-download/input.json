@@ -1,0 +1,16 @@
+{
+ "name": "App download",
+ "id": "market:app-download",
+ "description": "Invite customers to order in the app.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "app",
+  "download",
+  "promo"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/app-download\", name: \"App download\", kind: Kind.section,\n  description: \"Invite customers to order in the app.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Box(padding: Space.lg, radius: Radius.lg, background: Color.surfaceAlt, child: Row(gap: Space.md, crossAxisAlignment: CrossAxisAlignment.center, children: [\n      Box(width: 56, height: 56, radius: Radius.md, alignment: Anchor.center, background: Color.primary, child: Icon(name: Icons.star, color: Color.primaryInk)),\n      Expanded(child: Column(gap: Space.xs, children: [Text(child: \"Order faster in the app\", weight: FontWeight.bold), Text(child: \"Saved addresses, one-tap reorders and live tracking.\", size: FontSize.sm, color: Color.textMuted)])),\n      Button(label: \"Get it\", size: Size.sm, onTap: ShowMessage(message: \"Coming soon to your app store\"))\n    ]))\n  )],\n)\n"
+}

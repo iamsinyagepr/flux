@@ -1,0 +1,4 @@
+{
+ "name": "flex-values",
+ "source": "Component(dsl: 1, id: \"test/flex-values\", name: \"flex-values\", kind: Kind.section, description: \"Golden case\",\n  \n  variants: [Variant(id: \"default\", label: \"Default\", build: Row(children: [Expanded(flex: 0, child: Text(child: \"a\")), Spacer(flex: 1.5), Flexible(flex: 101, child: Text(child: \"b\"))]))])"
+}

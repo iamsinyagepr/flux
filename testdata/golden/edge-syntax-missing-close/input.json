@@ -1,0 +1,4 @@
+{
+ "name": "syntax-missing-close",
+ "source": "Component(dsl: 1, id: \"test/syntax-missing-close\", name: \"syntax-missing-close\", kind: Kind.section, description: \"Golden case\",\n  \n  variants: [Variant(id: \"default\", label: \"Default\", build: Column(children: [Text(child: \"a\"))])"
+}

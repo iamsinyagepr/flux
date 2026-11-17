@@ -1,0 +1,4 @@
+{
+ "name": "placement-rules",
+ "source": "Component(dsl: 1, id: \"test/placement-rules\", name: \"placement-rules\", kind: Kind.section, description: \"Golden case\",\n  \n  variants: [Variant(id: \"default\", label: \"Default\", build: Column(children: [Expanded(child: Text(child: \"a\")), Box(child: Positioned(top: 1, bottom: 2, height: 3, child: Text(child: \"b\"))), Layer(child: Text(child: \"c\")), TriggerButton(label: \"t\"), Box(onTap: Navigate(to: Route.cart), child: Text(child: \"d\")), Button(icon: Icons.cart), Image(src: \"x\", alt: \"\")]))])"
+}

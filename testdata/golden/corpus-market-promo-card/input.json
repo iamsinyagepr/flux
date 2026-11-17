@@ -1,0 +1,16 @@
+{
+ "name": "Promo card",
+ "id": "market:promo-card",
+ "description": "A gradient promotion with a code and a button.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "promo",
+  "discount",
+  "coupon"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/promo-card\", name: \"Promo card\", kind: Kind.section,\n  description: \"A gradient promotion with a code and a button.\",\n  options: [StringOption(name: \"title\", label: \"Title\", maxLength: 40, default: \"20% off your first order\"), StringOption(name: \"code\", label: \"Code\", maxLength: 16, default: \"HELLO20\")],\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Box(padding: Space.lg, radius: Radius.lg, gradient: Gradient(from: Color.primary, to: Color.surfaceAlt, begin: Anchor.left, end: Anchor.right), shadow: Shadow.md, child: Column(gap: Space.sm, children: [\n      Text(child: options.title, size: FontSize.xl, weight: FontWeight.bold, color: Color.primaryInk),\n      Row(gap: Space.sm, crossAxisAlignment: CrossAxisAlignment.center, children: [Box(padding: Insets(x: 10, y: 6), radius: Radius.sm, background: Color.surface, child: Text(child: options.code, weight: FontWeight.bold, letterSpacing: 1.5)), Text(child: \"at checkout\", color: Color.primaryInk)]),\n      Button(label: \"Order now\", style: ButtonStyle.secondary, onTap: Navigate(to: Route.menu))\n    ]))\n  )],\n)\n"
+}

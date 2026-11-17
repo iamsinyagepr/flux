@@ -1,0 +1,4 @@
+{
+ "name": "usage",
+ "source": "Component(id: \"test/usage\", name: \"usage\", kind: Kind.section, description: \"Golden case\")\n\nVariants(\n  default: Variant(label: \"Default\", Build(Text(child: store.name))),\n  compact: Variant(label: \"Compact\", Build(Text(child: store.name, size: FontSize.sm))),\n)\n"
+}

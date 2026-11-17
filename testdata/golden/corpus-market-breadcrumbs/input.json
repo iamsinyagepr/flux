@@ -1,0 +1,15 @@
+{
+ "name": "Breadcrumbs",
+ "id": "market:breadcrumbs",
+ "description": "Where the customer is, with the way back.",
+ "type": "component",
+ "kind": "navigation",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "breadcrumbs",
+  "path"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/breadcrumbs\", name: \"Breadcrumbs\", kind: Kind.navigation,\n  description: \"Where the customer is, with the way back.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Row(gap: Space.xs, crossAxisAlignment: CrossAxisAlignment.center, children: [\n      Button(label: \"Home\", style: ButtonStyle.ghost, size: Size.sm, onTap: Navigate(to: Route.home)),\n      Icon(name: Icons.chevronRight, size: Size.sm, color: Color.textMuted),\n      Button(label: \"Menu\", style: ButtonStyle.ghost, size: Size.sm, onTap: Navigate(to: Route.menu)),\n      Icon(name: Icons.chevronRight, size: Size.sm, color: Color.textMuted),\n      Text(child: \"Pastries\", size: FontSize.sm, color: Color.textMuted)\n    ])\n  )],\n)\n"
+}

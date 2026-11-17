@@ -1,0 +1,16 @@
+{
+ "name": "Cart icon with count",
+ "id": "market:cart-icon-badge",
+ "description": "A cart button showing how many items are in it.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "cart",
+  "badge",
+  "count"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/cart-icon-badge\", name: \"Cart icon with count\", kind: Kind.section,\n  description: \"A cart button showing how many items are in it.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Stack(width: 48, height: 48, children: [\n      Positioned(top: 4, left: 4, child: Box(shape: BoxShape.circle, width: 40, height: 40, alignment: Anchor.center, background: Color.surface, border: Border(width: 1), onTap: Navigate(to: Route.cart), ariaLabel: \"Cart\", child: Icon(name: Icons.cart))),\n      Positioned(top: 0, right: 0, child: If(condition: cart.count > 0, then: Box(shape: BoxShape.circle, width: 20, height: 20, alignment: Anchor.center, background: Color.primary, child: Text(child: cart.count, size: FontSize.xs, weight: FontWeight.bold, color: Color.primaryInk))))\n    ])\n  )], data: [Data(name: \"cart\", from: Client.cart(), fetch: \"client\", type: Cart)],\n)\n"
+}

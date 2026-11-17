@@ -1,0 +1,15 @@
+{
+ "name": "Feature card",
+ "id": "market:feature-card",
+ "description": "An icon, a title and a sentence about what makes you different.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "feature",
+  "benefit"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/feature-card\", name: \"Feature card\", kind: Kind.section,\n  description: \"An icon, a title and a sentence about what makes you different.\",\n  options: [StringOption(name: \"title\", label: \"Title\", maxLength: 40, default: \"Delivered warm\"), StringOption(name: \"body\", label: \"Text\", maxLength: 140, default: \"Insulated bags and short routes mean your order arrives the way it left the kitchen.\")],\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Box(padding: Space.lg, radius: Radius.lg, background: Color.surface, border: Border(width: 1), child: Column(gap: Space.sm, children: [\n      Box(shape: BoxShape.circle, width: 44, height: 44, alignment: Anchor.center, background: Color.surfaceAlt, child: Icon(name: Icons.clock, color: Color.primary)),\n      Text(child: options.title, size: FontSize.lg, weight: FontWeight.bold),\n      Text(child: options.body, color: Color.textMuted, lineHeight: 1.5)\n    ]))\n  )],\n)\n"
+}

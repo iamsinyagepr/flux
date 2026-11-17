@@ -1,0 +1,4 @@
+{
+ "name": "integration-widgets",
+ "source": "Component(dsl: 1, id: \"test/integration-widgets\", name: \"integration-widgets\", kind: Kind.section, description: \"Golden case\",\n  \n  variants: [Variant(id: \"default\", label: \"Default\", build: Column(children: [CartLines(emptyText: \"Empty\"), ProductOptionGroups(focusColor: Color.primary), LocationPicker(buttonLabel: \"Find\"), OrderCards(emptyText: \"None\"), Button(label: \"Add\", onTap: AddConfiguredProduct(quantity: 2))]))])"
+}

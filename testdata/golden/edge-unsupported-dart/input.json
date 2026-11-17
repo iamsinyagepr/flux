@@ -1,0 +1,4 @@
+{
+ "name": "unsupported-dart",
+ "source": "Component(dsl: 1, id: \"test/unsupported-dart\", name: \"unsupported-dart\", kind: Kind.section, description: \"Golden case\",\n  \n  variants: [Variant(id: \"default\", label: \"Default\", build: Column(children: [Tabs(tabs: []), Text(child: \"x\", role: \"heading\")]))])"
+}

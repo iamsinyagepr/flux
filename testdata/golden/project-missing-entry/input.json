@@ -1,0 +1,13 @@
+{
+ "name": "Entry",
+ "pages": [
+  {
+   "id": "home",
+   "name": "home",
+   "path": "/",
+   "source": "Component(dsl: 1, id: \"test/home\", name: \"home\", kind: Kind.section, description: \"Golden case\",\n  \n  variants: [Variant(id: \"default\", label: \"Default\", build: Text(child: \"x\"))])"
+  }
+ ],
+ "entryPageId": "gone",
+ "shellSource": ""
+}

@@ -1,0 +1,16 @@
+{
+ "name": "Gradient headline",
+ "id": "market:gradient-headline",
+ "description": "A big headline on a soft gradient panel.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "headline",
+  "hero",
+  "gradient"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/gradient-headline\", name: \"Gradient headline\", kind: Kind.section,\n  description: \"A big headline on a soft gradient panel.\",\n  options: [StringOption(name: \"title\", label: \"Headline\", maxLength: 60, default: \"Taste the season\")],\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Box(padding: Space.xl, radius: Radius.lg, gradient: Gradient(from: Color.primary, to: Color.surface, begin: Anchor.topLeft, end: Anchor.bottomRight), child: Text(child: options.title, role: TextRole.heading, level: 1, size: FontSize.display, weight: FontWeight.bold, color: Color.primaryInk, lineHeight: 1.05, shadow: Shadow.sm))\n  )],\n)\n"
+}

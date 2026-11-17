@@ -1,0 +1,16 @@
+{
+ "name": "Floating cart button",
+ "id": "market:floating-cart-button",
+ "description": "A raised cart button with a count badge.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "cart",
+  "floating",
+  "badge"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/floating-cart-button\", name: \"Floating cart button\", kind: Kind.section,\n  description: \"A raised cart button with a count badge.\",\n  options: [NumberOption(name: \"count\", label: \"Items\", min: 0, max: 99, default: 3)],\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Stack(width: 64, height: 64, children: [\n      Positioned(top: 4, left: 4, child: Box(shape: BoxShape.circle, width: 56, height: 56, alignment: Anchor.center, background: Color.primary, shadow: Shadow.lg, onTap: Navigate(to: Route.cart), ariaLabel: \"Open cart\", child: Icon(name: Icons.cart, color: Color.primaryInk))),\n      Positioned(top: 0, right: 0, child: Box(shape: BoxShape.circle, width: 22, height: 22, alignment: Anchor.center, background: Color.danger, child: Text(child: options.count, size: FontSize.xs, weight: FontWeight.bold, color: Color.primaryInk)))\n    ])\n  )],\n)\n"
+}

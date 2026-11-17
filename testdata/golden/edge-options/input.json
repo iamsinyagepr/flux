@@ -1,0 +1,4 @@
+{
+ "name": "options",
+ "source": "Component(dsl: 1, id: \"test/options\", name: \"options\", kind: Kind.section, description: \"Golden case\",\n  options: [StringOption(name: \"title\", label: \"T\", maxLength: 3, default: \"too long\"), NumberOption(name: \"n\", label: \"N\", min: 5, max: 1, default: 3), EnumOption(name: \"e\", label: \"E\", values: [Align.start, Align.end], default: Align.center), StringOption(name: \"title\", label: \"dup\", default: \"x\"), BoolOption(name: \"variant\", label: \"V\", default: true), ColorOption(name: \"c\", label: \"C\", default: state.x)],\n  variants: [Variant(id: \"default\", label: \"Default\", build: Column(children: [Text(child: options.title), Text(child: options.unknown)]))])"
+}

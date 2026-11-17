@@ -1,0 +1,16 @@
+{
+ "name": "Quote breakdown",
+ "id": "market:quote-breakdown",
+ "description": "The store's quote: subtotal, its own charges, delivery, tip and total.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "quote",
+  "total",
+  "tip"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/quote-breakdown\", name: \"Quote breakdown\", kind: Kind.section,\n  description: \"The store's quote: subtotal, its own charges, delivery, tip and total.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Box(padding: Space.lg, radius: Radius.lg, background: Color.surface, border: Border(width: 1), child: Column(gap: Space.sm, children: [\n      Row(children: [Expanded(child: Text(child: \"Subtotal\", color: Color.textMuted)), Text(child: formatMoney(checkout.quote.items_subtotal_cents))]),\n      ForEach(items: checkout.quote.charges, as: \"c\", child: Row(children: [Expanded(child: Text(child: c.name, color: Color.textMuted)), Text(child: formatMoney(c.amount_cents))])),\n      If(condition: checkout.quote.delivery_fee_cents > 0, then: Row(children: [Expanded(child: Text(child: \"Delivery\", color: Color.textMuted)), Text(child: formatMoney(checkout.quote.delivery_fee_cents))])),\n      If(condition: checkout.quote.tip_cents > 0, then: Row(children: [Expanded(child: Text(child: \"Tip\", color: Color.textMuted)), Text(child: formatMoney(checkout.quote.tip_cents))])),\n      Divider(),\n      Row(children: [Expanded(child: Text(child: \"Total\", weight: FontWeight.bold)), Text(child: formatMoney(checkout.quote.total_cents), size: FontSize.lg, weight: FontWeight.bold)])\n    ]))\n  )], data: [Data(name: \"checkout\", from: Client.checkout(), fetch: \"client\", type: ClientCheckout)],\n)\n"
+}

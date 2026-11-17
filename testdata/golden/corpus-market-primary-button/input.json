@@ -1,0 +1,15 @@
+{
+ "name": "Primary button",
+ "id": "market:primary-button",
+ "description": "A full-width call to action.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "button",
+  "cta"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/primary-button\", name: \"Primary button\", kind: Kind.section,\n  description: \"A full-width call to action.\",\n  options: [StringOption(name: \"label\", label: \"Label\", maxLength: 32, default: \"Order now\")],\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Button(label: options.label, style: ButtonStyle.primary, size: Size.lg, fullWidth: true, onTap: Navigate(to: Route.menu))\n  )],\n)\n"
+}

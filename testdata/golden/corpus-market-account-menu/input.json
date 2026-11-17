@@ -1,0 +1,16 @@
+{
+ "name": "Account menu",
+ "id": "market:account-menu",
+ "description": "Links to orders, addresses and password, and signing out.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "account",
+  "menu",
+  "settings"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/account-menu\", name: \"Account menu\", kind: Kind.section,\n  description: \"Links to orders, addresses and password, and signing out.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Box(radius: Radius.lg, background: Color.surface, border: Border(width: 1), child: Column(children: [\n      Box(padding: Space.md, onTap: Navigate(to: Route.orders), ariaLabel: \"My orders\", child: Row(gap: Space.md, children: [Icon(name: Icons.orders, color: Color.primary), Expanded(child: Text(child: \"My orders\")), Icon(name: Icons.chevronRight, color: Color.textMuted)])),\n      Divider(),\n      Box(padding: Space.md, onTap: Navigate(to: Route.addresses), ariaLabel: \"Saved addresses\", child: Row(gap: Space.md, children: [Icon(name: Icons.location, color: Color.primary), Expanded(child: Text(child: \"Saved addresses\")), Icon(name: Icons.chevronRight, color: Color.textMuted)])),\n      Divider(),\n      Box(padding: Space.md, onTap: Navigate(to: Route.resetPassword), ariaLabel: \"Change password\", child: Row(gap: Space.md, children: [Icon(name: Icons.settings, color: Color.primary), Expanded(child: Text(child: \"Change password\")), Icon(name: Icons.chevronRight, color: Color.textMuted)])),\n      Divider(),\n      Box(padding: Space.md, onTap: SignOutPreviewCustomer(), ariaLabel: \"Sign out\", child: Row(gap: Space.md, children: [Icon(name: Icons.close, color: Color.danger), Expanded(child: Text(child: \"Sign out\", color: Color.danger))]))\n    ]))\n  )],\n)\n"
+}

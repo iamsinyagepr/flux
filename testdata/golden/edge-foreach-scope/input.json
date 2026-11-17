@@ -1,0 +1,4 @@
+{
+ "name": "foreach-scope",
+ "source": "Component(dsl: 1, id: \"test/foreach-scope\", name: \"foreach-scope\", kind: Kind.section, description: \"Golden case\",\n  \n  variants: [Variant(id: \"default\", label: \"Default\", build: Column(children: [ForEach(items: products, as: \"product\", child: Text(child: product.name)), ForEach(items: products, as: \"store\", indexAs: \"store\", child: Text(child: \"x\")), ForEach(items: categories, as: \"c\", indexAs: \"i\", limit: 3, child: Text(child: c.name), empty: Text(child: \"none\"))]))])"
+}

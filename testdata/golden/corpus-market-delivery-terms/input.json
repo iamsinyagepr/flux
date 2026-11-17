@@ -1,0 +1,16 @@
+{
+ "name": "Delivery terms",
+ "id": "market:delivery-terms",
+ "description": "The store's delivery fee, minimum order and delivery radius.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "delivery",
+  "fee",
+  "minimum"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/delivery-terms\", name: \"Delivery terms\", kind: Kind.section,\n  description: \"The store's delivery fee, minimum order and delivery radius.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Row(gap: Space.sm, children: [\n      Expanded(child: Box(padding: Space.md, radius: Radius.md, background: Color.surfaceAlt, child: Column(gap: Space.xs, children: [Text(child: \"Delivery\", size: FontSize.xs, color: Color.textMuted), Text(child: formatMoney(store.delivery_fee_cents), weight: FontWeight.bold)]))),\n      Expanded(child: Box(padding: Space.md, radius: Radius.md, background: Color.surfaceAlt, child: Column(gap: Space.xs, children: [Text(child: \"Minimum\", size: FontSize.xs, color: Color.textMuted), Text(child: formatMoney(store.min_order_cents), weight: FontWeight.bold)]))),\n      Expanded(child: Box(padding: Space.md, radius: Radius.md, background: Color.surfaceAlt, child: Column(gap: Space.xs, children: [Text(child: \"Radius\", size: FontSize.xs, color: Color.textMuted), Text(child: \"${store.delivery_radius_km} km\", weight: FontWeight.bold)])))\n    ])\n  )], data: [Data(name: \"store\", from: Client.store(), fetch: \"client\", type: Store)],\n)\n"
+}

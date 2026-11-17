@@ -1,0 +1,4 @@
+{
+ "name": "Variants",
+ "source": "Component(dsl: 1, id: \"test/variants\", name: \"Variants\", kind: Kind.section, description: \"Rules\",\n    defaultVariant: isMobile() ? \"compact\" : \"wide\",\n    options: [StringOption(name: \"title\", label: \"Title\", maxLength: 40, default: \"Hello\")],\n    variants: [\n      Variant(id: \"compact\", label: \"Compact\", options: [NumberOption(name: \"size\", label: \"Size\", min: 1, max: 50, default: 12)], build: Text(child: options.title, size: options.size)),\n      Variant(id: \"wide\", label: \"Wide\", build: Text(child: options.title)),\n      Variant(id: \"compact\", label: \"Duplicate\", build: Text(child: \"dup\")),\n    ])"
+}

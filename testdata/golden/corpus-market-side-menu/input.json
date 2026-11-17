@@ -1,0 +1,16 @@
+{
+ "name": "Side menu",
+ "id": "market:side-menu",
+ "description": "A menu button that opens a drawer of links.",
+ "type": "component",
+ "kind": "navigation",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "drawer",
+  "menu",
+  "links"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/side-menu\", name: \"Side menu\", kind: Kind.navigation,\n  description: \"A menu button that opens a drawer of links.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Drawer(side: Side.left, trigger: TriggerButton(icon: Icons.menu, ariaLabel: \"Open menu\", style: ButtonStyle.ghost), child: Column(padding: Space.lg, gap: Space.md, children: [\n      Text(child: \"Explore\", size: FontSize.lg, weight: FontWeight.bold),\n      Button(label: \"Menu\", icon: Icons.menu, style: ButtonStyle.ghost, onTap: Navigate(to: Route.menu)),\n      Button(label: \"My orders\", icon: Icons.orders, style: ButtonStyle.ghost, onTap: Navigate(to: Route.orders)),\n      Button(label: \"Account\", icon: Icons.user, style: ButtonStyle.ghost, onTap: Navigate(to: Route.account)),\n      Button(label: \"Stores\", icon: Icons.location, style: ButtonStyle.ghost, onTap: Navigate(to: Route.stores))\n    ]))\n  )],\n)\n"
+}

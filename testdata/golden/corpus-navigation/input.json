@@ -1,0 +1,15 @@
+{
+ "name": "Drawer navigation",
+ "id": "navigation",
+ "description": "Give every storefront a clear way to get around.",
+ "kind": "navigation",
+ "type": "component",
+ "variants": [
+  "drawer"
+ ],
+ "tags": [
+  "navigation",
+  "responsive"
+ ],
+ "source": "Component(\n  dsl: 1,\n  id: \"acme/nav-drawer\",\n  name: \"Drawer navigation\",\n  kind: Kind.navigation,\n  description: \"Header with a hamburger button that opens a side drawer of links.\",\n  aiHints: \"Use when the owner asks for a drawer, hamburger or slide-out menu navigation.\",\n  options: [\n    EnumOption(name: \"side\", label: \"Drawer side\", values: [Side.left, Side.right], default: Side.left),\n    BoolOption(name: \"showLogo\", label: \"Show logo\", default: true),\n  ],\n  variants: [\n    Variant(\n      id: \"drawer\",\n      label: \"Drawer\",\n      build: Row(\n        justify: Justify.between,\n        align: Align.center,\n        padding: Space.md,\n        children: [\n          Drawer(\n            side: options.side,\n            trigger: TriggerButton(icon: Icons.menu, ariaLabel: \"Open menu\", style: ButtonStyle.ghost),\n            child: Column(\n              gap: Space.sm,\n              padding: Space.lg,\n              children: [\n                ForEach(\n                  items: items,\n                  as: \"item\",\n                  child: Button(\n                    label: item.label,\n                    icon: item.icon,\n                    style: ButtonStyle.ghost,\n                    fullWidth: true,\n                    onTap: Navigate(to: item.route),\n                  ),\n                ),\n              ],\n            ),\n          ),\n          If(\n            condition: options.showLogo,\n            then: Image(src: store.logo_url, alt: store.name, height: 32, fit: Fit.contain),\n          ),\n          Button(label: \"Cart (${cart.count})\", icon: Icons.cart, onTap: Navigate(to: Route.cart)),\n        ],\n      ),\n    ),\n  ], data: [Data(name: \"store\", from: Client.store(), fetch: \"client\", type: Store), Data(name: \"cart\", from: Client.cart(), fetch: \"client\", type: Cart)],\n)\n"
+}

@@ -1,0 +1,16 @@
+{
+ "name": "Payment methods",
+ "id": "market:payment-methods",
+ "description": "How the chosen store takes payment: card, cash or transfer.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "payment",
+  "card",
+  "cash"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/payment-methods\", name: \"Payment methods\", kind: Kind.section,\n  description: \"How the chosen store takes payment: card, cash or transfer.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Column(gap: Space.xs, children: [\n      Text(child: \"We accept\", size: FontSize.sm, weight: FontWeight.semibold),\n      Wrap(spacing: Space.xs, runSpacing: Space.xs, children: [\n        If(condition: store.accepts_card, then: Badge(label: \"Card\", tone: Tone.neutral)),\n        If(condition: store.accepts_cash, then: Badge(label: \"Cash\", tone: Tone.neutral)),\n        If(condition: store.accepts_transfer, then: Badge(label: \"EFT\", tone: Tone.neutral))\n      ])\n    ])\n  )], data: [Data(name: \"store\", from: Client.store(), fetch: \"client\", type: Store)],\n)\n"
+}

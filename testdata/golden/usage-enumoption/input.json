@@ -1,0 +1,4 @@
+{
+ "name": "usage",
+ "source": "Component(id: \"test/usage\", name: \"usage\", kind: Kind.section, description: \"Golden case\")\n\nOptions(radius: Enum(label: \"Radius\", values: [Radius.none, Radius.md], default: Radius.md))\n\nBuild(\n  Text(child: \"x\")\n)\n"
+}

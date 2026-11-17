@@ -1,0 +1,16 @@
+{
+ "name": "Shop tab bar",
+ "id": "market:shop-tab-bar",
+ "description": "Menu, orders, account and the cart with its live count.",
+ "type": "component",
+ "kind": "navigation",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "tabs",
+  "bottom bar",
+  "cart"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/shop-tab-bar\", name: \"Shop tab bar\", kind: Kind.navigation,\n  description: \"Menu, orders, account and the cart with its live count.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Box(padding: Insets(x: 8, y: 6), background: Color.surface, border: Border(width: 1), child: Row(children: [\n      Expanded(child: Box(padding: Space.xs, alignment: Anchor.center, onTap: Navigate(to: Route.menu), ariaLabel: \"Menu\", child: Column(gap: Space.xs, align: Align.center, children: [Icon(name: Icons.menu), Text(child: \"Menu\", size: FontSize.xs)]))),\n      Expanded(child: Box(padding: Space.xs, alignment: Anchor.center, onTap: Navigate(to: Route.orders), ariaLabel: \"Orders\", child: Column(gap: Space.xs, align: Align.center, children: [Icon(name: Icons.orders), Text(child: \"Orders\", size: FontSize.xs)]))),\n      Expanded(child: Box(padding: Space.xs, alignment: Anchor.center, onTap: Navigate(to: Route.account), ariaLabel: \"Account\", child: Column(gap: Space.xs, align: Align.center, children: [Icon(name: Icons.user), Text(child: \"Account\", size: FontSize.xs)]))),\n      Expanded(child: Box(padding: Space.xs, alignment: Anchor.center, onTap: Navigate(to: Route.cart), ariaLabel: \"Cart\", child: Column(gap: Space.xs, align: Align.center, children: [Icon(name: Icons.cart, color: cart.count > 0 ? Color.primary : Color.text), Text(child: cart.count > 0 ? \"Cart (${cart.count})\" : \"Cart\", size: FontSize.xs, color: cart.count > 0 ? Color.primary : Color.text)])))\n    ]))\n  )], data: [Data(name: \"cart\", from: Client.cart(), fetch: \"client\", type: Cart)],\n)\n"
+}

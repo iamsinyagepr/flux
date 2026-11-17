@@ -1,0 +1,4 @@
+{
+ "name": "states-and-actions",
+ "source": "Component(dsl: 1, id: \"test/states-and-actions\", name: \"states-and-actions\", kind: Kind.section, description: \"Golden case\",\n  states: [NumberState(name: \"count\", default: 0), BoolState(name: \"open\", default: \"yes\"), StringState(name: \"bad name\", default: \"\")],\n  variants: [Variant(id: \"default\", label: \"Default\", build: Column(children: [Button(label: \"a\", onTap: SetState(state: \"count\", value: \"text\")), Button(label: \"b\", onTap: Toggle(state: \"count\")), Button(label: \"c\", onTap: SetState(state: \"missing\", value: 1)), Button(label: \"d\", onTap: Actions(actions: [SetState(state: \"count\", value: state.count + 1), ShowMessage(message: \"Hi\"), Navigate(to: Route.menu)])), Button(label: \"e\", onTap: AddToCart(product: product, quantity: 1))]))])"
+}

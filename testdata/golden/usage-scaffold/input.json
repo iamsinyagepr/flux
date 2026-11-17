@@ -1,0 +1,4 @@
+{
+ "name": "usage",
+ "source": "Component(dsl: 1, id: \"test/usage\", name: \"usage\", kind: Kind.section, description: \"Golden case\",\n  states: [StringState(name: \"quantity\", default: \"1\"), BoolState(name: \"open\", default: false)],\n  variants: [Variant(id: \"default\", label: \"Default\", build: Scaffold(body: ScrollView(child: Column(children: [Text(child: \"Page content\")])), bottomNavigationBar: Box(padding: Space.md, background: Color.surface, child: Text(child: \"Bottom navigation\"))))])"
+}

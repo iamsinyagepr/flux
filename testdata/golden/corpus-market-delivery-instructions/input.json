@@ -1,0 +1,16 @@
+{
+ "name": "Delivery instructions",
+ "id": "market:delivery-instructions",
+ "description": "Directions for the driver, sent with the order.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "delivery",
+  "instructions",
+  "driver"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/delivery-instructions\", name: \"Delivery instructions\", kind: Kind.section,\n  description: \"Directions for the driver, sent with the order.\",\n  states: [StringState(name: \"instructions\", default: \"\")],\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    If(condition: checkout.fulfilment == \"delivery\", then: TextField(state: \"instructions\", label: \"Delivery instructions\", placeholder: \"Gate code, landmarks\", maxLength: 200, onChanged: SetCheckout(field: \"delivery_instructions\", value: input.value)))\n  )], data: [Data(name: \"checkout\", from: Client.checkout(), fetch: \"client\", type: ClientCheckout)],\n)\n"
+}

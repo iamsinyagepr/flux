@@ -1,0 +1,16 @@
+{
+ "name": "Add to cart with quantity",
+ "id": "market:add-to-cart-quantity",
+ "description": "Pick how many, then add this product to the cart in one tap.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "quantity",
+  "cart",
+  "product"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/add-to-cart-quantity\", name: \"Add to cart with quantity\", kind: Kind.section,\n  description: \"Pick how many, then add this product to the cart in one tap.\",\n  states: [NumberState(name: \"quantity\", default: 1)],\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Row(gap: Space.md, crossAxisAlignment: CrossAxisAlignment.center, children: [\n      Box(radius: Radius.full, border: Border(width: 1), padding: Insets(x: 6, y: 4), child: Row(gap: Space.sm, crossAxisAlignment: CrossAxisAlignment.center, children: [\n        Box(shape: BoxShape.circle, width: 32, height: 32, alignment: Anchor.center, onTap: SetState(state: \"quantity\", value: state.quantity > 1 ? state.quantity - 1 : 1), ariaLabel: \"Fewer\", child: Icon(name: Icons.minus, size: Size.sm)),\n        Text(child: state.quantity, weight: FontWeight.bold),\n        Box(shape: BoxShape.circle, width: 32, height: 32, alignment: Anchor.center, onTap: SetState(state: \"quantity\", value: state.quantity + 1), ariaLabel: \"More\", child: Icon(name: Icons.plus, size: Size.sm))\n      ])),\n      Expanded(child: Button(label: \"Add to cart\", fullWidth: true, onTap: AddConfiguredProduct(quantity: state.quantity)))\n    ])\n  )],\n)\n"
+}

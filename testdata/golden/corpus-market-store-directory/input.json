@@ -1,0 +1,16 @@
+{
+ "name": "Store directory",
+ "id": "market:store-directory",
+ "description": "Every store near the customer with its city and whether it's open.",
+ "type": "component",
+ "kind": "storeInfo",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "stores",
+  "directory",
+  "list"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/store-directory\", name: \"Store directory\", kind: Kind.storeInfo,\n  description: \"Every store near the customer with its city and whether it's open.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Column(gap: Space.sm, children: [\n      ForEach(items: stores.results, as: \"s\", empty: Text(child: \"No stores near you yet.\", color: Color.textMuted), child: Box(padding: Space.md, radius: Radius.md, background: Color.surface, border: Border(width: 1), child: Row(gap: Space.md, crossAxisAlignment: CrossAxisAlignment.center, children: [\n        Box(shape: BoxShape.circle, width: 40, height: 40, alignment: Anchor.center, background: Color.surfaceAlt, child: Icon(name: Icons.location, color: Color.primary)),\n        Expanded(child: Column(gap: Space.xs, children: [Text(child: s.name, weight: FontWeight.semibold), Text(child: s.city, size: FontSize.sm, color: Color.textMuted)])),\n        If(condition: s.is_open, then: Badge(label: \"Open\", tone: Tone.success), else: Badge(label: \"Closed\", tone: Tone.neutral))\n      ])))\n    ])\n  )], data: [Data(name: \"stores\", from: Client.stores(), fetch: \"client\", type: StoreSearch)],\n)\n"
+}

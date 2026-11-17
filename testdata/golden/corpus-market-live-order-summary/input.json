@@ -1,0 +1,16 @@
+{
+ "name": "Order summary",
+ "id": "market:live-order-summary",
+ "description": "The cart's subtotal, the store's delivery fee and the total.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "summary",
+  "total",
+  "checkout"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/live-order-summary\", name: \"Order summary\", kind: Kind.section,\n  description: \"The cart's subtotal, the store's delivery fee and the total.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Box(padding: Space.lg, radius: Radius.lg, background: Color.surface, border: Border(width: 1), child: Column(gap: Space.sm, children: [\n      Text(child: \"Order summary\", weight: FontWeight.bold),\n      Row(children: [Expanded(child: Text(child: \"Items (${cart.count})\", color: Color.textMuted)), Text(child: formatMoney(cart.total_cents))]),\n      If(condition: store.accepts_delivery, then: Row(children: [Expanded(child: Text(child: \"Delivery\", color: Color.textMuted)), Text(child: formatMoney(store.delivery_fee_cents))])),\n      Divider(),\n      Row(children: [Expanded(child: Text(child: \"Total\", weight: FontWeight.bold)), Text(child: formatMoney(cart.total_cents + store.delivery_fee_cents), size: FontSize.lg, weight: FontWeight.bold)]),\n      Text(child: \"The final total is confirmed when you place the order.\", size: FontSize.xs, color: Color.textMuted)\n    ]))\n  )], data: [Data(name: \"cart\", from: Client.cart(), fetch: \"client\", type: Cart), Data(name: \"store\", from: Client.store(), fetch: \"client\", type: Store)],\n)\n"
+}

@@ -1,0 +1,4 @@
+{
+ "name": "syntax-positional",
+ "source": "Component(dsl: 1, id: \"test/syntax-positional\", name: \"syntax-positional\", kind: Kind.section, description: \"Golden case\",\n  \n  variants: [Variant(id: \"default\", label: \"Default\", build: Text(\"a\"))])"
+}

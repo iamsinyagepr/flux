@@ -1,0 +1,16 @@
+{
+ "name": "Minimum order notice",
+ "id": "market:minimum-order-notice",
+ "description": "How much more to add before the store's minimum order is met.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "minimum",
+  "cart",
+  "delivery"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/minimum-order-notice\", name: \"Minimum order notice\", kind: Kind.section,\n  description: \"How much more to add before the store's minimum order is met.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    If(condition: cart.total_cents < store.min_order_cents, then: Box(padding: Space.md, radius: Radius.md, background: Color.surfaceAlt, border: Border(width: 1, color: Color.warning), child: Row(gap: Space.sm, crossAxisAlignment: CrossAxisAlignment.center, children: [\n      Icon(name: Icons.cart, size: Size.sm, color: Color.warning),\n      Expanded(child: Text(child: \"Add ${formatMoney(store.min_order_cents - cart.total_cents)} more to reach the ${formatMoney(store.min_order_cents)} minimum.\", size: FontSize.sm))\n    ])))\n  )], data: [Data(name: \"cart\", from: Client.cart(), fetch: \"client\", type: Cart), Data(name: \"store\", from: Client.store(), fetch: \"client\", type: Store)],\n)\n"
+}

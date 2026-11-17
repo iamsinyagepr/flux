@@ -1,0 +1,4 @@
+{
+ "name": "syntax-bad-char",
+ "source": "Component(dsl: 1, id: \"test/syntax-bad-char\", name: \"syntax-bad-char\", kind: Kind.section, description: \"Golden case\",\n  \n  variants: [Variant(id: \"default\", label: \"Default\", build: Text(child: #))])"
+}

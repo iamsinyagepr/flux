@@ -1,0 +1,16 @@
+{
+ "name": "Tip selector",
+ "id": "market:tip-selector",
+ "description": "No tip, 10%, 15% or 20% of the cart, added to the order's total.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "tip",
+  "checkout",
+  "driver"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/tip-selector\", name: \"Tip selector\", kind: Kind.section,\n  description: \"No tip, 10%, 15% or 20% of the cart, added to the order's total.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Column(gap: Space.sm, children: [\n      Text(child: \"Add a tip for the team\", weight: FontWeight.semibold),\n      Row(gap: Space.sm, children: [\n        Expanded(child: Box(padding: Insets(y: 10), radius: Radius.md, alignment: Anchor.center, background: checkout.tip_cents == round(cart.total_cents * 0 / 100) ? Color.primary : Color.surface, border: Border(width: 1), onTap: SetTip(percent: 0), ariaLabel: \"No tip\", child: Text(child: \"None\", weight: FontWeight.semibold, color: checkout.tip_cents == round(cart.total_cents * 0 / 100) ? Color.primaryInk : Color.text))),\n        Expanded(child: Box(padding: Insets(y: 10), radius: Radius.md, alignment: Anchor.center, background: checkout.tip_cents == round(cart.total_cents * 10 / 100) ? Color.primary : Color.surface, border: Border(width: 1), onTap: SetTip(percent: 10), ariaLabel: \"Ten percent\", child: Text(child: \"10%\", weight: FontWeight.semibold, color: checkout.tip_cents == round(cart.total_cents * 10 / 100) ? Color.primaryInk : Color.text))),\n        Expanded(child: Box(padding: Insets(y: 10), radius: Radius.md, alignment: Anchor.center, background: checkout.tip_cents == round(cart.total_cents * 15 / 100) ? Color.primary : Color.surface, border: Border(width: 1), onTap: SetTip(percent: 15), ariaLabel: \"Fifteen percent\", child: Text(child: \"15%\", weight: FontWeight.semibold, color: checkout.tip_cents == round(cart.total_cents * 15 / 100) ? Color.primaryInk : Color.text))),\n        Expanded(child: Box(padding: Insets(y: 10), radius: Radius.md, alignment: Anchor.center, background: checkout.tip_cents == round(cart.total_cents * 20 / 100) ? Color.primary : Color.surface, border: Border(width: 1), onTap: SetTip(percent: 20), ariaLabel: \"Twenty percent\", child: Text(child: \"20%\", weight: FontWeight.semibold, color: checkout.tip_cents == round(cart.total_cents * 20 / 100) ? Color.primaryInk : Color.text)))\n      ]),\n      Text(child: \"Tip: ${formatMoney(checkout.tip_cents)}\", size: FontSize.sm, color: Color.textMuted)\n    ])\n  )], data: [Data(name: \"checkout\", from: Client.checkout(), fetch: \"client\", type: ClientCheckout), Data(name: \"cart\", from: Client.cart(), fetch: \"client\", type: Cart)],\n)\n"
+}

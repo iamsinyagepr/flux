@@ -1,0 +1,16 @@
+{
+ "name": "Stat card",
+ "id": "market:stat-card",
+ "description": "A big number with a label, for proof points.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "stat",
+  "number",
+  "proof"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/stat-card\", name: \"Stat card\", kind: Kind.section,\n  description: \"A big number with a label, for proof points.\",\n  options: [StringOption(name: \"value\", label: \"Number\", maxLength: 12, default: \"12 000+\"), StringOption(name: \"label\", label: \"Label\", maxLength: 40, default: \"orders delivered\")],\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Box(padding: Space.lg, radius: Radius.lg, background: Color.surfaceAlt, child: Column(gap: Space.xs, align: Align.center, children: [Text(child: options.value, size: FontSize.xxl, weight: FontWeight.bold, color: Color.primary), Text(child: options.label, color: Color.textMuted)]))\n  )],\n)\n"
+}

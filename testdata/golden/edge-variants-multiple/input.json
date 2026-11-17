@@ -1,0 +1,4 @@
+{
+ "name": "variants-multiple",
+ "source": "Component(dsl: 1, id: \"test/variants-multiple\", name: \"variants-multiple\", kind: Kind.section, description: \"Golden case\",\n  \n  variants: [Variant(id: \"default\", label: \"Default\", build: Text(child: \"unused\"))])"
+}

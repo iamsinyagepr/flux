@@ -1,0 +1,15 @@
+{
+ "name": "Quote",
+ "id": "market:quote",
+ "description": "A customer quote with who said it.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "quote",
+  "testimonial"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/quote\", name: \"Quote\", kind: Kind.section,\n  description: \"A customer quote with who said it.\",\n  options: [StringOption(name: \"quote\", label: \"Quote\", maxLength: 200, default: \"The best flat white in town, and they remember my name.\"), StringOption(name: \"author\", label: \"Author\", maxLength: 40, default: \"Thandi, regular since 2021\")],\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Box(padding: Insets(left: 16, y: 4), border: Border(width: 1, color: Color.primary), radius: Radius.sm, child: Column(gap: Space.sm, children: [\n      Text(child: options.quote, size: FontSize.lg, fontStyle: FontStyle.italic, lineHeight: 1.4),\n      Text(child: options.author, size: FontSize.sm, color: Color.textMuted, weight: FontWeight.medium)\n    ]))\n  )],\n)\n"
+}

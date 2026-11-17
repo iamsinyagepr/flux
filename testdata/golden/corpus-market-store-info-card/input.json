@@ -1,0 +1,16 @@
+{
+ "name": "Store info card",
+ "id": "market:store-info-card",
+ "description": "Address, hours and a directions button.",
+ "type": "component",
+ "kind": "storeInfo",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "store",
+  "location",
+  "hours"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/store-info-card\", name: \"Store info card\", kind: Kind.storeInfo,\n  description: \"Address, hours and a directions button.\",\n  options: [StringOption(name: \"name\", label: \"Store\", maxLength: 40, default: \"Bree Street\"), StringOption(name: \"address\", label: \"Address\", maxLength: 80, default: \"112 Bree St, Cape Town\")],\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Box(padding: Space.lg, radius: Radius.lg, background: Color.surface, border: Border(width: 1), child: Column(gap: Space.sm, children: [\n      Text(child: options.name, size: FontSize.lg, weight: FontWeight.bold),\n      Row(gap: Space.sm, children: [Icon(name: Icons.location, size: Size.sm, color: Color.primary), Expanded(child: Text(child: options.address, color: Color.textMuted))]),\n      Row(gap: Space.sm, children: [Icon(name: Icons.clock, size: Size.sm, color: Color.primary), Text(child: \"Open today until 18:00\", color: Color.success, weight: FontWeight.medium)]),\n      Button(label: \"Choose this store\", style: ButtonStyle.secondary, fullWidth: true, onTap: Navigate(to: Route.menu))\n    ]))\n  )],\n)\n"
+}

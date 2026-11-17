@@ -1,0 +1,15 @@
+{
+ "name": "Button set",
+ "id": "market:button-set",
+ "description": "Primary, secondary and ghost buttons side by side.",
+ "type": "component",
+ "kind": "section",
+ "variants": [
+  "default"
+ ],
+ "tags": [
+  "button",
+  "group"
+ ],
+ "source": "Component(\n  dsl: 1, id: \"market/button-set\", name: \"Button set\", kind: Kind.section,\n  description: \"Primary, secondary and ghost buttons side by side.\",\n  variants: [Variant(id: \"default\", label: \"Default\", build:\n    Row(gap: Space.sm, children: [\n      Button(label: \"Continue\", style: ButtonStyle.primary, onTap: Navigate(to: Route.checkout)),\n      Button(label: \"Save for later\", style: ButtonStyle.secondary, onTap: ShowMessage(message: \"Saved\")),\n      Button(label: \"Cancel\", style: ButtonStyle.ghost, onTap: Navigate(to: Route.cart))\n    ])\n  )],\n)\n"
+}
