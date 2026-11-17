@@ -1,0 +1,5 @@
+node_modules/
+dist/
+/flux
+/flux.exe
+*.vsix
