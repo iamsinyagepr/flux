@@ -17,6 +17,74 @@ editor support. Upskale then becomes one user of Flux instead of its owner.
 | Site | **flux.upskalelabs.dev**, from `site/` in this repo, on its own Vercel project |
 | Compiler | **Go**, one native binary (the code that is `upskale-backend/internal/studio` today) |
 
+## Status (2026-11-17)
+
+**Done, and checked:**
+- **Phase 1, the move.** The compiler is here as module
+  `github.com/iamsinyagepr/flux`, copied as files without the backend's
+  history and scanned for secrets (none found; the only key-like string is
+  a test's fake one). All 360 golden cases pass. New in Go:
+  `pagedata.FromSource`, a port of Studio's `readPageFields`. It reads a
+  page's route, data and SEO from its own source, and matches Studio on all
+  409 Page-form golden pages.
+- **Phase 2, the rename.** CDSL became Flux and `.cdsl` became `.flx` in
+  Studio (`upskaleapp`): the editor's text, Claude's brief and tools, the
+  docs, the desktop app's session files (which still accept `.cdsl`, so an
+  older session's files get cleared) and the generated code's headers. The
+  TypeScript compiler regenerated the golden cases into this repo
+  (`export-studio-compiler.mjs` and `export-web-runtime.mjs` now write
+  here), and Go still matches them byte for byte. `CDSL.md` is now
+  `FLUX.md`.
+- **Phase 3, the CLI.** `cmd/flux` provides `new` (templates `site`, `app` and
+  `store`), `check`, `build --target web|flutter`, `dev` (watch, rebuild
+  only what changed, Vite serving it), `migrate` (renames `.cdsl` files, or
+  lays out a Studio `.upskale.json` export), `lsp` and `version`.
+  `project/` reads `flux.json`, merging a partial theme over Studio's
+  defaults, along with the `.flx` sources. The npm packages work the way
+  esbuild's do (`npm/`, `scripts/release.mjs`): one launcher plus six platform
+  packages, tested by installing the packed tarballs. CI and release
+  workflows are in `.github/workflows`.
+- **Phase 4, the site** (`site/`). It has a landing page and 14 docs pages,
+  prerendered. The widget reference is generated from `registry/registry.json`,
+  and every Flux sample on the site passes `flux check`. It builds, but
+  isn't deployed: that's the owner's.
+- **Phase 5.** The Upskale site's Studio pages say Flux and link to
+  flux.upskalelabs.dev.
+- **Phase 6, the VS Code extension** (`editors/vscode`). It has the grammar,
+  language configuration, snippets, `flux.json` schema, the language client
+  for `flux lsp`, and commands. A packaged `.vsix` (3.5 MB, with `flux.exe`
+  inside) builds, and a release workflow publishes per platform to the
+  Marketplace and Open VSX.
+
+**Found and fixed on the way:** the generated website's `npm run dev`
+always failed (`ssr.noExternal: true` made Vite's module runner evaluate
+React's CommonJS). It now applies to `vite build` only. Builds were never
+affected.
+
+**Still to do:**
+- Create `github.com/iamsinyagepr/flux` (public) and push, then tag
+  `v0.1.0`. Add the `NPM_TOKEN`, `VSCE_PAT` and `OVSX_PAT` secrets, the
+  `@upskale` npm scope, and the `upskale` Marketplace publisher.
+- **`upskale-backend` switches to the module.** This needs the public repo
+  first: `go get github.com/iamsinyagepr/flux@v0.1.0`, change the imports in
+  `internal/server/studio.go` and `storefront_builds.go`
+  (`studio.` → `flux.`), then delete `internal/studio`. Until then the
+  backend's copy still writes "Edit the CDSL source" in generated headers,
+  while Studio's preview writes "Flux". That's cosmetic, and the TypeScript
+  compiler is the source of truth.
+- **`flux fmt`**: port `formatter.ts`, with golden cases from it.
+- **Internal names**: the Go package `cdsl`, Studio's `cdslString` and
+  `CdslEditor`, and CSS classes still say cdsl. Renaming them is a
+  mechanical pass that nobody sees, so it's left for its own change.
+- **Language server**: go to definition, document symbols, folding and
+  format on save (after `flux fmt`), plus richer hovers once the registry
+  exports its descriptions.
+- **Providers as a real boundary**: `Tenant.*` is still built into the
+  checker rather than turned on by `flux.json`. The config shape is ready
+  (`providers.upskale`), but the checker doesn't yet refuse `Tenant`
+  without it.
+- **Phase 7**, Studio on the Wasm build, is unchanged.
+
 ## Where things are today
 
 Flux has two implementations, kept identical by golden tests:
