@@ -1,0 +1,99 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Flux",
+  "scopeName": "source.flux",
+  "patterns": [{ "include": "#comment" }, { "include": "#block" }, { "include": "#expression" }],
+  "repository": {
+    "comment": {
+      "patterns": [
+        { "name": "comment.line.double-slash.flux", "match": "//.*$" },
+        { "name": "comment.block.flux", "begin": "/\\*", "end": "\\*/" }
+      ]
+    },
+    "block": {
+      "comment": "A file's header and its blocks: Page(...), usingServer(...), State(...), Build(...).",
+      "match": "^(Page|Component|usingServer|usingClient|Options|State|Parts|Build|Variants)(?=\\s*\\()",
+      "captures": { "1": { "name": "keyword.control.block.flux" } }
+    },
+    "expression": {
+      "patterns": [
+        { "include": "#comment" },
+        { "include": "#string" },
+        { "include": "#number" },
+        { "include": "#constant" },
+        { "include": "#typed-entry" },
+        { "include": "#parameter" },
+        { "include": "#call" },
+        { "include": "#token" },
+        { "include": "#binding" },
+        { "include": "#operator" }
+      ]
+    },
+    "string": {
+      "name": "string.quoted.double.flux",
+      "begin": "\"",
+      "end": "\"",
+      "patterns": [
+        { "name": "constant.character.escape.flux", "match": "\\\\(?:[\"\\\\nrt$]|u[0-9A-Fa-f]{4})" },
+        {
+          "name": "meta.interpolation.flux",
+          "begin": "\\$\\{",
+          "end": "\\}",
+          "beginCaptures": { "0": { "name": "punctuation.section.interpolation.begin.flux" } },
+          "endCaptures": { "0": { "name": "punctuation.section.interpolation.end.flux" } },
+          "patterns": [{ "include": "#expression" }]
+        },
+        { "name": "variable.parameter.route.flux", "match": "\\$[A-Za-z_][A-Za-z0-9_]*" }
+      ]
+    },
+    "number": { "name": "constant.numeric.flux", "match": "\\b\\d+(?:\\.\\d+)?\\b" },
+    "constant": { "name": "constant.language.flux", "match": "\\b(?:true|false|null)\\b" },
+    "typed-entry": {
+      "comment": "dish<Product>(...), stores<Store[]>(...): a named, typed data entry.",
+      "match": "\\b([a-z][A-Za-z0-9_]*)\\s*(<)\\s*([A-Z][A-Za-z0-9_]*(?:<[A-Z][A-Za-z0-9_]*>)?(?:\\[\\])?)\\s*(>)",
+      "captures": {
+        "1": { "name": "variable.other.definition.flux" },
+        "2": { "name": "punctuation.definition.typeparameters.begin.flux" },
+        "3": { "name": "entity.name.type.flux" },
+        "4": { "name": "punctuation.definition.typeparameters.end.flux" }
+      }
+    },
+    "parameter": {
+      "match": "\\b([A-Za-z_][A-Za-z0-9_]*)\\s*(:)",
+      "captures": {
+        "1": { "name": "variable.parameter.flux" },
+        "2": { "name": "punctuation.separator.key-value.flux" }
+      }
+    },
+    "call": {
+      "patterns": [
+        {
+          "comment": "Tenant.product(...), Client.cart(), Schema.product(...): a data source or helper.",
+          "match": "\\b([A-Z][A-Za-z0-9_]*)(\\.)([a-z][A-Za-z0-9_]*)(?=\\s*\\()",
+          "captures": { "1": { "name": "entity.name.namespace.flux" }, "3": { "name": "entity.name.function.flux" } }
+        },
+        { "match": "\\b([A-Z][A-Za-z0-9_]*)(?=\\s*\\()", "captures": { "1": { "name": "entity.name.type.class.flux" } } },
+        { "match": "\\b([a-z][A-Za-z0-9_]*)(?=\\s*\\()", "captures": { "1": { "name": "entity.name.function.flux" } } }
+      ]
+    },
+    "token": {
+      "comment": "Space.md, Color.primary, FontWeight.bold: a design token.",
+      "match": "\\b([A-Z][A-Za-z0-9_]*)(\\.)([a-z][A-Za-z0-9_]*)\\b",
+      "captures": { "1": { "name": "support.type.token.flux" }, "3": { "name": "support.constant.token.flux" } }
+    },
+    "binding": {
+      "patterns": [
+        { "name": "variable.language.flux", "match": "\\b(?:state|options|route|query|site|event|input|viewport)\\b" },
+        { "name": "variable.other.flux", "match": "\\b[a-z_][A-Za-z0-9_]*\\b" }
+      ]
+    },
+    "operator": {
+      "patterns": [
+        { "name": "keyword.operator.comparison.flux", "match": "===?|!==?|<=|>=" },
+        { "name": "keyword.operator.logical.flux", "match": "&&|\\|\\||!|\\?\\?" },
+        { "name": "keyword.operator.ternary.flux", "match": "\\?" },
+        { "name": "keyword.operator.arithmetic.flux", "match": "[+\\-*/%]" }
+      ]
+    }
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "name": "flux",
+  "displayName": "Flux",
+  "description": "The Flux language (.flx): highlighting, checks as you type, completion and hover, from the flux CLI's language server.",
+  "version": "0.1.0",
+  "publisher": "upskale",
+  "license": "MIT",
+  "homepage": "https://flux.upskalelabs.dev",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iamsinyagepr/flux.git",
+    "directory": "editors/vscode"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": ["Programming Languages", "Linters", "Snippets"],
+  "keywords": ["flux", "flx", "ui", "flutter", "react"],
+  "main": "./dist/extension.js",
+  "activationEvents": ["workspaceContains:**/flux.json"],
+  "contributes": {
+    "languages": [
+      {
+        "id": "flux",
+        "aliases": ["Flux", "flux"],
+        "extensions": [".flx"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "flux",
+        "scopeName": "source.flux",
+        "path": "./syntaxes/flux.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "flux",
+        "path": "./snippets/flux.json"
+      }
+    ],
+    "jsonValidation": [
+      {
+        "fileMatch": "flux.json",
+        "url": "./flux.schema.json"
+      }
+    ],
+    "commands": [
+      { "command": "flux.restart", "title": "Restart the language server", "category": "Flux" },
+      { "command": "flux.check", "title": "Check the project", "category": "Flux" },
+      { "command": "flux.build", "title": "Build", "category": "Flux" },
+      { "command": "flux.dev", "title": "Run the dev server", "category": "Flux" },
+      { "command": "flux.migrate", "title": "Migrate from CDSL (.cdsl to .flx)", "category": "Flux" }
+    ],
+    "configuration": {
+      "title": "Flux",
+      "properties": {
+        "flux.path": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "The `flux` binary to run. Empty: the project's own (`node_modules/.bin/flux`), then the one this extension ships with, then `flux` on your PATH."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "esbuild src/extension.ts --bundle --platform=node --format=cjs --external:vscode --outfile=dist/extension.js --minify",
+    "check": "tsc --noEmit && node scripts/check-grammar.mjs",
+    "package": "npm run build && vsce package"
+  },
+  "dependencies": {
+    "vscode-languageclient": "9.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "22.10.2",
+    "@types/vscode": "1.85.0",
+    "@vscode/vsce": "3.2.1",
+    "esbuild": "0.24.2",
+    "typescript": "5.7.2"
+  }
+}

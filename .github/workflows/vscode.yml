@@ -1,0 +1,53 @@
+# The VS Code extension's release: push a tag vscode-v<version>.
+#
+# One .vsix per platform, each with that platform's flux inside, published
+# to the VS Code Marketplace and to Open VSX (VSCodium, Cursor and others).
+#
+# Needs the repo secrets VSCE_PAT (an Azure DevOps token for the "upskale"
+# Marketplace publisher) and OVSX_PAT (an open-vsx.org token).
+name: VS Code extension
+
+on:
+  push:
+    tags: ["vscode-v*"]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - { target: win32-x64, goos: windows, goarch: amd64, exe: flux.exe }
+          - { target: win32-arm64, goos: windows, goarch: arm64, exe: flux.exe }
+          - { target: darwin-x64, goos: darwin, goarch: amd64, exe: flux }
+          - { target: darwin-arm64, goos: darwin, goarch: arm64, exe: flux }
+          - { target: linux-x64, goos: linux, goarch: amd64, exe: flux }
+          - { target: linux-arm64, goos: linux, goarch: arm64, exe: flux }
+    defaults:
+      run:
+        working-directory: editors/vscode
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: The flux it ships with
+        working-directory: .
+        env:
+          CGO_ENABLED: "0"
+          GOOS: ${{ matrix.goos }}
+          GOARCH: ${{ matrix.goarch }}
+        run: go build -trimpath -ldflags "-s -w -X main.version=${GITHUB_REF_NAME#vscode-v}" -o editors/vscode/bin/${{ matrix.exe }} ./cmd/flux
+      - run: npm ci
+      - run: npm run check
+      - run: npm run build
+      - run: npx vsce package --target ${{ matrix.target }} -o flux-${{ matrix.target }}.vsix
+      - run: npx vsce publish --packagePath flux-${{ matrix.target }}.vsix
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+      - run: npx ovsx publish flux-${{ matrix.target }}.vsix -p "$OVSX_PAT"
+        env:
+          OVSX_PAT: ${{ secrets.OVSX_PAT }}

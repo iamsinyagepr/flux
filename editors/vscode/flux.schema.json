@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "flux.json",
+  "description": "A Flux project's settings.",
+  "type": "object",
+  "properties": {
+    "name": { "type": "string", "description": "The project's name. Default: its folder's." },
+    "description": { "type": "string" },
+    "entry": { "type": "string", "description": "The page the app opens on, by id (its file name in pages/). Default: home, else the first page." },
+    "theme": {
+      "type": "object",
+      "description": "Design tokens and settings: colours, fonts, sizes, the icon library and the page transition."
+    },
+    "transitions": {
+      "type": "object",
+      "description": "Pages' own transitions, by page id.",
+      "additionalProperties": { "enum": ["none", "fade", "slide", "slideUp", "scale"] }
+    },
+    "site": {
+      "type": "object",
+      "description": "The website's settings.",
+      "properties": {
+        "url": { "type": "string", "format": "uri", "description": "The website's address." }
+      }
+    },
+    "providers": {
+      "type": "object",
+      "description": "Data sources beyond Http(...).",
+      "properties": {
+        "upskale": {
+          "type": "object",
+          "description": "An Upskale business's API: Tenant.… and Client.… data, and the storefront components.",
+          "properties": {
+            "api": { "type": "string", "description": "The business's API address. Empty: sample data." },
+            "store": { "type": "string", "description": "Pins the app to one store (id or slug)." }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

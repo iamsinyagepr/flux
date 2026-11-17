@@ -1,0 +1,48 @@
+{
+  "Page": {
+    "prefix": "page",
+    "description": "A page: its header and its build",
+    "body": [
+      "Page(name: \"${1:Home}\", route: Route(path: \"${2:/}\"), seo: Seo(title: \"${3:$1}\"))",
+      "",
+      "Build(",
+      "  Scaffold(",
+      "    body: ScrollView(child: Column(gap: Space.md, padding: Insets(x: 24, y: 32), children: [",
+      "      $0",
+      "    ])),",
+      "  )",
+      ")"
+    ]
+  },
+  "Component": {
+    "prefix": "component",
+    "description": "A component of the project's own",
+    "body": [
+      "Component(id: \"${1:project}/${2:name}\", name: \"${3:Name}\", kind: Kind.${4|section,hero,navigation,footer,productCard,productCollection,categoryNav,storeInfo|}, description: \"${5}\")",
+      "",
+      "Build(",
+      "  $0",
+      ")"
+    ]
+  },
+  "usingServer": {
+    "prefix": "server",
+    "description": "Data the website fetches on its server and renders into the page",
+    "body": ["usingServer(", "  ${1:name}<${2:Json}>(src: ${3:Http(url: \"https://\")}),", ")"]
+  },
+  "usingClient": {
+    "prefix": "client",
+    "description": "Data the browser fetches once the page is showing",
+    "body": ["usingClient(", "  ${1:name}<${2:Json}>(src: ${3:Http(url: \"https://\")}),", ")"]
+  },
+  "State": {
+    "prefix": "state",
+    "description": "The page's own state",
+    "body": ["State(", "  ${1:name}: ${2|String,Number,Bool|}(default: ${3}),", ")"]
+  },
+  "ForEach": {
+    "prefix": "foreach",
+    "description": "One child per item of a list",
+    "body": ["ForEach(items: ${1:items}, as: \"${2:item}\", child: ${0:Text(child: $2.name)})"]
+  }
+}
