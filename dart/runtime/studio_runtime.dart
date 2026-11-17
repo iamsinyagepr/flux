@@ -1845,12 +1845,12 @@ dynamic studioFunction(BuildContext context, Map<String, dynamic> bindings, Stri
         return words.every(haystack.contains);
       }).take(200).toList();
   }
-  throw UnsupportedError('Unknown CDSL function: $name');
+  throw UnsupportedError('Unknown Flux function: $name');
 }
 
 String studioText(dynamic value) => value?.toString() ?? '';
 /// Like the Studio preview: anything that isn't a number counts as 0, so a
-/// CDSL shorthand such as "isDesktop() && Space.lg" (false on a phone)
+/// Flux shorthand such as "isDesktop() && Space.lg" (false on a phone)
 /// means "none" instead of crashing.
 double studioNumber(dynamic value) => value is num ? value.toDouble() : 0;
 int studioInt(dynamic value) => studioNumber(value).toInt();
@@ -2606,7 +2606,7 @@ class StudioImport {
       RegExp(r'\{([A-Za-z_][A-Za-z0-9_-]*)\}').allMatches(path.isNotEmpty ? path : url).map((match) => match[1]!);
 }
 
-/// A page's imports, as its CDSL reads them (studioAmbient), by name.
+/// A page's imports, as its Flux reads them (studioAmbient), by name.
 class StudioPageDataScope extends InheritedWidget {
   const StudioPageDataScope({super.key, required this.data, this.loading = false, required super.child});
   final Map<String, dynamic> data;

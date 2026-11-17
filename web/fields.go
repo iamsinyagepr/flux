@@ -19,7 +19,7 @@ import (
 // the record: a store list read for its names and images is names and
 // images.
 //
-// Read from the CDSL, conservatively: anything it can't follow (a value
+// Read from the Flux, conservatively: anything it can't follow (a value
 // handed to an action, to a function it doesn't know, or read whole) keeps
 // the whole of that value. Lists are transparent: a field read of a list's
 // items is read on each.
@@ -281,7 +281,7 @@ func (w *fieldWalk) call(n *cdsl.Expr, s fieldScope) [][]string {
 	return nil
 }
 
-// function is a CDSL function's reads (runtime.tsx's fn): a list one
+// function is a Flux function's reads (runtime.tsx's fn): a list one
 // filters or takes from is still the list.
 func (w *fieldWalk) function(n *cdsl.Expr, s fieldScope) [][]string {
 	args := n.Positional

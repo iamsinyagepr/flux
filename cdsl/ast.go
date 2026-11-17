@@ -1,4 +1,4 @@
-// Package cdsl parses and checks Upskale Studio's component language — a
+// Package cdsl parses and checks Upskale Flux — a
 // port of upskaleapp's parser.ts, languageService.ts (analysis) and
 // dataBindings.ts (binding types). Positions are UTF-16 code units, as the
 // browser editor counts them.
@@ -62,7 +62,7 @@ func (a *Args) Keys() []string {
 // Len is the number of named arguments.
 func (a *Args) Len() int { return len(a.Keys()) }
 
-// Expr is a CDSL expression node.
+// Expr is a Flux expression node.
 type Expr struct {
 	Kind     ExprKind
 	From, To int

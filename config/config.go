@@ -16,7 +16,7 @@ const MaxCustomTokens = 24
 // Groups are the config groups backed by tokens, in validation order.
 var Groups = []string{"colors", "spacing", "radii", "fontSizes", "iconSizes"}
 
-// TokenGroups maps a CDSL token family to its config group.
+// TokenGroups maps a Flux token family to its config group.
 var TokenGroups = map[string]string{
 	"Color":    "colors",
 	"Space":    "spacing",

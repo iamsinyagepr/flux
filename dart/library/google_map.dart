@@ -4,7 +4,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../studio_runtime.dart';
 
-/// A marker on a StudioGoogleMap: CDSL's MapMarker(...).
+/// A marker on a StudioGoogleMap: Flux's MapMarker(...).
 class StudioMapMarker {
   const StudioMapMarker({required this.latitude, required this.longitude, this.id = '', this.title = ''});
 
@@ -14,7 +14,7 @@ class StudioMapMarker {
   final String title;
 }
 
-/// A Google map centred on a point, with markers: CDSL's GoogleMap(...).
+/// A Google map centred on a point, with markers: Flux's GoogleMap(...).
 /// Without the project's display key (Config → Maps) it says the map is
 /// unavailable: the people using the app can't add one.
 class StudioGoogleMap extends StatefulWidget {

@@ -24,7 +24,7 @@ const (
 	String
 )
 
-// Value is a JS primitive: what a CDSL literal (or its absence) evaluates to.
+// Value is a JS primitive: what a Flux literal (or its absence) evaluates to.
 type Value struct {
 	kind Kind
 	b    bool

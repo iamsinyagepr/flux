@@ -1,4 +1,4 @@
-// Package registry is the CDSL catalogue the compiler checks sources
+// Package registry is the Flux catalogue the compiler checks sources
 // against — constructors, functions, token families, size defaults and the
 // binding schemas — exported from upskaleapp's TypeScript registry by
 // `node scripts/export-studio-compiler.mjs`, so the editor and this compiler

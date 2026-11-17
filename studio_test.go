@@ -2,11 +2,11 @@ package flux
 
 import (
 	"encoding/json"
+	"github.com/iamsinyagepr/flux/dart"
 	"os"
 	"path/filepath"
 	"strings"
 	"testing"
-	"github.com/iamsinyagepr/flux/dart"
 )
 
 // Compilation must be deterministic — the response cache depends on it, and

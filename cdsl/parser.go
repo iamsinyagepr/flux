@@ -7,7 +7,7 @@ import (
 	"github.com/iamsinyagepr/flux/js"
 )
 
-// MaxSourceBytes is the size limit of one CDSL file (UTF-8 bytes).
+// MaxSourceBytes is the size limit of one Flux file (UTF-8 bytes).
 const MaxSourceBytes = 65_536
 
 // TokenKind is the kind of a lexed token.
@@ -465,7 +465,7 @@ type Parsed struct {
 	Diagnostics []Diagnostic
 }
 
-// ParseSource parses one CDSL file, which must be a single Component(...).
+// ParseSource parses one Flux file, which must be a single Component(...).
 func ParseSource(source string) (parsed Parsed) {
 	length := js.Len(source)
 	defer func() {

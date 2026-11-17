@@ -122,7 +122,7 @@ func Compile(project Project, apiURL string) Result {
 
 // CompileWeb turns a project's pages into a website: a Vite + React project
 // routed by TanStack Router (package web), the web counterpart of Compile.
-// A project converted to Dart has no CDSL to compile, and a project without
+// A project converted to Dart has no Flux to compile, and a project without
 // pages nothing to route: ok is false for both, and its website is Flutter's.
 //
 // site is the business's website settings (its SEO, its address), as JSON.

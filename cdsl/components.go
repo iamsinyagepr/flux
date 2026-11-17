@@ -5,7 +5,7 @@ import (
 	"github.com/iamsinyagepr/flux/registry"
 )
 
-// Source is one named CDSL source (a project component).
+// Source is one named Flux source (a project component).
 type Source struct {
 	Name   string
 	Source string

@@ -6,7 +6,7 @@ import (
 	"github.com/iamsinyagepr/flux/js"
 )
 
-// The block form of a file (upskaleapp's CDSL.md and parser.ts): its
+// The block form of a file (upskaleapp's FLUX.md and parser.ts): its
 // Page(...) or Component(...) call as a header, then blocks,
 //
 //	Page(name: "Dish", route: Route(...), seo: Seo(...))

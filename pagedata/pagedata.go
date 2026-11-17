@@ -2,7 +2,7 @@
 // SEO it builds from it: the page's Data and SEO settings.
 //
 // A developer chooses each import by hand: from the tenant API (one of
-// Resources) or an external API (a URL), named as the page's CDSL reads it,
+// Resources) or an external API (a URL), named as the page's Flux reads it,
 // with each parameter taken from the route, the query string, a fixed value,
 // another import or the site's store. The website fetches them on the server
 // (rendered there, its SEO in the HTML); the Flutter app when the page opens.
@@ -19,7 +19,7 @@ import (
 
 // Import is one piece of data a page fetches.
 type Import struct {
-	// Name is how the page's CDSL reads it: an import named like a built-in
+	// Name is how the page's Flux reads it: an import named like a built-in
 	// binding (product, store) replaces it on this page.
 	Name string `json:"name"`
 	// Source is "tenant" (Resource), "external" (URL) or "client" (Resource:
@@ -45,7 +45,7 @@ type Import struct {
 	// Type is what the page reads it as when that isn't the source's own:
 	// a list from a page of them ("Store[]", with Select "data"), or another
 	// API's answer as one of the API's types. Written dish<Product>(...) in
-	// the block form (upskaleapp's CDSL.md, pageData.ts's declaredType).
+	// the block form (upskaleapp's FLUX.md, pageData.ts's declaredType).
 	Type string `json:"type,omitempty"`
 }
 
@@ -65,7 +65,7 @@ type Param struct {
 	Fallback *string `json:"fallback,omitempty"`
 }
 
-// SEO is a page's head, each field a CDSL expression over its data
+// SEO is a page's head, each field a Flux expression over its data
 // ("${dish.name} | ${store.name}"). Empty fields fall back to the site's.
 type SEO struct {
 	Title       string `json:"title,omitempty"`
@@ -141,7 +141,7 @@ var (
 	headerName  = regexp.MustCompile(`^[A-Za-z][A-Za-z0-9-]{0,63}$`)
 	selectPath  = regexp.MustCompile(`^[A-Za-z0-9_]+(\.[A-Za-z0-9_]+)*$`)
 	placeholder = regexp.MustCompile(`\{([A-Za-z_][A-Za-z0-9_-]*)\}`)
-	// Names a page can't import under: what CDSL reads as something else.
+	// Names a page can't import under: what Flux reads as something else.
 	reserved = map[string]bool{"state": true, "options": true, "event": true, "input": true, "route": true, "viewport": true}
 	froms    = map[string]bool{"route": true, "query": true, "value": true, "import": true, "store": true}
 	schemas  = map[string]bool{"": true, "Product": true, "Restaurant": true}
@@ -298,7 +298,7 @@ var resourceTypes = map[string]string{
 	"reviews": "Page<OrderReview>",
 }
 
-// ImportScope is a page's imports as names its CDSL may read, each with its
+// ImportScope is a page's imports as names its Flux may read, each with its
 // type: a tenant read's own, or "json" (any field) for an external API or a
 // selection (pageData.ts's importScope).
 func ImportScope(imports []Import) map[string]string {

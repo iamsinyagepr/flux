@@ -74,7 +74,7 @@ type Context struct {
 	// CustomTokens returns the project's own token names for a family.
 	CustomTokens func(family string) []string
 	// Data are a page's imports (its Data settings) by name, with their
-	// types: names its CDSL may read (pagedata.ImportScope).
+	// types: names its Flux may read (pagedata.ImportScope).
 	Data map[string]string
 }
 

@@ -3,7 +3,7 @@
 // TanStack Query, that builds to static files.
 //
 // It is the web counterpart of the dart package (the Flutter app): the same
-// CDSL sources, analysed the same way (cdsl), drawn by a React runtime
+// Flux sources, analysed the same way (cdsl), drawn by a React runtime
 // (runtime/, embedded) that follows the Flutter runtime's layout and the
 // Studio preview's look, and talking to the tenant API the same way
 // package:upskale_storefront does. Everything here is pure: no database,

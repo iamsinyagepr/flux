@@ -174,7 +174,7 @@ func TestClientDataStaysOnTheClient(t *testing.T) {
 func TestSignedInDataIsTheBrowsers(t *testing.T) {
 	orders := dart.Page{ID: "orders", Name: "Orders", Path: "/orders",
 		Source: `Page(name: "Orders", build: Text(child: "${orders.length} orders"))`,
-		Data: []pagedata.Import{{Name: "orders", Source: "tenant", Resource: "history", Fetch: "client", Select: "data", Type: "Order[]"}}}
+		Data:   []pagedata.Import{{Name: "orders", Source: "tenant", Resource: "history", Fetch: "client", Select: "data", Type: "Order[]"}}}
 	r := Compile(Input{Name: "Orders", Pages: []dart.Page{orders}, EntryPageID: "orders"})
 	if !r.Success {
 		t.Fatalf("did not compile: %+v", r.Diagnostics)

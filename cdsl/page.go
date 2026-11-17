@@ -6,7 +6,7 @@ import (
 	"github.com/iamsinyagepr/flux/js"
 )
 
-// Pages and components, as CDSL has them now (upskaleapp's pageModel.ts):
+// Pages and components, as Flux has them now (upskaleapp's pageModel.ts):
 //
 //	Page(name: "Dish", route: Route(...), data: [...], seo: Seo(...),
 //	     states: [...], build: Scaffold(...))

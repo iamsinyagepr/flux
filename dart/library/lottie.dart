@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-/// A Lottie animation from a web address: CDSL's Lottie(...). An address
+/// A Lottie animation from a web address: Flux's Lottie(...). An address
 /// that isn't https, or that won't load, shows a quiet placeholder.
 class StudioLottie extends StatelessWidget {
   const StudioLottie({

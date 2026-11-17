@@ -1,7 +1,7 @@
 package flux
 
-// Dart mode: a project converted, once and for good, from CDSL to the
-// Flutter project its CDSL compiled to (upskaleapp's src/lib/studio/
+// Dart mode: a project converted, once and for good, from Flux to the
+// Flutter project its Flux compiled to (upskaleapp's src/lib/studio/
 // dartMode.ts). From then on its Dart is its own: a build or a run on a
 // device takes those files exactly as they are, never compiling anything,
 // and adds only lib/upskale_config.dart, the instance it talks to (the
