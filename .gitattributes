@@ -1,0 +1,4 @@
+# Every text file is LF, on every OS: the golden cases compare bytes, and
+# the compiler embeds its runtimes and sources byte for byte.
+* text=auto eol=lf
+*.png binary
