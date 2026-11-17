@@ -11,7 +11,7 @@
 // @upskale/flux's optionalDependencies resolve), with provenance in CI.
 // Flux is pure Go: every platform cross-compiles from any machine.
 import { execFileSync } from "node:child_process";
-import { chmodSync, cpSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { chmodSync, cpSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 const [version, ...flags] = process.argv.slice(2);
@@ -31,8 +31,10 @@ const platforms = [
   { os: "linux", cpu: "arm64", goos: "linux", goarch: "arm64" },
 ];
 
-const out = "release";
-rmSync(out, { recursive: true, force: true });
+const out = process.env.RELEASE_DIR || "release";
+// Emptied, not removed: on Windows a folder a terminal is in can't be.
+mkdirSync(out, { recursive: true });
+for (const entry of readdirSync(out)) rmSync(join(out, entry), { recursive: true, force: true });
 mkdirSync(join(out, "bin"), { recursive: true });
 
 const meta = {

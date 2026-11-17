@@ -4,3 +4,4 @@ dist/
 /flux.exe
 *.vsix
 release/
+release-*/
