@@ -1,0 +1,12 @@
+{
+  "name": "@upskale/create-flux",
+  "version": "0.0.0",
+  "description": "Start a Flux project: npm create @upskale/flux@latest",
+  "license": "MIT",
+  "homepage": "https://flux.upskalelabs.dev",
+  "repository": { "type": "git", "url": "git+https://github.com/iamsinyagepr/flux.git", "directory": "npm/create-flux" },
+  "bin": { "create-flux": "index.js" },
+  "files": ["index.js"],
+  "engines": { "node": ">=18" },
+  "dependencies": { "@upskale/flux": "0.0.0" }
+}

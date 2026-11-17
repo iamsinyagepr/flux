@@ -1,0 +1,20 @@
+{
+  "name": "@upskale/flux",
+  "version": "0.0.0",
+  "description": "Flux: one source, compiled to a website and a Flutter app. The flux CLI.",
+  "license": "MIT",
+  "homepage": "https://flux.upskalelabs.dev",
+  "repository": { "type": "git", "url": "git+https://github.com/iamsinyagepr/flux.git", "directory": "npm/flux" },
+  "keywords": ["flux", "flx", "ui", "language", "compiler", "flutter", "react"],
+  "bin": { "flux": "bin/flux.js" },
+  "files": ["bin/flux.js", "README.md"],
+  "engines": { "node": ">=18" },
+  "optionalDependencies": {
+    "@upskale/flux-win32-x64": "0.0.0",
+    "@upskale/flux-win32-arm64": "0.0.0",
+    "@upskale/flux-darwin-x64": "0.0.0",
+    "@upskale/flux-darwin-arm64": "0.0.0",
+    "@upskale/flux-linux-x64": "0.0.0",
+    "@upskale/flux-linux-arm64": "0.0.0"
+  }
+}

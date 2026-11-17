@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  go:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - name: Formatted
+        if: matrix.os == 'ubuntu-latest'
+        run: test -z "$(gofmt -l .)" || (gofmt -l . && exit 1)
+      - run: go vet ./...
+      # The golden cases: the compiler's output, byte for byte, as Upskale
+      # Studio's TypeScript compiler gives it.
+      - run: go test ./...
+      - name: The templates check and build
+        shell: bash
+        run: |
+          go build -o flux-ci ./cmd/flux
+          cd "$RUNNER_TEMP"
+          for t in site app store; do
+            "$GITHUB_WORKSPACE/flux-ci" new "$t-demo" --template "$t"
+            (cd "$t-demo" && "$GITHUB_WORKSPACE/flux-ci" check && "$GITHUB_WORKSPACE/flux-ci" build --target web && "$GITHUB_WORKSPACE/flux-ci" build --target flutter)
+          done
+
+  site:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: site
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: npm run build
+
+  vscode:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: editors/vscode
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: npm run check
