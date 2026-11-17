@@ -56,6 +56,22 @@ editor support. Upskale then becomes one user of Flux instead of its owner.
   inside) builds, and a release workflow publishes per platform to the
   Marketplace and Open VSX.
 
+- **The editor in `flux dev`** (`editor/`, 2026-11-18). Upskale Studio's context
+  menu and properties panel run over the site `flux dev` serves: press E,
+  click a widget to edit its properties, or right-click for the menu. Each
+  edit rewrites the widget's `.flx` file. The editors are Studio's own code,
+  synced from upskaleapp by `editor/scripts/sync-from-studio.mjs` (88
+  files, with Studio's console API and desktop bridge replaced by stand-ins),
+  and built into `cmd/flux/overlay/overlay.js`, which is embedded in the
+  binary. Dev builds mark each widget with its source position
+  (`flux.WebOptions{Marks}`); shipped builds don't, and a test holds that.
+  `flux dev`'s editing server listens on 127.0.0.1 only, and needs the
+  session's token and the dev site's origin. It refuses a save to a file
+  that changed on disk since the edit was made. Tested in Edge: select, a
+  panel edit written to disk with the panel staying open, the menu,
+  and no console errors. Next: the VS Code extension shows this page in
+  a panel beside the code.
+
 **Found and fixed on the way:** the generated website's `npm run dev`
 always failed (`ssr.noExternal: true` made Vite's module runner evaluate
 React's CommonJS). It now applies to `vite build` only. Builds were never

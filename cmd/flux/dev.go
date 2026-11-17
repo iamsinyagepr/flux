@@ -14,6 +14,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/iamsinyagepr/flux"
 	"github.com/iamsinyagepr/flux/project"
 )
 
@@ -23,6 +24,7 @@ import (
 func runDev(args []string) error {
 	flags := flag.NewFlagSet("dev", flag.ExitOnError)
 	port := flags.Int("port", 5173, "the dev server's port")
+	noEditor := flags.Bool("no-editor", false, "serve the site without the editor over it")
 	flags.Parse(flagsAnywhere(args))
 	dir := "."
 	if flags.NArg() > 0 {
@@ -37,13 +39,26 @@ func runDev(args []string) error {
 		return err
 	}
 
+	// The editor over the page (cmd/flux/editor.go): its own server, beside
+	// the site's, the page marked so it can find each widget's source.
+	var edit *editor
+	options := flux.WebOptions{}
+	if !*noEditor {
+		edit = newEditor(root, *port)
+		overlay, err := edit.listen(*port + 1000)
+		if err != nil {
+			return fmt.Errorf("starting the editor: %w", err)
+		}
+		options = flux.WebOptions{Marks: true, OverlayURL: overlay}
+	}
+
 	build := func() bool {
 		loaded, err := project.Load(root)
 		if err != nil {
 			fmt.Fprintln(os.Stderr, "flux:", err)
 			return false
 		}
-		files, diagnostics, err := compile(loaded, "web")
+		files, diagnostics, err := compileWith(loaded, "web", options)
 		if err != nil {
 			fmt.Fprintln(os.Stderr, "flux:", err)
 			return false
@@ -108,6 +123,9 @@ func runDev(args []string) error {
 			last = now
 			before := hashFile(filepath.Join(out, "package.json"))
 			build()
+			if edit != nil {
+				edit.changed()
+			}
 			if hashFile(filepath.Join(out, "package.json")) != before {
 				// A widget that needs a new package (a map, an animation).
 				if err := install(out); err != nil {
@@ -133,7 +151,8 @@ func snapshot(root string) string {
 			}
 			return nil
 		}
-		if strings.HasSuffix(path, project.Ext) || d.Name() == project.ConfigFile {
+		public := strings.HasPrefix(path, filepath.Join(root, "public")+string(filepath.Separator))
+		if strings.HasSuffix(path, project.Ext) || d.Name() == project.ConfigFile || public {
 			if info, err := d.Info(); err == nil {
 				fmt.Fprintf(h, "%s|%d|%d\n", path, info.Size(), info.ModTime().UnixNano())
 			}

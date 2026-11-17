@@ -103,6 +103,29 @@ $ npx flux dev`}</Code>
         page updates in place. With an error in a file, the page keeps its last good build and the error is printed with its
         line and column.
       </p>
+      <h2>Edit it on the page</h2>
+      <p>
+        <code>flux dev</code> puts an editor over the site it serves. Press <kbd>E</kbd>, or use the Edit switch at the bottom
+        left:
+      </p>
+      <ul>
+        <li>hovering a widget outlines it;</li>
+        <li>
+          clicking selects it and opens its <strong>properties</strong> beside the page: its text, sizes, colours, actions and
+          the rest, each with the right control;
+        </li>
+        <li>
+          right-clicking opens the <strong>menu</strong>: insert a widget before or after it, wrap it, replace it, duplicate or
+          delete it, add a property;
+        </li>
+        <li>Alt-click selects the widget around the one you clicked, and Esc deselects.</li>
+      </ul>
+      <p>
+        Every change is written to the widget's <code>.flx</code> file, and the page updates as soon as it's rebuilt, so your
+        code editor shows it too. A file that changed on disk after you started an edit is never overwritten: the editor reloads
+        it and asks you to make the change again. Images you add go into <code>public/uploads</code>. These are the same editors
+        as Upskale Studio's. <code>flux dev --no-editor</code> serves the site without them.
+      </p>
       <h2>Check it</h2>
       <Code lang="sh">{`$ npx flux check
 pages/home.flx:11:43: error: Unknown token: FontSize.huge
@@ -520,7 +543,7 @@ function Cli() {
     ["flux new <name> [--template site|app|store]", "Starts a project in a new folder. npm create @upskale/flux runs this."],
     ["flux check", "Parses and checks every .flx file in the project and prints file:line:col: severity: message. Exits 1 on errors."],
     ["flux build [--target web|flutter] [--out dir]", "Compiles the project. The default target is web for a project with pages, flutter for a single main.flx."],
-    ["flux dev [--port 5173]", "Builds the website into .flux/web, installs its packages, serves it, and rebuilds as you save."],
+    ["flux dev [--port 5173] [--no-editor]", "Builds the website into .flux/web, installs its packages, serves it with the editor over it (press E on the page), and rebuilds as you save."],
     ["flux migrate [dir]", "Renames .cdsl files to .flx."],
     ["flux migrate <file>.upskale.json", "Lays out a project exported from Upskale Studio as a Flux project."],
     ["flux lsp", "The language server, over stdio, for editors."],

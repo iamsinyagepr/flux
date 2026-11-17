@@ -27,6 +27,37 @@ type outFile struct {
 
 // compile is the project's files for a target, or why it can't build.
 func compile(loaded *project.Loaded, target string) ([]outFile, []diagnostic, error) {
+	return compileWith(loaded, target, flux.WebOptions{})
+}
+
+// publicFiles are the project's public/ folder (images, a favicon), served
+// as they are by the website: public/uploads/x.png at /uploads/x.png.
+func publicFiles(root string) ([]outFile, error) {
+	var files []outFile
+	dir := filepath.Join(root, "public")
+	err := filepath.WalkDir(dir, func(path string, d fs.DirEntry, err error) error {
+		if err != nil {
+			if errors.Is(err, fs.ErrNotExist) {
+				return filepath.SkipAll
+			}
+			return err
+		}
+		if d.IsDir() {
+			return nil
+		}
+		raw, err := os.ReadFile(path)
+		if err != nil {
+			return err
+		}
+		rel, _ := filepath.Rel(dir, path)
+		files = append(files, outFile{"public/" + filepath.ToSlash(rel), string(raw)})
+		return nil
+	})
+	return files, err
+}
+
+// compileWith is compile with a dev build's website options.
+func compileWith(loaded *project.Loaded, target string, options flux.WebOptions) ([]outFile, []diagnostic, error) {
 	diagnostics := diagnose(loaded)
 	for _, d := range diagnostics {
 		if d.Severity == "error" {
@@ -36,12 +67,24 @@ func compile(loaded *project.Loaded, target string) ([]outFile, []diagnostic, er
 	var files []outFile
 	switch target {
 	case "web":
-		result, ok := flux.CompileWeb(loaded.Project, loaded.Config.API(), loaded.Config.Site)
+		result, ok := flux.CompileWebWith(loaded.Project, loaded.Config.API(), loaded.Config.Site, options)
 		if !ok {
 			return nil, diagnostics, errors.New("a website needs pages: add pages/<id>" + project.Ext + " (a single main" + project.Ext + " builds with --target flutter)")
 		}
+		generated := map[string]bool{}
 		for _, f := range result.Files {
 			files = append(files, outFile{f.Path, f.Content})
+			generated[f.Path] = true
+		}
+		public, err := publicFiles(loaded.Dir)
+		if err != nil {
+			return nil, diagnostics, err
+		}
+		for _, f := range public {
+			// What the compiler writes (robots.txt, sitemap.xml) wins.
+			if !generated[f.Path] {
+				files = append(files, f)
+			}
 		}
 	case "flutter":
 		result := flux.Compile(loaded.Project, loaded.Config.API())

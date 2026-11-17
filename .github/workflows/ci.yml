@@ -46,6 +46,21 @@ jobs:
       - run: npm ci
       - run: npm run build
 
+  editor:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: editor
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: npm run check
+      # flux embeds cmd/flux/overlay/overlay.js: it must be what editor/ builds.
+      - run: npm run build && git diff --exit-code -- ../cmd/flux/overlay/overlay.js
+
   vscode:
     runs-on: ubuntu-latest
     defaults:

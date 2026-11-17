@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
 	"testing"
 
@@ -54,6 +55,45 @@ func TestSiteURLReachesTheWebsite(t *testing.T) {
 		t.Errorf("robots.txt doesn't point at the sitemap:\n%s", files["public/robots.txt"])
 	}
 }
+
+// flux dev's build marks each widget with where it's written and loads the
+// editor; a build that ships has neither.
+func TestOnlyADevBuildIsMarked(t *testing.T) {
+	dir := t.TempDir()
+	write(t, dir, ConfigFile, `{"name": "shop"}`)
+	write(t, dir, "pages/home.flx", home)
+	loaded, err := Load(dir)
+	if err != nil {
+		t.Fatal(err)
+	}
+	all := func(options flux.WebOptions) string {
+		result, ok := flux.CompileWebWith(loaded.Project, "", loaded.Config.Site, options)
+		if !ok {
+			t.Fatal("no website")
+		}
+		var b strings.Builder
+		for _, f := range result.Files {
+			b.WriteString(f.Content)
+		}
+		return b.String()
+	}
+	shipped := all(flux.WebOptions{})
+	if strings.Contains(shipped, "data-flx") || strings.Contains(shipped, "__flux") {
+		t.Error("a build that ships carries the editor's marks or script")
+	}
+	dev := all(flux.WebOptions{Marks: true, OverlayURL: "http://127.0.0.1:6173/__flux/overlay.js?t=x"})
+	// The Text in home.flx, by its own position in the source.
+	from := strings.Index(home, "Text(")
+	want := `data-flx="home:` + strconvItoa(from) + `:` + strconvItoa(from+len(`Text(child: "Hi")`)) + `"`
+	if !strings.Contains(dev, want) {
+		t.Errorf("the dev build doesn't mark the Text with %s", want)
+	}
+	if !strings.Contains(dev, `<script type="module" src={"http://127.0.0.1:6173/__flux/overlay.js?t=x"} />`) {
+		t.Error("the dev build doesn't load the editor")
+	}
+}
+
+func strconvItoa(n int) string { return strconv.Itoa(n) }
 
 func TestAPartialThemeTakesStudiosDefaults(t *testing.T) {
 	dir := t.TempDir()
