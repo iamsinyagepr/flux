@@ -1,0 +1,4 @@
+{
+  "name": "{{name}}",
+  "description": "An app written in Flux: flux build --target flutter."
+}

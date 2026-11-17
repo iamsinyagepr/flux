@@ -1,0 +1,19 @@
+Page(name: "Home", route: Route(path: "/"), seo: Seo(title: "{{title}}", description: "Built with Flux."))
+
+State(
+  count: Number(default: 0),
+)
+
+Build(
+  Scaffold(
+    appBar: Header(),
+    body: ScrollView(child: Column(gap: Space.lg, padding: Insets(x: 24, y: 48), children: [
+      Text(child: "Hello from Flux", size: FontSize.display, weight: FontWeight.bold),
+      Text(child: "Edit pages/home.flx and this page rebuilds as you save.", color: Color.textMuted),
+      Row(gap: Space.sm, children: [
+        Button(label: "Clicked ${state.count} times", onTap: SetState(state: "count", value: state.count + 1)),
+        Button(label: "About", style: ButtonStyle.secondary, onTap: Navigate(to: "/about")),
+      ]),
+    ])),
+  )
+)

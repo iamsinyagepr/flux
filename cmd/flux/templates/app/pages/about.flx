@@ -1,0 +1,12 @@
+Page(name: "About", route: Route(path: "/about"), seo: Seo(title: "About | {{title}}"))
+
+Build(
+  Scaffold(
+    appBar: Header(),
+    body: ScrollView(child: Column(gap: Space.md, padding: Insets(x: 24, y: 48), children: [
+      Text(child: "About", size: FontSize.xxl, weight: FontWeight.bold),
+      Text(child: "Every page is a .flx file in pages/. Its file name is its id; its route says where it lives."),
+      Button(label: "Back home", style: ButtonStyle.ghost, onTap: Navigate(to: "/")),
+    ])),
+  )
+)

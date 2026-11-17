@@ -1,0 +1,18 @@
+Page(name: "Stores", route: Route(path: "/", search: Search(city: String(default: ""))), seo: Seo(title: "{{title}}"))
+
+usingServer(
+  stores<Store[]>(src: Tenant.stores(city: query.city)),
+)
+
+Build(
+  Scaffold(
+    appBar: Header(),
+    body: ScrollView(child: Column(gap: Space.md, padding: Insets(x: 24, y: 32), children: [
+      Text(child: "${stores.length} stores", size: FontSize.xl, weight: FontWeight.bold),
+      ForEach(items: stores, as: "store", child: Box(padding: Insets(x: 16, y: 12), radius: Radius.md, background: Color.surface, onTap: Navigate(to: "/stores/${store.id}"), ariaLabel: store.name, child: Column(gap: Space.xs, children: [
+        Text(child: store.name, weight: FontWeight.semibold),
+        Text(child: store.city, color: Color.textMuted),
+      ])), empty: Text(child: "No stores yet.")),
+    ])),
+  )
+)

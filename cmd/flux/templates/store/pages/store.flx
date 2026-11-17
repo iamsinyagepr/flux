@@ -1,0 +1,22 @@
+Page(name: "Store", route: Route(path: "/stores/$storeId"), seo: Seo(title: "${store.name} | {{title}}", schema: Schema.restaurant(of: store)))
+
+usingServer(
+  store<Store>(src: Tenant.store(store: route.storeId)),
+  products<Product[]>(src: Tenant.products(store: route.storeId)),
+)
+
+Build(
+  Scaffold(
+    appBar: Header(),
+    body: ScrollView(child: Column(gap: Space.md, padding: Insets(x: 24, y: 32), children: [
+      Text(child: store.name, size: FontSize.xxl, weight: FontWeight.bold),
+      Grid(minItemWidth: 220, gap: Space.md, children: [
+        ForEach(items: products, as: "product", child: Column(gap: Space.xs, children: [
+          Image(src: product.image_url, alt: product.name, aspectRatio: 1.5, radius: Radius.md),
+          Text(child: product.name, weight: FontWeight.semibold),
+          Text(child: formatMoney(product.display_price_cents), color: Color.textMuted),
+        ])),
+      ]),
+    ])),
+  )
+)

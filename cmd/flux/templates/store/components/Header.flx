@@ -1,0 +1,10 @@
+Component(id: "site/header", name: "Header", kind: Kind.navigation, description: "The header every page shows.")
+
+Build(
+  Box(padding: Insets(x: 24, y: 16), background: Color.surface, child: Row(justify: Justify.between, align: Align.center, children: [
+    Text(child: "{{title}}", weight: FontWeight.bold),
+    Row(gap: Space.xs, children: [
+      Button(label: "Stores", style: ButtonStyle.ghost, onTap: Navigate(to: "/")),
+    ]),
+  ]))
+)
