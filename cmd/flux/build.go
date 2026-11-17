@@ -166,7 +166,12 @@ func writeOutput(dir string, files []outFile) (int, error) {
 	}
 	keep := map[string]bool{marker: true}
 	written := 0
-	for _, f := range files {
+	// What files use is written before them: a dev server reloads each file
+	// as it lands, and a page that arrives before the widget it now uses
+	// (the site's first Image) renders with that widget undefined.
+	ordered := append([]outFile(nil), files...)
+	sort.SliceStable(ordered, func(i, j int) bool { return writeRank(ordered[i].Path) < writeRank(ordered[j].Path) })
+	for _, f := range ordered {
 		clean := filepath.FromSlash(f.Path)
 		if filepath.IsAbs(clean) || strings.HasPrefix(filepath.Clean(clean), "..") {
 			return written, fmt.Errorf("the compiler gave a path outside the output: %s", f.Path)
@@ -211,6 +216,21 @@ func writeOutput(dir string, files []outFile) (int, error) {
 	}
 	os.WriteFile(filepath.Join(dir, marker), []byte("Made by flux build: it may replace anything here.\n"), 0o644)
 	return written, nil
+}
+
+// writeRank orders a build's files so each lands after what it uses: the
+// runtime and shared code, then components, then pages, then the routes
+// that load them.
+func writeRank(path string) int {
+	switch {
+	case strings.HasPrefix(path, "src/routes/"), path == "src/router.tsx":
+		return 3
+	case strings.HasPrefix(path, "src/pages/"), strings.HasPrefix(path, "lib/pages/"):
+		return 2
+	case strings.HasPrefix(path, "src/components/"), strings.HasPrefix(path, "lib/components/"):
+		return 1
+	}
+	return 0
 }
 
 // generatedByTools are files the generated project's own tools write.
