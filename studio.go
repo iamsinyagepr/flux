@@ -127,10 +127,26 @@ func Compile(project Project, apiURL string) Result {
 //
 // site is the business's website settings (its SEO, its address), as JSON.
 func CompileWeb(project Project, apiURL string, site json.RawMessage) (result web.Result, ok bool) {
+	return CompileWebWith(project, apiURL, site, WebOptions{})
+}
+
+// WebOptions are what a dev build of a website adds: never in one that ships.
+type WebOptions struct {
+	// Marks wraps each widget in an element saying where in the source it's
+	// written, for flux dev's editor (web.Input.Marks).
+	Marks bool
+	// OverlayURL is flux dev's editor script, added to every page.
+	OverlayURL string
+}
+
+// CompileWebWith is CompileWeb with a dev build's options.
+func CompileWebWith(project Project, apiURL string, site json.RawMessage, options WebOptions) (result web.Result, ok bool) {
 	if project.Language == LanguageDart || len(project.Pages) == 0 {
 		return web.Result{}, false
 	}
 	return web.Compile(web.Input{
+		Marks:            options.Marks,
+		OverlayURL:       options.OverlayURL,
 		Name:             project.Name,
 		Description:      project.Description,
 		Pages:            project.Pages,

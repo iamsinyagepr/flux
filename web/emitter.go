@@ -549,7 +549,29 @@ func (e *emitter) forEach(item *cdsl.Expr, s scope, prefix string) string {
 }
 
 // widget is one widget as a JSX element (or a JS expression for one).
+// unmarked are widgets a mark mustn't wrap: their parent reads them as its
+// direct children (a Tabs its Tab, a Row its Expanded), or they aren't an
+// element of their own (If, Use and Empty are what they stand for).
+var unmarked = map[string]bool{
+	"Tab": true, "Layer": true, "Positioned": true, "Expanded": true, "Flexible": true, "SelectOption": true,
+	"Spacer": true, "If": true, "Use": true, "Empty": true,
+}
+
+// widget is a widget's element; with Marks, wrapped in one saying where it's
+// written (Input.Marks), the key moved onto the wrapper.
 func (e *emitter) widget(node *cdsl.Expr, s scope, key string) string {
+	if !e.in.Marks || node == nil || node.Kind != cdsl.Call || unmarked[node.Name] {
+		return e.widgetElement(node, s, key)
+	}
+	inner := e.widgetElement(node, s, "")
+	if inner == "null" {
+		return inner
+	}
+	at := e.def.documentID + ":" + js.NumberString(float64(node.From)) + ":" + js.NumberString(float64(node.To))
+	return element("span", key, []string{"data-flx=" + q(at), `style={{ display: "contents" }}`, prop("children", inner)})
+}
+
+func (e *emitter) widgetElement(node *cdsl.Expr, s scope, key string) string {
 	if node == nil {
 		return "null"
 	}

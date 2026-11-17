@@ -52,6 +52,13 @@ type Input struct {
 	// Site is the business's website settings (repository.WebMeta, as JSON):
 	// its head, canonical address and structured data.
 	Site json.RawMessage
+
+	// Marks wraps each widget in an element saying where it's written,
+	// <span data-flx="<document>:<from>:<to>" style="display: contents">,
+	// for flux dev's editor. Never in a build that ships.
+	Marks bool
+	// OverlayURL is flux dev's editor script, added to every page. Empty: none.
+	OverlayURL string
 }
 
 // File is one file of the generated project, by its path inside it.
@@ -269,7 +276,12 @@ func Compile(in Input) Result {
 	add("src/theme.css", themeCSS(in.Config, toggles))
 	add("src/site.json", siteJSON(in, name))
 	add("src/router.tsx", routerTSX(in, entry))
-	add("src/routes/__root.tsx", rootTSX)
+	root := rootTSX
+	if in.OverlayURL != "" {
+		// flux dev's editor, after the site's own scripts.
+		root = strings.Replace(root, "        <Scripts />\n", "        <Scripts />\n        <script type=\"module\" src={"+q(in.OverlayURL)+"} />\n", 1)
+	}
+	add("src/routes/__root.tsx", root)
 	// The pages' data, fetched on the server: only for a site that has any;
 	// /studio-data only for one with data the apps can't fetch themselves.
 	if data {
