@@ -1,0 +1,79 @@
+/*
+  Flux's tokens: the one place the site's colours, type and spacing are
+  written. A hex code anywhere else is a bug.
+
+  Flux's identity comes from Upskale's (the ink and the electric teal) but
+  isn't Upskale's: a darker ink, the teal kept for actions and live things
+  alone, and a code-first palette.
+*/
+:root {
+  --ink: #14161b;
+  --ink-soft: #3a3f48;
+  --muted: #5c6370;
+  --page: #fbfbfc;
+  --surface: #ffffff;
+  --surface-alt: #f1f3f5;
+  --line: #d9dde3;
+  --accent: #00a884;
+  --accent-strong: #00d2a6;
+  --on-accent: #0b0d10;
+  --highlight: #ffd84d;
+  --on-highlight: #0f1115;
+
+  /* Code: the editor's colours, in both themes. */
+  --code-bg: #14161b;
+  --code-ink: #e6e8eb;
+  --code-muted: #7d8590;
+  --code-block: #ff9e64;
+  --code-widget: #7dcfff;
+  --code-param: #c0caf5;
+  --code-string: #9ece6a;
+  --code-token: #00d2a6;
+  --code-number: #ffd84d;
+  --code-type: #bb9af7;
+
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Code", Menlo, monospace;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --max: 1120px;
+  --gutter: 16px;
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ink: #eceef1;
+    --ink-soft: #c4c8cf;
+    --muted: #9198a3;
+    --page: #0e1014;
+    --surface: #15181d;
+    --surface-alt: #1c2026;
+    --line: #2c313a;
+    --accent: #00d2a6;
+    --code-bg: #0a0b0e;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --ink: #eceef1;
+  --ink-soft: #c4c8cf;
+  --muted: #9198a3;
+  --page: #0e1014;
+  --surface: #15181d;
+  --surface-alt: #1c2026;
+  --line: #2c313a;
+  --accent: #00d2a6;
+  --code-bg: #0a0b0e;
+  color-scheme: dark;
+}
+
+@media (min-width: 720px) {
+  :root {
+    --gutter: 32px;
+  }
+}
