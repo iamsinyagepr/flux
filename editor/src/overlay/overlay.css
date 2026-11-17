@@ -1,0 +1,141 @@
+/* The overlay's own pieces. Studio's editors bring studio.css; the tokens it
+   is written in are set on :host by the build (scripts/build.mjs). */
+:host {
+  all: initial;
+}
+
+/* Studio's type, as its app sets it on <body>. */
+.flux-overlay,
+.flux-portals {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+.flux-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2147483000;
+  font-family: var(--font-body, system-ui, sans-serif);
+  font-size: 14px;
+  color: var(--color-ink);
+  background: transparent;
+  min-width: 0;
+}
+.flux-overlay > * {
+  pointer-events: auto;
+}
+.flux-overlay > .flux-box {
+  pointer-events: none;
+}
+
+/* Menus and cards (portalled here) above the panel. */
+.flux-portals {
+  position: relative;
+  z-index: 2147483001;
+  min-width: 0;
+  background: transparent;
+}
+
+.flux-box {
+  position: fixed;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.flux-box.is-hover {
+  outline: 1.5px dashed var(--color-accent);
+  background: color-mix(in srgb, var(--color-accent) 6%, transparent);
+}
+.flux-box.is-selected {
+  outline: 2px solid var(--color-accent);
+}
+
+.flux-bar {
+  position: fixed;
+  left: 16px;
+  bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px;
+  border-radius: 999px;
+  background: var(--color-ink);
+  color: var(--color-page, #fff);
+  box-shadow: 0 6px 24px rgb(0 0 0 / 0.25);
+}
+.flux-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 0;
+  border-radius: 999px;
+  padding: 7px 14px;
+  font: 600 13px var(--font-body, system-ui, sans-serif);
+  cursor: pointer;
+  background: rgb(255 255 255 / 0.1);
+  color: inherit;
+}
+.flux-switch[aria-pressed="true"] {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+.flux-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.flux-hint {
+  font-size: 12px;
+  opacity: 0.8;
+  padding-right: 10px;
+}
+
+.flux-panel {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  bottom: 12px;
+  width: min(360px, calc(100vw - 24px));
+  overflow-y: auto;
+  background: var(--color-surface, #fff);
+  border: 1px solid var(--color-hairline, #d9dde3);
+  border-radius: 14px;
+  box-shadow: 0 12px 40px rgb(0 0 0 / 0.18);
+}
+.flux-panel-file {
+  margin: 0;
+  padding: 10px 14px 0;
+  font: 500 11px var(--font-mono, ui-monospace, monospace);
+  color: var(--color-steel);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.flux-error {
+  position: fixed;
+  left: 16px;
+  bottom: 72px;
+  max-width: min(520px, calc(100vw - 32px));
+  margin: 0;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #b42318;
+  color: #fff;
+  font-size: 13px;
+}
+.flux-error button {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+}

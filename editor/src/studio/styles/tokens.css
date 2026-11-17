@@ -1,0 +1,1556 @@
+/*
+  Classes are only ever written under src/. Scanning the whole project (the
+  default) made every save of a note, a script or package.json a full page
+  reload, because Tailwind treats any file it scans as a stylesheet input.
+*/
+@import 'tailwindcss' source('../');
+
+/*
+  The Upskale Labs palette, from the branding PDFs. One home for it: a hex code
+  written anywhere else in this app is a bug, because the manager app and this
+  site have to agree and there is no way to keep two lists in step.
+
+  Registered as Tailwind v4 theme variables, so `bg-canvas`, `text-steel` and
+  `border-hairline` exist as utilities and nothing needs an arbitrary value.
+*/
+@theme {
+  /* Charcoal Gray. Wordmark, body text, primary CTA fills. */
+  --color-ink: #2b2d31;
+
+  /* Cool Steel. Secondary text, muted borders, code comments. */
+  --color-steel: #5c6068;
+
+  /* Electric Teal. The upward arrow, CTAs, live states.
+
+     Used with restraint on purpose: a screen where six things are teal has no
+     primary action left. */
+  --color-accent: #00d2a6;
+
+  /* Claude's own orange, for its logo on Studio's Claude mode only (Anthropic's
+     mark, shown as Anthropic colours it). Not part of the Upskale palette. */
+  --color-claude: #d97757;
+
+  /* The highlight: a marker yellow set against the teal, for emphasis that is
+     not an action. It goes BEHIND dark text as a box (.hl, a headline's key
+     words), behind an icon, or as a block behind a picture; never text on the
+     canvas, where it can't be read. Never a button fill or a live state: those
+     stay the accent's. The same in both themes, like the accent, and always
+     with --color-on-offset on it (13:1). Every app's: the console's .hl, and
+     AppColors.offset in the manager and company apps. */
+  --color-offset: #ffd84d;
+  --color-on-offset: #0f1115;
+
+  /* WhatsApp's green, for the edge of the site's "Message us on WhatsApp"
+     button only. Theirs, not part of the Upskale palette. */
+  --color-whatsapp: #25d366;
+
+  /* Black on the accent is 9.60:1 and legal; white is 2.19:1 and is not.
+     Anything filled with the accent takes this ink. */
+  --color-on-accent: #0f1115;
+
+  /* Soft Off-White. Light backgrounds, docs canvas, cards.
+
+     Darkened from the branding PDF's raw #f8f9fa: next to a #ffffff
+     surface that was a contrast ratio of ~1.05, and next to the old
+     #e2e8f0 hairline ~1.16 — both far under the ~3:1 a UI boundary needs
+     to actually read as one (WCAG 2.1's non-text contrast guideline), so
+     every surface blended into the same flat white. Kept in step with
+     upskale-manager's lib/core/theme/app_colors.dart, which widens the
+     same ramp for the same reason — see that file's comment for the
+     numbers. */
+  --color-canvas: #eef0f2;
+
+  /* The near-white canvas: colour reads at full strength on it. The public
+     site's look, and now every app's (console, manager, company).
+
+     Two tokens for it, because the grey above has two jobs. On the site the
+     grey canvas is replaced outright (below, under .site-shell). In the
+     console, --color-page is the near-white backdrop behind everything, and
+     --color-canvas stays the soft grey for a hover, a selected row or an
+     inset on a white panel, where a near-white would no longer show. Panels
+     are edged with hairlines, so they read on the near-white either way. */
+  --color-canvas-site: #fbfcfd;
+  --color-page: #fbfcfd;
+
+  /* The band: one step off the page, the ground a section, a rail or a side
+     column sits on (the site's .pp-section-band). With page, surface and the
+     canvas (a hover or an inset on a surface), the four grounds every app
+     uses, in both themes. Ink at 3.5% over the page. */
+  --color-band: #f4f5f6;
+
+  /* Slate Black. Dark surfaces, header background, terminal blocks. */
+  --color-slate: #0f1115;
+
+  /* 1px hairlines instead of shadows - the branding is explicit about this.
+     Depth comes from light and edges, not from a blur. Darkened alongside
+     --color-canvas above — see that comment. */
+  --color-hairline: #cbd2d9;
+  --color-hairline-dark: #22262f;
+
+  /* Panels and inputs — the sheet things sit ON, as distinct from the canvas
+     they sit over. Named rather than written as `bg-white`, because in the
+     dark theme it is not white and there is no other way to swap it. */
+  --color-surface: #ffffff;
+
+  /* Ink is a fill as well as a text colour: this is what goes ON it, and what
+     it becomes when a primary button is pressed towards maximum contrast. */
+  --color-on-ink: #ffffff;
+  --color-ink-hover: #000000;
+
+  /* The one colour outside the palette, and it earns it: a failed instance and
+     a rejected field are the two things a person must not misread. */
+  --color-danger: #e5484d;
+  /* Dark ink, like the accent's: white on this red is 3.9:1 and under the
+     line, #0f1115 is 5.4:1. */
+  --color-on-danger: #0f1115;
+  /* macOS's window buttons (the desktop title bar on a Mac): the system's own
+     colours, the same in either theme. */
+  --color-mac-close: #ff5f57;
+  --color-mac-minimize: #febc2e;
+  --color-mac-zoom: #28c840;
+  --color-mac-glyph: #4d0000;
+
+  /* A small chart set, for telling several stat tiles or bars apart at a
+     glance on a dashboard — the Overview page is the one place this app
+     shows several numbers side by side that are not a ranking of the same
+     thing. Not semantic like danger or the accent: any of these can go on
+     any metric, chosen only for how they read next to each other. */
+  --color-chart-blue: #2f6fed;
+  --color-chart-violet: #8b5cf6;
+  --color-chart-amber: #e8a33d;
+
+  /* Code blocks sit on the card surface in light mode, so they remain distinct
+     from the canvas rather than disappearing into the page background. */
+  --color-terminal: #ffffff;
+  --color-canvas-deep: #e3e6e9;
+   --color-device-frame: #0f1115;
+
+  /* Fixture previews select a theme independently of dashboard chrome. */
+  --color-studio-preview-light: #f8f9fa;
+  --color-studio-preview-paper: #ffffff;
+  --color-studio-preview-ink: #2b2d31;
+  --color-studio-preview-muted: #5c6068;
+  --color-studio-preview-border: #e2e8f0;
+  --color-studio-preview-dark: #0f1115;
+  --color-studio-preview-dark-surface: #171a21;
+  --color-studio-preview-dark-ink: #e9ebef;
+  --color-studio-preview-dark-muted: #9ba1ac;
+  --color-studio-preview-dark-border: #262b35;
+
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', monospace;
+}
+
+/*
+  The dark theme: the same palette with the roles swapped, not a second one.
+
+  Only the variables move. Every utility in the app already reads through them,
+  so nothing here needs a `dark:` prefix and no component knows which theme it
+  is in — which is the point, because a component that knows is a component
+  that can be wrong about it.
+
+  **The attribute is always present**, stamped by the inline script in
+  index.html before the first paint. That script, and not a media query, is
+  what makes an explicit choice beat the system one; without it a person who
+  picked light on a dark machine would watch the page flip under them on every
+  reload.
+*/
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  /* Slate Black from the branding table, which is where the dark canvas was
+     specified all along — this theme spends it rather than inventing one. */
+  --color-canvas: #050607;
+  --color-page: #050607;
+  --color-band: #0d0e0f;
+  --color-surface: #090b0e;
+
+  /* Ink and steel keep their JOBS and swap their values: primary text and
+     secondary text, now light on dark. Steel is lifted well past a simple
+     inversion of #5c6068, which would have been unreadable here. */
+  --color-ink: #e9ebef;
+  --color-steel: #9ba1ac;
+
+  --color-hairline: #262b35;
+  --color-hairline-dark: #2e3440;
+
+  /* A pressed primary button goes towards white here, for the same reason it
+     goes towards black in the light theme: further from the canvas. */
+  --color-on-ink: #0f1115;
+  --color-ink-hover: #ffffff;
+
+  /* #e5484d is 4.4:1 on this canvas, which is under the line. Lifted until it
+     is not — an error nobody can read is decoration. */
+  --color-danger: #ff6b70;
+  --color-on-danger: #0f1115;
+
+  /* Same lift as danger above, for the same reason: each of these is text on
+     a dark canvas now, not just a light-mode fill. */
+  --color-chart-blue: #669dff;
+  --color-chart-violet: #a78bfa;
+  --color-chart-amber: #f5b95c;
+
+  --color-terminal: #090b0f;
+   --color-canvas-deep: #090b0f;
+}
+
+/* The public site, light theme: its own lighter canvas (see --color-canvas-site). */
+:root:not([data-theme='dark']):has(.site-shell) {
+  --color-canvas: var(--color-canvas-site);
+}
+
+:root {
+  --space-star-rgb: 43, 45, 49;
+  --color-tablet-caption: #e9ebef;
+}
+
+:root[data-theme='dark'] {
+  --space-star-rgb: 233, 235, 239;
+}
+
+@layer base {
+  /* Native scroll indicators follow the application's chosen theme. */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in srgb, var(--color-steel) 60%, var(--color-canvas)) var(--color-canvas);
+  }
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track,
+  ::-webkit-scrollbar-corner {
+    background: var(--color-canvas);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--color-steel) 60%, var(--color-canvas));
+    border: 2px solid var(--color-canvas);
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-accent);
+  }
+  html {
+    /* Named even for the default, so a person who chooses light on a machine
+       set to dark gets light scrollbars, form controls and caret to match the
+       page rather than the operating system's idea of it. */
+    color-scheme: light;
+    background: var(--color-page);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+      scroll-behavior: smooth;
+      scrollbar-gutter: stable;
+  }
+
+   html,
+   body {
+      overflow-x: clip;
+   }
+
+   @media (prefers-reduced-motion: reduce) {
+      html {
+         scroll-behavior: auto;
+      }
+   }
+
+  /* The wordmark's own treatment: lowercase, geometric, tight tracking. It is
+     specified once here rather than repeated at every place the name appears. */
+  .wordmark {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    text-transform: lowercase;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-sans);
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  code,
+  pre,
+  kbd {
+    font-family: var(--font-mono);
+  }
+}
+
+@layer components {
+   /* Words run over with a highlighter: the site's emphasis. */
+   .hl { padding: 0 .14em; border-radius: .12em; background: var(--color-offset); color: var(--color-on-offset); -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+
+   .brand-accent-section {
+      background-color: var(--color-accent);
+   }
+
+   .brand-gradient-hero {
+      background: linear-gradient(135deg, var(--color-accent) 0%, #006653 100%);
+   }
+
+   .brand-hero-nav {
+      background: transparent;
+   }
+
+   .brand-hero-nav .text-steel {
+      color: var(--color-on-accent);
+   }
+
+   .brand-hero-nav nav a,
+   .brand-hero-nav [aria-label^='Switch to'],
+   .brand-hero-nav [role='group'] button:not([aria-pressed='true']) {
+      color: var(--color-on-accent);
+   }
+
+   .brand-hero-nav [role='group'] {
+      border-color: color-mix(in srgb, var(--color-on-accent) 45%, transparent);
+   }
+
+   .brand-hero-heading {
+      color: var(--color-on-accent);
+   }
+
+   .brand-hero-muted {
+      color: color-mix(in srgb, var(--color-on-accent) 78%, transparent);
+   }
+
+   :root[data-theme='dark'] .brand-gradient-hero {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      background: transparent;
+   }
+
+   .cursor-glow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 60;
+      width: min(560px, 75vw);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      transform: translate3d(var(--cursor-x, -1000px), var(--cursor-y, -1000px), 0) translate(-50%, -50%) scale(var(--cursor-scale, 0.4));
+      background: radial-gradient(
+         circle,
+         color-mix(in srgb, var(--color-accent) 18%, transparent) 0%,
+         color-mix(in srgb, var(--color-accent) 8%, transparent) 34%,
+         transparent 72%
+      );
+      filter: blur(14px);
+      opacity: 0;
+      mix-blend-mode: screen;
+      transition: transform 280ms ease-out, opacity 220ms ease;
+      will-change: transform, opacity;
+      pointer-events: none;
+   }
+
+   @media (prefers-reduced-motion: reduce) {
+      .cursor-glow {
+         transition: none;
+      }
+   }
+
+   :root[data-theme='dark'] .brand-hero-nav {
+      background: transparent;
+   }
+
+   :root[data-theme='dark'] .brand-hero-nav .text-steel {
+      color: var(--color-steel);
+   }
+
+   :root[data-theme='dark'] .brand-hero-nav nav a,
+   :root[data-theme='dark'] .brand-hero-nav [aria-label^='Switch to'],
+   :root[data-theme='dark'] .brand-hero-nav [role='group'] button:not([aria-pressed='true']) {
+      color: var(--color-ink);
+   }
+
+   :root[data-theme='dark'] .brand-hero-nav [role='group'] {
+      border-color: var(--color-hairline);
+   }
+
+   :root[data-theme='dark'] .brand-hero-heading {
+      color: var(--color-ink);
+   }
+
+   :root[data-theme='dark'] .brand-hero-muted {
+      color: var(--color-steel);
+   }
+
+   .dark-gradient-page {
+      background: var(--color-canvas);
+   }
+
+   :root[data-theme='dark'] .dark-gradient-page {
+      background: linear-gradient(
+         135deg,
+         var(--color-canvas) 0%,
+         var(--color-surface) 48%,
+         var(--color-canvas-deep) 100%
+      );
+      background-attachment: fixed;
+   }
+
+   :root[data-theme='dark'] .dark-gradient-page > section.bg-surface {
+      background-color: transparent;
+   }
+
+  /* Buttons lift 2px on hover, echoing the upward arrow in the logo. The one
+     piece of motion the brand asks for, so it is defined once. */
+  .lift {
+    transition:
+      transform 150ms ease,
+      background-color 150ms ease,
+      border-color 150ms ease;
+  }
+
+  .lift:hover {
+    transform: translateY(-2px);
+  }
+
+  .lift:active {
+    transform: translateY(0);
+  }
+}
+
+:root[data-theme='dark'] .developer-hero [class*='text-on-accent'] {
+   color: var(--color-ink);
+}
+
+:root[data-theme='dark'] .developer-hero [class*='border-on-accent'] {
+   border-color: var(--color-hairline);
+}
+
+/* The theme toggle draws both icons (it can't know the theme when the page is
+   prerendered); the one shown is where a press takes you. */
+.theme-icon-to-light,
+.theme-icon-to-dark { display: contents; }
+:root[data-theme='dark'] .theme-icon-to-dark,
+:root:not([data-theme='dark']) .theme-icon-to-light { display: none; }
+
+/* Sign-in and sign-up: a starfield over the whole screen (Starfield.tsx,
+   a canvas that twinkles — as the loading screen's, console.html), and an
+   accent glow behind the form. */
+.auth-stars {
+  position: relative;
+  isolation: isolate;
+}
+.auth-stars::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  /* Centred on the form: it sits about 20rem down, under the wordmark. */
+  background: radial-gradient(ellipse 34rem 26rem at 50% 20rem, color-mix(in srgb, var(--color-accent) 16%, transparent), transparent 70%);
+}
+
+/* ---- The desktop app's title bar (DesktopTitleBar.tsx) --------------------------------
+   Its windows have no OS frame: this bar holds the brand, the menus and the
+   window buttons, and the app sits in the frame below it. That frame is the
+   containing block for anything fixed (transform), and --app-height is its
+   height: screens size themselves from --app-height (h-[var(--app-height)]),
+   never 100dvh, so they fit under the bar here and fill a browser elsewhere. */
+:root {
+  --titlebar-height: 38px;
+  --app-height: 100dvh;
+  /* The page's own height: the screen's (dvh, so a phone's browser bars
+     don't push it off), less the phone's bottom navigation (MobileNav,
+     AppShell's padding for it). A screen-filling page sizes to this. */
+  --content-height: var(--app-height);
+}
+
+.desktop-frame {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  overflow: hidden;
+  background: var(--color-page);
+}
+
+.desktop-viewport {
+  --app-height: calc(100dvh - var(--titlebar-height));
+  --content-height: var(--app-height);
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  transform: translateZ(0);
+}
+
+
+.desktop-titlebar {
+  position: relative;
+  z-index: 60;
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 4px;
+  height: var(--titlebar-height);
+  padding-left: 10px;
+  color: var(--color-steel);
+  user-select: none;
+}
+
+/* The app's mark (public/favicon.svg), then the menus. */
+.desktop-titlebar-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  border-radius: 4px;
+}
+
+.desktop-menubar {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.desktop-menu {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.desktop-menu > button {
+  height: 22px;
+  padding: 0 9px;
+  border-radius: 6px;
+  color: var(--color-steel);
+  font-size: 12px;
+}
+
+.desktop-menu > button:hover,
+.desktop-menu > button.is-open {
+  background: var(--color-surface);
+  color: var(--color-ink);
+}
+
+.desktop-menu > button:focus-visible,
+.desktop-menu-list button:focus-visible,
+.desktop-titlebar-controls button:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: -2px;
+}
+
+.desktop-menu-list {
+  position: absolute;
+  top: calc(100% - 2px);
+  left: 0;
+  z-index: 70;
+  display: flex;
+  flex-direction: column;
+  min-width: 230px;
+  padding: 4px;
+  border: 1px solid var(--color-hairline);
+  border-radius: 10px;
+  background: var(--color-surface);
+  box-shadow: 0 12px 32px color-mix(in srgb, var(--color-slate) 18%, transparent);
+}
+
+.desktop-menu-list button {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  color: var(--color-ink);
+  font-size: 12px;
+  text-align: left;
+}
+
+.desktop-menu-list button:hover,
+.desktop-menu-list button:focus {
+  background: var(--color-canvas);
+}
+
+.desktop-menu-list button span {
+  flex: 1;
+  white-space: nowrap;
+}
+
+.desktop-menu-list kbd {
+  color: var(--color-steel);
+  font-family: inherit;
+  font-size: 11px;
+}
+
+.desktop-menu-list hr {
+  margin: 4px 6px;
+  border: 0;
+  border-top: 1px solid var(--color-hairline);
+}
+
+/* The open page's controls, at the right of the menus; its empty space still
+   moves the window. */
+.desktop-titlebar-slot {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  min-width: 0;
+  height: 100%;
+  padding: 0 8px;
+}
+
+/* Everything in it 22px tall, to sit inside the 30px bar, on one line. */
+.desktop-titlebar-slot > *,
+.desktop-titlebar-slot button {
+  flex: none;
+  white-space: nowrap;
+}
+
+.desktop-titlebar-slot .studio-editor-mode {
+  height: 28px;
+  margin-left: 0;
+  padding: 1px;
+  border-radius: 6px;
+}
+
+.desktop-titlebar-slot .studio-editor-mode button {
+  height: 24px;
+  padding: 0 9px;
+  line-height: 24px;
+}
+
+.desktop-titlebar-slot .studio-format-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 26px;
+  padding: 0 8px;
+  border-radius: 6px;
+  color: var(--color-steel);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.desktop-titlebar-slot .studio-format-button:hover {
+  background: var(--color-surface);
+  color: var(--color-ink);
+}
+
+.desktop-titlebar-slot .studio-format-button[aria-pressed="true"] {
+  background: var(--color-surface);
+  color: var(--color-ink);
+}
+
+.desktop-titlebar-slot .studio-run-controls {
+  height: 26px;
+  margin-left: 2px;
+  padding-left: 6px;
+}
+
+.desktop-titlebar-slot .studio-run-controls select,
+.desktop-titlebar-slot .studio-run-controls .studio-select,
+.desktop-titlebar-slot .studio-run-button,
+.desktop-titlebar-slot .studio-run-controls .studio-icon-button {
+  height: 26px;
+  font-size: 11px;
+}
+
+.desktop-titlebar-slot .studio-run-controls .studio-icon-button {
+  width: 26px;
+}
+
+.desktop-titlebar-slot .studio-run-button svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* The bar in three parts: the app and its navigation at the left, the open
+   page's search between them, the page's controls, the account and the
+   window's buttons at the right. The outer two are as wide as their buttons;
+   the search takes the room between, with an even gap either side. */
+.desktop-titlebar-start,
+.desktop-titlebar-end {
+  display: flex;
+  flex: 0 1 auto;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  height: 100%;
+}
+
+/* The right: the page's controls and the account. It never gives way —
+   the empty middle, then the navigation, do — so the account stays on
+   screen however narrow the window. */
+.desktop-titlebar-end {
+  flex: none;
+  justify-content: flex-end;
+}
+
+.desktop-titlebar-name {
+  flex: none;
+  color: var(--color-ink);
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* The bar between the app's name and its menus. */
+.desktop-titlebar-divider {
+  flex: none;
+  width: 1px;
+  height: 18px;
+  margin: 0 6px;
+  background: var(--color-hairline);
+}
+
+.desktop-titlebar-search {
+  display: flex;
+  flex: 1 1 auto;
+  justify-content: center;
+  align-items: center;
+  min-width: 0;
+  height: 100%;
+  padding: 0 24px;
+}
+
+.desktop-titlebar-search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-width: 160px;
+  max-width: 300px;
+}
+
+.desktop-titlebar-search-box svg {
+  position: absolute;
+  left: 8px;
+  width: 13px;
+  height: 13px;
+  color: var(--color-steel);
+  pointer-events: none;
+}
+
+.desktop-titlebar-search-box input {
+  width: 100%;
+  height: 26px;
+  padding: 0 8px 0 26px;
+  border: 1px solid var(--color-hairline);
+  border-radius: 6px;
+  background: var(--color-surface);
+  color: var(--color-ink);
+  font-size: 11px;
+  outline: none;
+  user-select: text;
+  transition: border-color 120ms ease;
+}
+
+.desktop-titlebar-search-box input::placeholder {
+  color: var(--color-steel);
+}
+
+.desktop-titlebar-search-box input:focus {
+  border-color: var(--color-accent);
+}
+
+/* The app's navigation in the title bar (DesktopNav): Business and Studio
+   as dropdowns, Usage and the theme as buttons, after the app's mark; the
+   account (its avatar) at the right, before the window's buttons. Every
+   button is the Claude button's size: icon and label, 22px tall. */
+.desktop-titlebar-nav,
+.desktop-titlebar-account {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 2px;
+  height: 100%;
+}
+
+.desktop-titlebar-account {
+  padding: 0 6px 0 2px;
+}
+
+.desktop-titlebar-account:empty {
+  display: none;
+}
+
+/* "Restart to update" (UpdateButton): the title bar's one accent button,
+   there only once a new version has downloaded. The title bar's 22px. */
+.desktop-titlebar-update {
+  flex: none;
+  align-self: center;
+  height: 22px;
+  margin: 0 4px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.desktop-titlebar-update:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.desktop-titlebar-menu {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.desktop-titlebar .desktop-titlebar-button {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 5px;
+  width: auto;
+  height: 26px;
+  padding: 0 8px;
+  border-radius: 6px;
+  color: var(--color-steel);
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background-color 120ms ease, color 120ms ease;
+}
+
+.desktop-titlebar .desktop-titlebar-button svg {
+  width: 14px;
+  height: 14px;
+}
+
+.desktop-titlebar .desktop-titlebar-button:hover,
+.desktop-titlebar .desktop-titlebar-button[aria-expanded="true"],
+.desktop-titlebar .desktop-titlebar-button[aria-pressed="true"],
+.desktop-titlebar .desktop-titlebar-button[data-active] {
+  background: var(--color-surface);
+  color: var(--color-ink);
+}
+
+.desktop-titlebar .desktop-titlebar-button:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: -2px;
+}
+
+/* The account: its avatar alone. */
+.desktop-titlebar .desktop-titlebar-button.is-bare {
+  padding: 0 3px;
+}
+
+.desktop-titlebar .desktop-titlebar-button .desktop-rail-avatar {
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  font-size: 9px;
+}
+
+.desktop-titlebar-caret {
+  margin-left: -2px;
+  opacity: .7;
+}
+
+.desktop-titlebar-dropdown {
+  position: absolute;
+  top: calc(100% - 2px);
+  left: 0;
+  z-index: 70;
+  width: 196px;
+  max-height: min(80vh, calc(100dvh - var(--titlebar-height) - 24px));
+  overflow-y: auto;
+  padding: 4px;
+  border: 1px solid var(--color-hairline);
+  border-radius: 12px;
+  background: var(--color-surface);
+  box-shadow: 0 12px 32px color-mix(in srgb, var(--color-slate) 18%, transparent);
+  color: var(--color-ink);
+  font-size: 12px;
+  user-select: text;
+}
+
+.desktop-titlebar-dropdown a,
+.desktop-titlebar-dropdown button {
+  gap: 8px;
+  padding: 5px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.desktop-titlebar-dropdown svg {
+  flex: none;
+  width: 15px;
+  height: 15px;
+}
+
+.desktop-titlebar-dropdown p {
+  padding: 4px 8px 6px;
+  font-size: 11px;
+}
+
+.desktop-titlebar-dropdown.is-right {
+  right: 0;
+  left: auto;
+}
+
+.desktop-titlebar-dropdown[hidden] {
+  display: none;
+}
+
+/* Studio's Open recent: its projects beside the menu. */
+.desktop-titlebar-submenu {
+  position: fixed;
+  z-index: 71;
+  max-height: min(60vh, 420px);
+  overflow-y: auto;
+  margin: 0;
+  padding: 4px;
+  border: 1px solid var(--color-hairline);
+  border-radius: 12px;
+  background: var(--color-surface);
+  box-shadow: 0 12px 32px color-mix(in srgb, var(--color-slate) 18%, transparent);
+  list-style: none;
+}
+
+.desktop-titlebar-separator {
+  height: 1px;
+  margin: 4px 6px;
+  background: var(--color-hairline);
+}
+
+/* The open page's filters (TitleBarFilters): a button beside the page's own
+   controls, and the filter panel dropping down from it, scrolling when it's
+   taller than the window. The panel is the page's own, without its frame. */
+.desktop-titlebar-filters {
+  position: relative;
+  display: flex;
+  flex: none;
+  align-items: center;
+  height: 100%;
+  padding-right: 8px;
+}
+
+.desktop-titlebar-filters[hidden] {
+  display: none;
+}
+
+.desktop-titlebar-filters-panel {
+  position: absolute;
+  top: calc(100% - 2px);
+  right: 8px;
+  z-index: 70;
+  width: 240px;
+  max-height: min(80vh, calc(100dvh - var(--titlebar-height) - 24px));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border: 1px solid var(--color-hairline);
+  border-radius: 12px;
+  background: var(--color-surface);
+  box-shadow: 0 12px 32px color-mix(in srgb, var(--color-slate) 18%, transparent);
+  color: var(--color-ink);
+  user-select: text;
+}
+
+/* The page's filter panel, sized like the other dropdowns: 12px rows, small
+   marks, tight spacing. Only here: beside the content (the web) it keeps its
+   own size. */
+.desktop-titlebar-filters-panel {
+  font-size: 12px;
+}
+
+.desktop-titlebar-filters-panel aside[aria-label="Filters"] > div:first-child {
+  gap: 6px;
+  padding: 7px 10px;
+}
+
+.desktop-titlebar-filters-panel aside[aria-label="Filters"] h2 {
+  font-size: 12px;
+}
+
+.desktop-titlebar-filters-panel aside[aria-label="Filters"] > div:first-child > button,
+.desktop-titlebar-filters-panel aside[aria-label="Filters"] > div:first-child > span {
+  font-size: 10px;
+}
+
+.desktop-titlebar-filters-panel details {
+  padding: 3px 4px;
+}
+
+.desktop-titlebar-filters-panel summary {
+  gap: 6px;
+  padding: 4px 6px;
+  font-size: 10px;
+}
+
+.desktop-titlebar-filters-panel [role="radiogroup"] {
+  margin-top: 0;
+}
+
+.desktop-titlebar-filters-panel [role="radiogroup"] button {
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.desktop-titlebar-filters-panel [role="radiogroup"] button > span:first-child {
+  gap: 7px;
+  font-size: 12px;
+}
+
+/* The radio mark. */
+.desktop-titlebar-filters-panel [role="radiogroup"] button > span:first-child > span:first-child {
+  width: 13px;
+  height: 13px;
+}
+
+.desktop-titlebar-filters-panel [role="radiogroup"] button .font-mono {
+  font-size: 10px;
+}
+
+/* Each row's share bar, under its label. */
+.desktop-titlebar-filters-panel [role="radiogroup"] button > span:last-child:not(:first-child) {
+  margin-top: 4px;
+  margin-left: 20px;
+  height: 2px;
+}
+
+.desktop-titlebar-filters-panel select,
+.desktop-titlebar-filters-panel input[type="search"] {
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.desktop-titlebar-filters-panel p {
+  font-size: 11px;
+}
+
+.desktop-titlebar-filters-panel aside[aria-label="Filters"] {
+  position: static;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+/* How many filters are on. */
+.desktop-titlebar-badge {
+  display: inline-grid;
+  place-items: center;
+  min-width: 15px;
+  height: 15px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* Window buttons, drawn as the system draws them (WindowControls). */
+.desktop-titlebar-controls {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.desktop-titlebar-controls svg {
+  fill: none;
+  stroke: currentColor;
+}
+
+/* Windows: flat, full height, at the right; close turns red. */
+.desktop-titlebar-controls.is-windows button {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 100%;
+  color: var(--color-steel);
+}
+
+.desktop-titlebar-controls.is-windows button:hover {
+  background: var(--color-surface);
+  color: var(--color-ink);
+}
+
+.desktop-titlebar-controls.is-windows button.is-close:hover {
+  background: var(--color-danger);
+  color: var(--color-on-danger);
+}
+
+.desktop-titlebar-controls.is-windows svg {
+  width: 10px;
+  height: 10px;
+  stroke-width: 1.1;
+}
+
+/* macOS: three coloured circles at the left (close, minimize, zoom), their
+   glyphs showing while the pointer is over any of them. */
+.desktop-titlebar-controls.is-linux,
+.desktop-titlebar-controls.is-windows {
+  margin-left: auto;
+}
+
+.desktop-titlebar-controls.is-mac {
+  gap: 8px;
+  margin-right: 14px;
+}
+
+.desktop-titlebar-controls.is-mac button {
+  display: grid;
+  place-items: center;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 0.5px color-mix(in srgb, var(--color-mac-glyph) 25%, transparent);
+  color: var(--color-mac-glyph);
+}
+
+.desktop-titlebar-controls.is-mac .is-close { background: var(--color-mac-close); }
+.desktop-titlebar-controls.is-mac .is-minimize { background: var(--color-mac-minimize); }
+.desktop-titlebar-controls.is-mac .is-maximize { background: var(--color-mac-zoom); }
+
+.desktop-titlebar-controls.is-mac svg {
+  width: 8px;
+  height: 8px;
+  stroke-width: 1.3;
+  opacity: 0;
+}
+
+.desktop-titlebar-controls.is-mac svg .is-filled {
+  fill: currentColor;
+  stroke: none;
+}
+
+.desktop-titlebar-controls.is-mac:hover svg,
+.desktop-titlebar-controls.is-mac button:focus-visible svg {
+  opacity: 0.75;
+}
+
+/* Linux (GNOME): round buttons with a soft fill, at the right. */
+.desktop-titlebar-controls.is-linux {
+  gap: 10px;
+  padding: 0 10px 0 4px;
+}
+
+.desktop-titlebar-controls.is-linux button {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-surface);
+  color: var(--color-ink);
+}
+
+.desktop-titlebar-controls.is-linux button:hover {
+  background: color-mix(in srgb, var(--color-ink) 14%, var(--color-surface));
+}
+
+.desktop-titlebar-controls.is-linux svg {
+  width: 8px;
+  height: 8px;
+  stroke-width: 1.4;
+}
+
+/* The desktop app's dashboard rail (DesktopRail in src/console/routes/app.tsx):
+   a pill centred against the left edge, like Studio's editor navigation. It
+   widens over the page while hovered or focused; its slot keeps one fixed
+   width, so nothing else moves. Not clipped: each item's pages fly out of it. */
+.desktop-rail-slot {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  flex: none;
+  width: 60px;
+  height: var(--app-height);
+}
+
+/* The mark at the rail's top, on the web (the desktop app's title bar has it). */
+.desktop-rail-brand {
+  position: absolute;
+  top: 14px;
+  left: 16px;
+  display: flex;
+  border-radius: 8px;
+}
+
+/* On a phone the bar along the bottom (MobileNav) takes over. */
+@media (max-width: 767px) {
+  .desktop-rail-slot {
+    display: none;
+  }
+}
+
+.desktop-rail-pill {
+  position: absolute;
+  top: 50%;
+  left: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 44px;
+  padding: 4px;
+  border: 1px solid var(--color-hairline);
+  border-radius: 22px;
+  background: var(--color-surface);
+  box-shadow: 0 6px 20px color-mix(in srgb, var(--color-slate) 10%, transparent);
+  transform: translateY(-50%);
+  transition: width 160ms ease, box-shadow 160ms ease;
+}
+
+.desktop-rail-pill:hover,
+.desktop-rail-pill:focus-within,
+.desktop-rail-pill.is-open {
+  width: 150px;
+  box-shadow: 0 12px 32px color-mix(in srgb, var(--color-slate) 18%, transparent);
+}
+
+.desktop-rail-item {
+  position: relative;
+}
+
+.desktop-rail-item > button,
+.desktop-rail-item > a {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  height: 34px;
+  padding: 0 8px;
+  overflow: hidden;
+  border-radius: 17px;
+  color: var(--color-steel);
+  font-size: 13px;
+  white-space: nowrap;
+  transition: background-color 120ms ease, color 120ms ease;
+}
+
+.desktop-rail-item > button:hover,
+.desktop-rail-item > button:focus-visible,
+.desktop-rail-item > button[data-active=true],
+.desktop-rail-item > a:hover,
+.desktop-rail-item > a:focus-visible,
+.desktop-rail-item > a[aria-current=page] {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  outline: none;
+}
+
+.desktop-rail-item > button[data-active=true],
+.desktop-rail-item > a[aria-current=page] {
+  font-weight: 600;
+}
+
+.desktop-rail-item svg {
+  flex: none;
+  width: 18px;
+  height: 18px;
+}
+
+/* Names fade in once there's room for them, and out before it goes. */
+.desktop-rail-label {
+  opacity: 0;
+  transition: opacity 100ms ease;
+}
+
+.desktop-rail-pill:hover .desktop-rail-label,
+.desktop-rail-pill:focus-within .desktop-rail-label,
+.desktop-rail-pill.is-open .desktop-rail-label {
+  opacity: 1;
+  transition-delay: 60ms;
+}
+
+.desktop-rail-divider {
+  margin: 4px 8px;
+  border: 0;
+  border-top: 1px solid var(--color-hairline);
+}
+
+/* The account: its initials on a tint (ProfileCard's), until accounts have pictures. */
+.desktop-rail-avatar {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  margin: 0 -1px;
+  border-radius: 50%;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .02em;
+}
+
+/* A Business section with pages of its own (Stores, Franchises): the section
+   is still a link; its stores or brands show beside it on hover or focus. */
+.desktop-rail-sub {
+  position: relative;
+}
+
+.desktop-rail-sub > a::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  margin-left: auto;
+  border-top: 1.5px solid currentColor;
+  border-right: 1.5px solid currentColor;
+  opacity: 0.55;
+  transform: rotate(45deg);
+}
+
+/* Padded rather than spaced from the row: the pointer crosses the padding on
+   its way over, so the list stays open. */
+.desktop-rail-subpanel {
+  position: absolute;
+  top: -8px;
+  left: 100%;
+  z-index: 60;
+  display: none;
+  padding-left: 10px;
+}
+
+.desktop-rail-subpanel > ul {
+  width: 220px;
+  max-height: min(420px, calc(var(--app-height) - 32px));
+  padding: 8px;
+  overflow-y: auto;
+  border: 1px solid var(--color-hairline);
+  border-radius: 12px;
+  background: var(--color-surface);
+  box-shadow: 0 12px 32px color-mix(in srgb, var(--color-slate) 18%, transparent);
+}
+
+.desktop-rail-sub:hover > .desktop-rail-subpanel,
+.desktop-rail-sub:focus-within > .desktop-rail-subpanel {
+  display: block;
+}
+
+.desktop-menu-list button:disabled {
+  color: var(--color-steel);
+  opacity: 0.55;
+  cursor: default;
+}
+
+.desktop-menu-list button:disabled:hover {
+  background: none;
+}
+
+/* A page's item with a submenu (Open store ▸): the list opens beside it on
+   hover or focus, and scrolls when it's long (every store, every project). */
+.desktop-menu-sub {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.desktop-menu-list.is-sub {
+  top: -5px;
+  left: 100%;
+  display: none;
+  max-height: min(420px, calc(100dvh - var(--titlebar-height) - 40px));
+  overflow-y: auto;
+}
+
+.desktop-menu-sub:hover > .is-sub,
+.desktop-menu-sub:focus-within > .is-sub {
+  display: flex;
+}
+
+.desktop-menu-arrow {
+  width: 6px;
+  height: 6px;
+  margin-left: 12px;
+  border-top: 1.5px solid currentColor;
+  border-right: 1.5px solid currentColor;
+  opacity: 0.6;
+  transform: rotate(45deg);
+}
+
+/* The tick column for a page's tabs and views, kept even when nothing's ticked. */
+.desktop-menu-check {
+  width: 12px;
+  margin-right: -14px;
+  color: var(--color-accent);
+  font-style: normal;
+  font-weight: 700;
+}
+
+/* A menu scrolls when it's taller than the window, unless it has submenus
+   (those open beside it, and a scrolling list would clip them). */
+.desktop-menu-list:not(.is-sub):not(:has(> .desktop-menu-sub)) {
+  max-height: calc(100dvh - var(--titlebar-height) - 16px);
+  overflow-y: auto;
+}
+
+/* A drawer rising from the bottom edge (the brand editor's details on a phone). */
+@keyframes sheet-up {
+  from {
+    transform: translateY(100%);
+    opacity: 0.4;
+  }
+}
+
+/* A backdrop arriving (ModalDrawer's). */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* A drawer sliding in from the right edge (the store editor's shift detail). */
+@keyframes drawer-in {
+  from {
+    transform: translateX(100%);
+    opacity: 0.4;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-drawer-in {
+    animation: none !important;
+  }
+}
+
+/* An invoice prints alone: the console around it (rail, header, buttons) is
+   hidden, so "Save as PDF" gives the invoice and nothing else. */
+@media print {
+  body:has(.invoice-print) * { visibility: hidden; }
+  .invoice-print, .invoice-print * { visibility: visible; }
+  .invoice-print { position: absolute; inset: 0 0 auto 0; }
+}
+
+/* Dropdowns on a phone: a sheet over the dimmed page, a modal rather than a
+   list dropped under its button (DropdownScrim is the dimmed page). The
+   popup keeps its own look; only where it sits changes. */
+.dropdown-scrim {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .dropdown-scrim {
+    display: block;
+    position: fixed;
+    inset: 0;
+    /* The sheet's own height: later sheets (a filter's choices inside the
+       Filters sheet) sit over earlier ones by page order. */
+    z-index: 1001;
+    background: color-mix(in srgb, var(--color-slate) 40%, transparent);
+  }
+
+  .dropdown-sheet {
+    position: fixed !important;
+    inset: auto 12px calc(12px + env(safe-area-inset-bottom)) 12px !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    max-height: 75dvh !important;
+    margin: 0 !important;
+    overflow-y: auto !important;
+    z-index: 1001 !important;
+    border-radius: 16px !important;
+    box-shadow: 0 -12px 40px color-mix(in srgb, var(--color-slate) 22%, transparent) !important;
+    animation: dropdown-sheet-in 180ms ease-out;
+  }
+
+  .dropdown-sheet [role="listbox"],
+  .dropdown-sheet [role="menu"] {
+    max-height: none !important;
+  }
+
+  /* Rows a thumb can hit. */
+  .dropdown-sheet [role="option"],
+  .dropdown-sheet [role="menuitem"] {
+    min-height: 44px;
+  }
+}
+
+@keyframes dropdown-sheet-in {
+  from {
+    transform: translateY(16px);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dropdown-sheet {
+    animation: none;
+  }
+}
+
+/* On a phone the bottom navigation takes its strip off the page. */
+@media (max-width: 767px) {
+  :root,
+  .desktop-viewport {
+    --content-height: calc(var(--app-height) - 4.75rem - env(safe-area-inset-bottom));
+  }
+}
+
+/* A page's filters in their phone sheet (FilterBar): each its own row, the
+   whole sheet's width. */
+.phone-filters > * {
+  width: 100%;
+}
+
+.phone-filters > * > button {
+  width: 100%;
+  justify-content: space-between;
+}
+
+/* A page's add action on a phone (AddFab): the manager app's floating
+   button, bottom right, clear of the bottom navigation. */
+.add-fab {
+  position: fixed;
+  right: 16px;
+  bottom: calc(4.75rem + env(safe-area-inset-bottom) + 16px);
+  z-index: 45;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 56px;
+  padding: 0 20px 0 16px;
+  border-radius: 16px;
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 6px 16px color-mix(in srgb, var(--color-slate) 28%, transparent);
+}
+
+.add-fab:active {
+  transform: scale(0.97);
+}
+
+/* The page's end clears the floating button, unless the page is the screen
+   (the stores map, [data-fills-screen]): more room there would make it
+   scroll, the map moving up with it. */
+@media (max-width: 767px) {
+  body:has(> .add-fab) main:not(:has([data-fills-screen])) {
+    padding-bottom: calc(4.75rem + env(safe-area-inset-bottom) + 88px) !important;
+  }
+}
+
+/* Display mode (device-mode/DisplayBoard): a screen for customers, always
+   on Slate Black whatever the theme, so it reads across a room. A number
+   that has just become ready pulses a few times. */
+.device-display {
+  background: var(--color-slate);
+  color: #ffffff;
+}
+
+.device-display-fresh {
+  animation: device-fresh 1.1s ease-in-out 4;
+}
+
+@keyframes device-fresh {
+  50% {
+    transform: scale(1.06);
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--color-accent) 35%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .device-display-fresh {
+    animation: none;
+  }
+}
