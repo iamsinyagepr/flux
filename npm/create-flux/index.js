@@ -41,7 +41,10 @@ async function main() {
   }
 
   const cli = require.resolve("@upskale/flux/bin/flux.js");
-  const made = spawnSync(process.execPath, [cli, "new", name, "--template", template], { stdio: "inherit" });
+  const made = spawnSync(process.execPath, [cli, "new", name, "--template", template], {
+    stdio: "inherit",
+    env: { ...process.env, FLUX_CREATE: "1" },
+  });
   if (made.status !== 0) process.exit(made.status ?? 1);
 
   // The project pins the CLI it was made with.
@@ -60,7 +63,12 @@ async function main() {
     pkg.devDependencies = { ...pkg.devDependencies, "@upskale/flux": "^" + own };
     writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + "\n");
   }
-  console.log(`\nThen: npm install, and npm run dev.`);
+  const steps = [`cd ${name}`, "npm install", template === "app" ? "npx flux build --target flutter" : "npm run dev"];
+  console.log(`\nNext:\n\n${steps.map((step) => "  " + step).join("\n")}\n`);
+  if (template === "app") console.log("Then run the app from dist/flutter: flutter run.\n");
+  else console.log("On the page, press E to edit it in place.\n");
+  if (template === "store")
+    console.log("It runs on sample data until flux.json has your business's API address (providers.upskale.api).\n");
 }
 
 main().catch((error) => {

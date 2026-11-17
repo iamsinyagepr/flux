@@ -77,7 +77,13 @@ func runNew(args []string) error {
 	if err := ensureIgnored(dir); err != nil {
 		return err
 	}
-	fmt.Printf("Made %s (%s).\n\n", dir, *template)
+	fmt.Printf("Made %s (%s).\n", dir, *template)
+	// npm create @upskale/flux says what's next itself: its project runs
+	// flux through npm, not from the PATH.
+	if os.Getenv("FLUX_CREATE") != "" {
+		return nil
+	}
+	fmt.Println()
 	switch *template {
 	case "app":
 		fmt.Printf("  cd %s\n  flux build --target flutter\n  cd dist/flutter && flutter run\n", dir)
