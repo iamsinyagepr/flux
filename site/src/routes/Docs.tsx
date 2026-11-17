@@ -373,6 +373,10 @@ function Routes() {
         <li>
           <code>index: false</code> asks search engines not to index it, and leaves it out of the sitemap too.
         </li>
+        <li>
+          The website has a <code>sitemap.xml</code> once it knows its address: <code>"site": {"{"} "url": "https://…" {"}"}</code>{" "}
+          in <code>flux.json</code>. Without one it has only a <code>robots.txt</code>.
+        </li>
       </ul>
     </>
   );
@@ -595,7 +599,8 @@ function Targets() {
       <h2>web</h2>
       <p>
         <code>flux build --target web</code> writes a <a href="https://tanstack.com/start">TanStack Start</a> project in{" "}
-        <code>dist/web</code>: one route per page, server-rendered, with each page's head and a <code>sitemap.xml</code>. Only the
+        <code>dist/web</code>: one route per page, server-rendered, with each page's head, a <code>robots.txt</code>, and a{" "}
+        <code>sitemap.xml</code> when <code>flux.json</code> gives the site's <code>url</code>. Only the
         widgets and packages the pages use are included.
       </p>
       <Code lang="sh">{`$ cd dist/web

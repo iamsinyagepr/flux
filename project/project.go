@@ -215,12 +215,21 @@ func LoadWith(dir string, overlay Overlay) (*Loaded, error) {
 	if store := config.Store(); store != "" {
 		stored["storeId"] = store
 	}
-	var site struct {
-		URL string `json:"url"`
-	}
-	_ = json.Unmarshal(config.Site, &site)
-	if site.URL != "" {
-		stored["siteUrl"] = site.URL
+	// flux.json says site.url; the website compiler reads Studio's name for
+	// it, site_url (its sitemap, robots.txt and canonical addresses).
+	if len(config.Site) > 0 {
+		var site map[string]any
+		if err := json.Unmarshal(config.Site, &site); err != nil {
+			return nil, fmt.Errorf("%s: site: is an object of settings", ConfigFile)
+		}
+		if url, ok := site["url"].(string); ok && url != "" {
+			stored["siteUrl"] = url
+			if _, given := site["site_url"]; !given {
+				site["site_url"] = url
+			}
+		}
+		raw, _ := json.Marshal(site)
+		loaded.Config.Site = raw
 	}
 
 	pageIDs, err := sources(dir, "pages")
