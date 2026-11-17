@@ -42,6 +42,37 @@ export function pickImageFile(): Promise<string | null> {
 }
 
 /**
+ * The alt text a new Image starts with, as Flux, from where it comes from: a
+ * record's image (product.image_url) is described by that record's name
+ * (product.name); an uploaded file by its name in words ("grain-bowl.png" is
+ * "Grain bowl"); anything else, "Image". Never "": an empty alt is for a
+ * decorative image, which says so (decorative: true), and the checker holds
+ * it to that. Each is a start, edited in the Image's alt.
+ */
+export function imageAlt(src: string): string {
+  const record = /^([A-Za-z_][\w.]*)\.(?:display_)?(?:image|photo|logo|banner|cover)(?:_url)?$/.exec(src.trim());
+  if (record) return `${record[1]}.name`;
+  const quoted = /^"(.*)"$/.exec(src.trim());
+  if (quoted) {
+    const file = quoted[1].replace(/[?#].*$/, "").split("/").filter(Boolean).at(-1) ?? "";
+    let name = file.replace(/\.[a-z0-9]+$/i, "");
+    try {
+      name = decodeURIComponent(name);
+    } catch {
+      /* not encoded after all */
+    }
+    const words = name
+      .replace(/[-_]+/g, " ")
+      // An upload's own suffix: grain-bowl-2, IMG_0042.
+      .replace(/\s+\d+$/, "")
+      .trim();
+    if (/[a-z]{2}/i.test(words) && !/^(img|image|photo|dsc|pxl)\s*\d*$/i.test(words))
+      return cdslString(words.charAt(0).toUpperCase() + words.slice(1).toLowerCase());
+  }
+  return cdslString("Image");
+}
+
+/**
  * What choosing a property offers in a context menu: a list of its values to
  * pick from (an alignment, a spacing, a colour, true or false), then Custom…
  * for a size or colour of its own; or, for a value that needs a form (a

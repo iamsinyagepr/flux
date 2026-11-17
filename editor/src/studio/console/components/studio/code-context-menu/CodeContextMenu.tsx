@@ -16,7 +16,7 @@ import AddPropertyCard from "../../../../components/studio/AddPropertyCard";
 import { fieldContextFor } from "../../../functions/studio/visual-fields/index";
 import StudioContextMenu, { type MenuItem } from "../../../../components/studio/StudioContextMenu";
 import type { CodeMenuRequest, PickerRequest } from "../../../../components/studio/CodeContextMenu";
-import { pickImageFile, valueMenu, type ValueCardKind } from "../../../functions/studio/value-menu/index";
+import { imageAlt, pickImageFile, valueMenu, type ValueCardKind } from "../../../functions/studio/value-menu/index";
 import { cdslString } from "../../../../lib/studio/sourceEdits";
 import { BorderCard, GradientCard, IconPickerCard, ImageDataCard } from "../value-cards/ValueCards";
 
@@ -127,7 +127,7 @@ export function CodeContextMenu({
             if (!choice) return [];
             const problem = basic === "Positioned" || basic === "Expanded" ? wrapperProblem(basic, parent) : undefined;
             // An image is a file or data, chosen first.
-            const image = (src: string) => run(() => insertWired(source, request, `Image(src: ${src}, alt: "")`, undefined, context));
+            const image = (src: string) => run(() => insertWired(source, request, `Image(src: ${src}, alt: ${imageAlt(src)})`, undefined, context));
             if (basic === "Image" && !problem)
               return [
                 {

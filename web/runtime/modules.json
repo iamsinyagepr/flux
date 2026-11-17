@@ -4,7 +4,7 @@
   "src/studio/runtime.tsx": "f1e82c3d79d7af3aad37cff6c49b752460735e30e8c30e2e7c69b4155a5ea10c",
   "src/studio/storefront.ts": "aea299b4601c033470fd2de611a0e47f5517b423ce0799e90337af5cd6c6ac0a",
   "src/studio/visitor.ts": "e9eeb9f23d6a93392a161b84f9187856415ac8e4d406495a3f1c5fde1fe5d3fe",
-  "src/studio/widgets.tsx": "2eb9135a33c45f9ae12de4badf68cfc14c1097d5acc352a7bf52725710846fa9",
+  "src/studio/widgets.tsx": "385c88e0a3accdd624f02f9e4d866a984bde9abb6b4919a8a96e6abd80b8fb71",
   "src/studio/studio.css": "a50b030a005c748fcaeaeda8bda95c24266c52a372bbd76231ab07726642aa9c"
  },
  "files": [
@@ -2782,7 +2782,7 @@
    "names": [
     "imageSource"
    ],
-   "code": "/** A picture's address: a web address, or one on the tenant API. */\nfunction imageSource(value: unknown): string | undefined {\n  if (typeof value !== \"string\" || !value) return undefined;\n  if (/^https?:\\/\\//.test(value)) return value;\n  return undefined;\n}",
+   "code": "/** A picture's address: a web address, or one on the tenant API. */\nfunction imageSource(value: unknown): string | undefined {\n  if (typeof value !== \"string\" || !value) return undefined;\n  if (/^https?:\\/\\//.test(value)) return value;\n  // One of the site's own files (public/uploads/x.png at /uploads/x.png);\n  // never //host, which is another site's.\n  if (/^\\/(?!\\/)/.test(value)) return value;\n  return undefined;\n}",
    "dependencies": [],
    "imports": [],
    "classes": [],

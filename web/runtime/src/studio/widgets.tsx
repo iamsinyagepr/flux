@@ -416,6 +416,9 @@ export function Text(p: P) {
 function imageSource(value: unknown): string | undefined {
   if (typeof value !== "string" || !value) return undefined;
   if (/^https?:\/\//.test(value)) return value;
+  // One of the site's own files (public/uploads/x.png at /uploads/x.png);
+  // never //host, which is another site's.
+  if (/^\/(?!\/)/.test(value)) return value;
   return undefined;
 }
 
