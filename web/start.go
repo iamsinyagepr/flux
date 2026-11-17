@@ -122,9 +122,11 @@ import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import { rootRoute, route } from "@tanstack/virtual-file-routes";
 import viteReact from "@vitejs/plugin-react";
 
-export default defineConfig({
-  // One self-contained server bundle: the site runs on Node, no node_modules.
-  ssr: { noExternal: true },
+export default defineConfig(({ command }) => ({
+  // A build is one self-contained server bundle: the site runs on Node, no
+  // node_modules. The dev server loads packages from node_modules instead
+  // (its module runner can't evaluate CommonJS packages such as React).
+  ssr: command === "build" ? { noExternal: true } : {},
   plugins: [
     tanstackStart({
       router: {
@@ -136,7 +138,7 @@ export default defineConfig({
     }),
     viteReact(),
   ],
-});
+}));
 `
 }
 
@@ -334,7 +336,7 @@ func selectArg(imp pagedata.Import) string {
 	return ", " + q(imp.Select)
 }
 
-// jsName is a Data's name as a JavaScript variable (it's a CDSL name, so
+// jsName is a Data's name as a JavaScript variable (it's a Flux name, so
 // one already, but never one of the route's own).
 func jsName(name string) string {
 	clean := regexp.MustCompile(`[^A-Za-z0-9_$]`).ReplaceAllString(name, "_")
@@ -562,7 +564,7 @@ func boolString(v bool) string {
 }
 
 // seoFields is a page's SEO as a function of its data (b): each field a
-// CDSL expression compiled like the page's own.
+// Flux expression compiled like the page's own.
 func (e *emitter) seoFields(seo *pagedata.SEO) string {
 	if seo == nil {
 		return "() => ({})"
