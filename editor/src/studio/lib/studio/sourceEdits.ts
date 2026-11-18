@@ -834,3 +834,145 @@ export function moveListItem(source: string, range: SourceRangeRef, toIndex: num
   }
   return finish(source, edits, { at: items[to].from, inserted, length: target.node.name.length });
 }
+
+// --- Several widgets at once (a multi-selection) --------------------------------
+
+/** The widgets that take a list of children, for wrapping several at once. */
+export const MULTI_WRAPPERS = ["Column", "Row", "Wrap", "Stack", "Grid"] as const;
+export type MultiWrapper = (typeof MULTI_WRAPPERS)[number];
+
+/**
+ * The selected calls, each an item of a list of children, in source order:
+ * none inside another (an edit to the outer one carries the inner), all in
+ * this source. Throws what's wrong, said so a person can act on it.
+ */
+function listItems(source: string, ranges: SourceRangeRef[]): { root: CallExpr; items: (CallLocation & { list: ListExpr; index: number })[] } {
+  const root = parseOrThrow(source);
+  const locations = callLocations(root);
+  const items = ranges.map((range) => {
+    const found = locations.find(({ node }) => node.from === range.from && node.to === range.to);
+    if (!found) throw new Error("The source changed. Select the widgets again.");
+    if (!found.list) throw new Error(`${found.node.name} isn't one of a list of children, so it can't be moved or wrapped with others.`);
+    return { ...found, list: found.list, index: found.list.items.indexOf(found.node) };
+  });
+  items.sort((a, b) => a.node.from - b.node.from);
+  for (let i = 1; i < items.length; i++)
+    if (items[i].node.from < items[i - 1].node.to) throw new Error(`${items[i].node.name} is inside ${items[i - 1].node.name}: select one or the other.`);
+  return { root, items };
+}
+
+/**
+ * Edits removing these items from their lists, separators and all: per run
+ * of neighbours in a list, the run and the comma after it (or before it, at
+ * the list's end). Never overlapping, so they apply together.
+ */
+function removalEdits(items: { list: ListExpr; index: number }[]): Edit[] {
+  const byList = new Map<ListExpr, number[]>();
+  for (const item of items) byList.set(item.list, [...(byList.get(item.list) ?? []), item.index]);
+  const edits: Edit[] = [];
+  for (const [list, indexes] of byList) {
+    const sorted = [...new Set(indexes)].sort((a, b) => a - b);
+    let start = 0;
+    while (start < sorted.length) {
+      let end = start;
+      while (end + 1 < sorted.length && sorted[end + 1] === sorted[end] + 1) end++;
+      const a = sorted[start],
+        b = sorted[end],
+        n = list.items.length;
+      if (b < n - 1) edits.push({ from: list.items[a].from, to: list.items[b + 1].from, text: "" });
+      else if (a > 0) edits.push({ from: list.items[a - 1].to, to: list.items[b].to, text: "" });
+      // All of them: the list's whole inside, a trailing comma too ([a, b,] → []).
+      else edits.push({ from: list.from + 1, to: list.to - 1, text: "" });
+      start = end + 1;
+    }
+  }
+  return edits;
+}
+
+/** Several widgets, each one of a list of children, deleted together. */
+export function deleteNodes(source: string, ranges: SourceRangeRef[]): SourceEdit {
+  const { items } = listItems(source, ranges);
+  if (!items.length) throw new Error("Select something to delete.");
+  const edits = removalEdits(items);
+  return finish(source, edits, { at: Math.min(...edits.map((edit) => edit.from)), length: 0 });
+}
+
+/**
+ * Several widgets wrapped in one Column, Row, Wrap, Stack or Grid, in the
+ * order they're written, which takes the first one's place. They needn't be
+ * neighbours, nor in the same list.
+ */
+export function wrapNodes(source: string, ranges: SourceRangeRef[], wrapper: MultiWrapper): SourceEdit {
+  const { items } = listItems(source, ranges);
+  if (items.length < 2) throw new Error("Select two or more widgets to wrap together.");
+  const [first, ...rest] = items;
+  const texts = items.map((item) => source.slice(item.node.from, item.node.to));
+  const text = `${wrapper}(children: [\n${texts.join(",\n")},\n])`;
+  const replace: Edit = { from: first.node.from, to: first.node.to, text };
+  return finish(source, [replace, ...removalEdits(rest)], { at: first.node.from, inserted: replace, length: wrapper.length });
+}
+
+/**
+ * Several widgets moved, in the order they're written, to the end of
+ * `target`'s children (its first list of widgets, made if it has none).
+ * The target can't be one of them, or inside one.
+ */
+export function moveNodesInto(source: string, ranges: SourceRangeRef[], target: SourceRangeRef, context: EditContext = {}): SourceEdit {
+  const { root, items } = listItems(source, ranges);
+  if (!items.length) throw new Error("Select something to move.");
+  const host = callLocations(root).find(({ node }) => node.from === target.from && node.to === target.to)?.node;
+  if (!host) throw new Error("The source changed. Choose where to move them again.");
+  for (const item of items)
+    if (host.from >= item.node.from && host.to <= item.node.to)
+      throw new Error(`${host.name} is ${host === item.node ? "one of the widgets being moved" : "inside " + item.node.name}: choose somewhere else.`);
+  const slot = widgetSlots(host, context).find((candidate) => candidate.list);
+  if (!slot) throw new Error(`${host.name} doesn't take a list of children.`);
+  const texts = items.map((item) => source.slice(item.node.from, item.node.to)).join(",\n");
+  const tokens = lex(source);
+  const existing = host.args[slot.name];
+  let insert: Edit;
+  if (existing?.type === "list") insert = listInsertEdit(tokens, existing, existing.items.length, texts);
+  else if (existing) throw new Error(`${host.name}'s ${slot.name} come from an expression: move them in its code.`);
+  else insert = insertArgumentEdit(tokens, host, `${slot.name}: [\n${texts},\n]`);
+  return finish(source, [...removalEdits(items), insert], { at: insert.from + insert.text.indexOf(texts.slice(0, 1)), inserted: insert, length: 0 });
+}
+
+/**
+ * A piece of data a page reads (`products<Product[]>(src: Tenant.products(...))`)
+ * added to its usingServer block, or usingClient for what only the browser
+ * has (the signed-in customer's), the block made if it has none. A page in
+ * the block form only.
+ */
+export function addDataImport(source: string, entry: string, client = false): SourceEdit {
+  const root = parseOrThrow(source);
+  if (root.name !== "Page") throw new Error("Only a page imports data: a component is given it through an option.");
+  if (!root.blocks) throw new Error("Open this page's code once to bring it up to date, then add data.");
+  const name = client ? "usingClient" : "usingServer";
+  const block = root.blocks.find((item) => item.name === name);
+  const tokens = lex(source);
+  let edits: Edit[];
+  let inserted: Edit;
+  if (!block) {
+    inserted = newBlockEdit(source, root, name, "  " + entry + ",\n");
+    edits = [inserted];
+  } else {
+    const all = root.args.data?.type === "list" ? root.args.data.items : [];
+    const last = all.filter((item) => item.from >= block.open && item.to <= block.close).at(-1);
+    edits = [];
+    if (last && !commaBetween(tokens, last.to, block.close)) edits.push({ from: last.to, to: last.to, text: "," });
+    const lineStart = source.lastIndexOf("\n", block.close - 1) + 1;
+    const ownLine = !source.slice(lineStart, block.close).trim() && source.slice(block.open, block.close).includes("\n");
+    inserted = ownLine
+      ? { from: lineStart, to: lineStart, text: "  " + entry + ",\n" }
+      : { from: block.close, to: block.close, text: (last ? " " : "") + entry };
+    edits.push(inserted);
+  }
+  // As written, not formatted: the formatter reads a typed entry
+  // (products<Product[]>) as comparisons, and would break it.
+  let updated = source;
+  for (const edit of [...edits].sort((a, b) => b.from - a.from)) updated = updated.slice(0, edit.from) + edit.text + updated.slice(edit.to);
+  if (!parseSource(updated).root) throw new Error("That data couldn't be added: " + entry);
+  const shift = edits.filter((edit) => edit !== inserted && edit.from <= inserted.from).reduce((sum, edit) => sum + edit.text.length - (edit.to - edit.from), 0);
+  const at = inserted.from + shift + inserted.text.indexOf(entry);
+  return { source: updated, selection: { from: at, to: at + (entry.match(/^[A-Za-z_]\w*/)?.[0].length ?? 0) } };
+}

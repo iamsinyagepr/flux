@@ -3,29 +3,36 @@
 //   dist/overlay.js                one script, its styles inside it
 //   ../cmd/flux/overlay/overlay.js the same, embedded in the flux binary
 //
-// Its styles are Studio's tokens (the custom properties studio.css is written
-// in) set on :host, studio.css, and the overlay's own: all inside the shadow
-// root main.tsx makes, where :root means nothing, so :root becomes :host.
+// Its styles are Studio's own (Tailwind over the synced files, and
+// studio.css) and the overlay's, all inside the shadow root main.tsx makes.
 import { build } from "esbuild";
+import { execFileSync } from "node:child_process";
 import { copyFileSync, mkdirSync, readFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 
 const here = resolve(import.meta.dirname, "..");
 const read = (file) => readFileSync(join(here, file), "utf8");
 
-/** The custom properties a stylesheet declares at its top level (@theme, :root). */
-function tokensOf(css) {
-  const declarations = new Map();
-  for (const block of css.matchAll(/(?:@theme|:root)\s*\{([^{}]*)\}/g))
-    for (const [, name, value] of block[1].matchAll(/(--[\w-]+)\s*:\s*([^;]+);/g)) declarations.set(name, value.trim());
-  return [...declarations].map(([name, value]) => `  ${name}: ${value};`).join("\n");
-}
+/**
+ * Studio's styles, as its app gets them: Tailwind run over the synced
+ * files (tokens.css is Studio's Tailwind entry: its theme, and source('../')
+ * scans src/studio for the utilities its components use), with the base
+ * reset; then studio.css and the overlay's own. In the overlay's shadow
+ * root :root matches nothing, so its rules are the host's.
+ */
+const tailwind = join(here, "dist", "tailwind.css");
+mkdirSync(join(here, "dist"), { recursive: true });
+execFileSync(process.execPath, [join(here, "node_modules/@tailwindcss/cli/dist/index.mjs"), "-i", join(here, "src/studio/styles/tokens.css"), "-o", tailwind, "--minify"], {
+  cwd: here,
+  stdio: ["ignore", "ignore", "inherit"],
+});
+const hostRoot = (css) => css.replace(/:root(?=\s*[{,])/g, ":host");
 
 const styles = [
-  read("src/studio/styles/preflight.css"),
-  `:host {\n${tokensOf(read("src/studio/styles/tokens.css"))}\n}`,
-  read("src/studio/styles/studio.css").replace(/:root\b/g, ":host"),
+  hostRoot(readFileSync(tailwind, "utf8")),
+  hostRoot(read("src/studio/styles/studio.css")),
   read("src/overlay/overlay.css"),
+  read("src/overlay/launcher.css"),
 ].join("\n");
 
 await build({

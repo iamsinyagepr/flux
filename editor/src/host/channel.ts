@@ -28,6 +28,7 @@ export interface ProjectPage {
 
 export interface ProjectState {
   name: string;
+  description?: string;
   files: ProjectFile[];
   pages: ProjectPage[];
   config?: StudioConfig;
@@ -93,4 +94,13 @@ export function subscribe(onChange: () => void): () => void {
   const events = new EventSource(`${base}/events?t=${encodeURIComponent(token)}`);
   events.addEventListener("changed", onChange);
   return () => events.close();
+}
+
+/** Saves the theme dialog's changes into flux.json: its theme, the project's name and description. */
+export async function saveConfig(theme: StudioConfig, name: string, description: string): Promise<void> {
+  await call("/config", {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ theme, name, description }),
+  });
 }

@@ -4,4 +4,4 @@ Everything in this folder except `platform/` and `api/` is copied from
 upskaleapp/src by `npm run sync`, at the same paths. Don't edit it here.
 Edit it in Studio, then sync.
 
-86 files, 5 of them portalling into the overlay.
+108 files, 6 of them portalling into the overlay.

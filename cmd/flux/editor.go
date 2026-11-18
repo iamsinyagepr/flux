@@ -17,6 +17,8 @@ import (
 	"strings"
 	"sync"
 
+	"github.com/iamsinyagepr/flux/config"
+	"github.com/iamsinyagepr/flux/js"
 	"github.com/iamsinyagepr/flux/project"
 )
 
@@ -165,6 +167,8 @@ func (e *editor) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		e.project(w)
 	case r.Method == http.MethodPut && r.URL.Path == "/__flux/source":
 		e.save(w, r)
+	case r.Method == http.MethodPut && r.URL.Path == "/__flux/config":
+		e.saveConfig(w, r)
 	case r.Method == http.MethodPost && r.URL.Path == "/__flux/upload":
 		e.upload(w, r)
 	case r.Method == http.MethodGet && r.URL.Path == "/__flux/events":
@@ -236,6 +240,7 @@ func (e *editor) project(w http.ResponseWriter) {
 	}
 	reply(w, http.StatusOK, map[string]any{
 		"name":        loaded.Config.Name,
+		"description": loaded.Config.Description,
 		"files":       files,
 		"pages":       pages,
 		"config":      loaded.Project.Config,
@@ -352,4 +357,116 @@ func (e *editor) events(w http.ResponseWriter, r *http.Request) {
 			flusher.Flush()
 		}
 	}
+}
+
+// configOrder is flux.json's keys in the order a project writes them; any
+// other key keeps its place after these.
+var configOrder = []string{"name", "description", "entry", "theme", "transitions", "site", "providers"}
+
+// saveConfig writes the theme dialog's changes into flux.json: its theme,
+// and the project's name and description. Everything else in it stays.
+func (e *editor) saveConfig(w http.ResponseWriter, r *http.Request) {
+	var body struct {
+		Theme       json.RawMessage `json:"theme"`
+		Name        *string         `json:"name"`
+		Description *string         `json:"description"`
+	}
+	if err := json.NewDecoder(io.LimitReader(r.Body, 1<<20)).Decode(&body); err != nil || len(body.Theme) == 0 {
+		problem(w, http.StatusBadRequest, "expected {theme, name, description}")
+		return
+	}
+	path := filepath.Join(e.root, project.ConfigFile)
+	raw, err := os.ReadFile(path)
+	if err != nil {
+		problem(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+	var keys []string
+	values := map[string]json.RawMessage{}
+	decoder := json.NewDecoder(strings.NewReader(string(raw)))
+	if token, err := decoder.Token(); err != nil || token != json.Delim('{') {
+		problem(w, http.StatusUnprocessableEntity, project.ConfigFile+" isn't a JSON object")
+		return
+	}
+	for decoder.More() {
+		token, err := decoder.Token()
+		if err != nil {
+			problem(w, http.StatusUnprocessableEntity, project.ConfigFile+": "+err.Error())
+			return
+		}
+		key := token.(string)
+		var value json.RawMessage
+		if err := decoder.Decode(&value); err != nil {
+			problem(w, http.StatusUnprocessableEntity, project.ConfigFile+": "+err.Error())
+			return
+		}
+		keys = append(keys, key)
+		values[key] = value
+	}
+	set := func(key string, value json.RawMessage) {
+		if _, ok := values[key]; !ok {
+			keys = append(keys, key)
+		}
+		values[key] = value
+	}
+	// A theme Studio's own checks refuse would stop every build: not written.
+	var theme struct {
+		Config *js.JSON `json:"config"`
+	}
+	if err := json.Unmarshal([]byte(`{"config":`+string(body.Theme)+`}`), &theme); err != nil || !config.Valid(theme.Config) {
+		problem(w, http.StatusUnprocessableEntity, "that theme isn't one Flux can build with")
+		return
+	}
+	set("theme", body.Theme)
+	if body.Name != nil && *body.Name != "" {
+		name, _ := json.Marshal(*body.Name)
+		set("name", name)
+	}
+	if body.Description != nil {
+		description, _ := json.Marshal(*body.Description)
+		set("description", description)
+	}
+	// The known keys first, in their order; the rest as they were.
+	ordered := make([]string, 0, len(keys))
+	for _, key := range configOrder {
+		if _, ok := values[key]; ok {
+			ordered = append(ordered, key)
+		}
+	}
+	for _, key := range keys {
+		known := false
+		for _, k := range configOrder {
+			known = known || k == key
+		}
+		if !known {
+			ordered = append(ordered, key)
+		}
+	}
+	var out strings.Builder
+	out.WriteString("{\n")
+	for i, key := range ordered {
+		var indented strings.Builder
+		var value any
+		json.Unmarshal(values[key], &value)
+		text, _ := json.MarshalIndent(value, "  ", "  ")
+		indented.Write(text)
+		name, _ := json.Marshal(key)
+		fmt.Fprintf(&out, "  %s: %s", name, indented.String())
+		if i < len(ordered)-1 {
+			out.WriteString(",")
+		}
+		out.WriteString("\n")
+	}
+	out.WriteString("}\n")
+	// Written whole or not at all: to a file beside it, then put in its place.
+	if err := os.WriteFile(path+".next", []byte(out.String()), 0o644); err != nil {
+		problem(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+	if err := os.Rename(path+".next", path); err != nil {
+		os.Remove(path + ".next")
+		problem(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+	reply(w, http.StatusOK, map[string]string{"path": project.ConfigFile})
 }
