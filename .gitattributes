@@ -2,3 +2,5 @@
 # the compiler embeds its runtimes and sources byte for byte.
 * text=auto eol=lf
 *.png binary
+# cmd mis-reads labels (call :name) in a batch file with LF endings.
+*.cmd text eol=crlf
