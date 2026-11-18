@@ -4,7 +4,7 @@ import { type Dynamic, type Branch, writeDynamic } from "../../../../lib/studio/
 import { describeCondition } from "../../../../lib/studio/conditions";
 import { type PropertyRow, readValue } from "../../../../lib/studio/visualModel";
 import type { FieldContext } from "../../../../components/studio/VisualFields";
-import { ExpressionInput } from "./ExpressionInput";
+import { CodeField } from "./CodeField";
 import { branchId, nextMatch } from "../../../functions/studio/visual-fields/index";
 import { TokenPicker } from "./TokenPicker";
 import { ValueInput } from "./ValueInput";
@@ -37,7 +37,7 @@ export function DynamicField({
       <div className="studio-dynamic-branch">
         <span className="studio-dynamic-when">{label}</span>
         {branchRow.value.mode === "expression" ? (
-          <ExpressionInput id={branchId(row.name, label)} value={branch.text} context={context} onCommit={change} />
+          <CodeField id={branchId(row.name, label)} label={`${row.name}, ${label}`} value={branch.text} context={context} onCommit={change} />
         ) : card && (row.spec.kind === "token" || row.spec.kind === "color") && row.spec.family ? (
           <TokenPicker id={branchId(row.name, label)} row={branchRow} context={context} onSet={change} />
         ) : (

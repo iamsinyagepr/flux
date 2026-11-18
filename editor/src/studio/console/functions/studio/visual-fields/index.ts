@@ -133,6 +133,16 @@ export function fieldContextFor({
     source,
     config,
     bindings: bindingCompletions(source, at).map((item) => item.label),
+    // state. and options. are the component's own declarations, which the
+    // data scope (bindingCompletions) doesn't hold; the rest is its data.
+    completeBinding: (prefix) => {
+      const [head, ...rest] = prefix.split(".");
+      if (rest.length === 1 && (head === "state" || head === "options")) {
+        const names = !root ? [] : head === "state" ? declaredNames(root, "states") : declarationsOf(root, "options").map(nameOf);
+        return names.map((name) => ({ label: head + "." + name, detail: head === "state" ? "State" : "Option" }));
+      }
+      return bindingCompletions(source, at, prefix);
+    },
     suggestData: (word) => dataSuggestions(source, at, word),
     states: root ? declaredNames(root, "states") : [],
     actionOptions: root ? declarationsOf(root, "options").filter((item) => item.name === "ActionOption").map(nameOf) : [],

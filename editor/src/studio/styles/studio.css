@@ -6806,6 +6806,116 @@ marker .is-calls {
     padding: 4px 8px 6px;
 }
 
+/* A property's code (CodeField): highlighted text at rest, the editor while
+   focused, the same size either way so nothing moves between them. */
+.studio-code-field {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    border: 1px solid var(--color-hairline);
+    border-radius: 7px;
+    background: var(--color-canvas);
+    color: var(--color-ink);
+    text-align: left;
+    font: 12px/1.5 var(--font-mono);
+    cursor: text;
+}
+
+button.studio-code-field {
+    padding: 6px 8px;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+button.studio-code-field:disabled {
+    cursor: default;
+}
+
+button.studio-code-field:hover:not(:disabled) {
+    border-color: var(--color-steel);
+}
+
+.studio-code-field code {
+    font: inherit;
+    background: none;
+    padding: 0;
+}
+
+.studio-code-field-placeholder {
+    color: var(--color-steel);
+}
+
+.studio-code-field.is-invalid {
+    border-color: var(--color-danger);
+}
+
+.studio-code-field.is-editing:focus-within {
+    outline: 2px solid var(--color-accent);
+    outline-offset: -1px;
+}
+
+.studio-code-field .cm-editor {
+    max-height: 160px;
+    font: inherit;
+    background: transparent;
+}
+
+.studio-code-field .cm-editor.cm-focused {
+    outline: none;
+}
+
+.studio-code-field .cm-content {
+    padding: 6px 2px;
+    caret-color: var(--color-ink);
+}
+
+.studio-code-field .cm-line {
+    padding: 0 6px;
+}
+
+.studio-code-field .studio-visual-error {
+    padding: 4px 8px 6px;
+}
+
+/* Its suggestions, like Studio's menus. */
+.studio-code-field .cm-tooltip.cm-tooltip-autocomplete {
+    border: 1px solid var(--color-hairline);
+    border-radius: 8px;
+    background: var(--color-surface);
+    box-shadow: 0 8px 24px rgb(0 0 0 / 0.14);
+    overflow: hidden;
+    font: 12px/1.4 var(--font-mono);
+}
+
+.studio-code-field .cm-tooltip-autocomplete > ul {
+    max-height: 220px;
+    padding: 4px;
+}
+
+.studio-code-field .cm-editor .cm-tooltip.cm-tooltip-autocomplete > ul > li {
+    padding: 4px 8px;
+    border-radius: 5px;
+    color: var(--color-ink);
+}
+
+.studio-code-field .cm-editor .cm-tooltip.cm-tooltip-autocomplete > ul > li[aria-selected] {
+    background: color-mix(in srgb, var(--color-accent) 16%, transparent);
+    color: var(--color-ink);
+}
+
+.studio-code-field .cm-completionMatchedText {
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.studio-code-field .cm-completionDetail {
+    margin-left: 10px;
+    font-family: var(--font-body);
+    font-style: normal;
+    color: var(--color-steel);
+}
+
 /* Visual token pickers. */
 .studio-token-picker {
     display: grid;

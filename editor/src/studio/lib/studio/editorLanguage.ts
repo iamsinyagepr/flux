@@ -12,7 +12,7 @@ import {
   HighlightStyle,
   syntaxHighlighting,
 } from "@codemirror/language";
-import { tags } from "@lezer/highlight";
+import { highlightCode, tags } from "@lezer/highlight";
 import { linter } from "@codemirror/lint";
 import {
   autocompletion,
@@ -221,3 +221,64 @@ export const cdslExtensions = [
  * card): no linter or folding, which expect a whole component.
  */
 export const cdslSnippetExtensions = [language, syntaxHighlighting(highlighting)];
+
+/**
+ * A Flux snippet as highlighted runs of text, the classes the editor gives
+ * them (cdsl-string, cdsl-binding…): drawn as plain spans, so a field can
+ * show its code coloured without an editor (CodeField, until it's focused).
+ */
+export function highlightedRuns(code: string): { text: string; className: string }[] {
+  const runs: { text: string; className: string }[] = [];
+  highlightCode(
+    code,
+    language.parser.parse(code),
+    highlighting,
+    (text, className) => runs.push({ text, className }),
+    () => runs.push({ text: "\n", className: "" }),
+  );
+  return runs;
+}
+
+/**
+ * Completion for one expression (a property's value): the names it can read
+ * there (bindings: state.count, product.name…), then Flux's functions and
+ * the theme's tokens, the project's own included. No widgets: an expression
+ * is a value. Cheap: a prefix filter over lists made once per field.
+ */
+export function expressionCompletion(
+  bindings: () => readonly string[],
+  complete?: () => ((prefix: string) => { label: string; detail?: string }[]) | undefined,
+) {
+  return (context: CompletionContext) => {
+    const word = context.matchBefore(/[A-Za-z_][A-Za-z0-9_.]*/);
+    if (!word && !context.explicit) return null;
+    // Not inside a string's text, unless in its ${…}.
+    const before = context.state.sliceDoc(0, word?.from ?? context.pos);
+    if (completionCall(before).inText) return null;
+    const typed = word?.text ?? "";
+    // After a dot: the fields of what's before it (state.count, product.name).
+    const fields = typed.includes(".") ? complete?.()?.(typed) : undefined;
+    if (fields)
+      return {
+        from: word?.from ?? context.pos,
+        validFor: /^[A-Za-z0-9_]*$/,
+        options: fields.map((item) => ({ label: item.label, type: "variable", detail: item.detail, boost: 20 })),
+      };
+    return {
+      from: word?.from ?? context.pos,
+      validFor: /^[A-Za-z0-9_]*$/,
+      options: [
+        ...bindings().map((label) => ({ label, type: "variable", boost: 20 })),
+        // The component's own: their fields complete after the dot.
+        ...["state", "options"].filter((name) => !bindings().includes(name)).map((label) => ({ label, type: "variable", boost: 10 })),
+        ...functions.map((item) => ({ label: item.name, type: "function", info: item.description, apply: item.name + "(" })),
+        ...Object.entries(tokenFamilies).flatMap(([family, values]) =>
+          values.map((value) => ({ label: family + "." + value, type: "constant", detail: "Theme token" })),
+        ),
+        ...Object.keys(tokenGroups).flatMap((family) =>
+          activeCustomTokens(family).map((value) => ({ label: family + "." + value, type: "constant", detail: "Project token" })),
+        ),
+      ],
+    };
+  };
+}

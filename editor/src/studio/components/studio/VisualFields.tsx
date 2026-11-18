@@ -10,6 +10,12 @@ export interface FieldContext {
   config?: StudioConfig;
   /** Data bindings offered while typing an expression (store.name…). */
   bindings: string[];
+  /**
+   * The names an expression can read here that start with what's typed: a
+   * root (sta → state, store) or, after a dot, its fields (state. → each
+   * state, product. → the product's fields). Absent: bindings only.
+   */
+  completeBinding?: (prefix: string) => { label: string; detail?: string }[];
   /** Data offered while typing text: "cart" offers cart.length, first(cart).name… */
   suggestData?: (word: string) => DataSuggestion[];
   /** The component's states, for SetState/Toggle. */

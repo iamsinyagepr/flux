@@ -7,8 +7,7 @@ import type { Expr } from "../../../../lib/studio/parser";
 import type { FieldContext } from "../../../../components/studio/VisualFields";
 import { LinkButton } from "./LinkButton";
 import { DynamicField } from "./DynamicField";
-import { CodeSnippet } from "./CodeSnippet";
-import { ExpressionInput } from "./ExpressionInput";
+import { CodeField } from "./CodeField";
 import { ActionField } from "./ActionField";
 import { TokenPicker } from "./TokenPicker";
 import { ValueInput } from "./ValueInput";
@@ -109,11 +108,7 @@ export function PropertyField({
           onUnlink={() => onUnlink?.(unlinkDynamic(dynamic))}
         />
       ) : expressionMode ? (
-        card ? (
-          <CodeSnippet id={id} label={row.name} value={currentText} context={context} onCommit={onSet} />
-        ) : (
-          <ExpressionInput id={id} value={currentText} context={context} onCommit={onSet} />
-        )
+        <CodeField id={id} label={row.name} value={currentText} context={context} onCommit={onSet} />
       ) : row.spec.kind === "action" ? (
         <ActionField id={id} expr={expr} context={context} onSet={onSet} onRemove={onRemove} />
       ) : card && (row.spec.kind === "token" || row.spec.kind === "color") && row.spec.family ? (

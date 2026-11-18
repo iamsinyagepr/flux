@@ -102,17 +102,36 @@ export function PropertyCard({
     onDone({ source: draft, selection: { from: at.node.from, to: at.node.to } });
   };
 
+  /**
+   * Done, once the field being typed in has had its say: leaving it commits
+   * what's typed (a code field saves on blur), so it's left first and Done
+   * runs a moment later, on the draft that includes it. A value that isn't
+   * Flux stays in its field with what's wrong, and the card stays open.
+   */
+  const finish = () => {
+    const root = card.current?.getRootNode() as Document | ShadowRoot | undefined;
+    const active = root?.activeElement;
+    if (active instanceof HTMLElement && card.current?.contains(active)) active.blur();
+    setTimeout(() => {
+      if (card.current?.querySelector(".studio-visual-error, .is-invalid")) return;
+      latest.current.done();
+    });
+  };
+
   // Esc cancels, Ctrl+Enter is Done.
   const latest = useRef({ done, onCancel });
   latest.current = { done, onCancel };
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
+        // In a code field, Esc is the field's: it closes the suggestions,
+        // then puts the field back. Out of one, it cancels the card.
+        if (event.composedPath().some((node) => node instanceof HTMLElement && node.classList.contains("cm-editor"))) return;
         event.stopPropagation();
         latest.current.onCancel();
       } else if (event.key === "Enter" && (event.ctrlKey || event.metaKey)) {
         event.preventDefault();
-        latest.current.done();
+        finish();
       }
     };
     window.addEventListener("keydown", onKey, true);
@@ -186,7 +205,7 @@ export function PropertyCard({
         <button type="button" className="flux-card-button" onClick={onCancel}>
           Cancel
         </button>
-        <button type="button" className="flux-card-button is-primary" onClick={done} disabled={!at}>
+        <button type="button" className="flux-card-button is-primary" onClick={() => finish()} disabled={!at}>
           Done
         </button>
       </footer>
