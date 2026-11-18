@@ -166,3 +166,71 @@
   margin-top: 4px;
   opacity: 0.8;
 }
+
+/* One property, on a card beside its widget: Studio's field, then Done. */
+.flux-card {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 24px);
+  background: var(--color-surface, #fff);
+  border: 1px solid var(--color-hairline, #d9dde3);
+  border-radius: 14px;
+  box-shadow: 0 14px 44px rgb(0 0 0 / 0.2);
+  overflow: hidden;
+}
+.flux-card-head {
+  padding: 12px 14px 6px;
+}
+.flux-card-head strong {
+  display: block;
+  font: 600 14px var(--font-mono, ui-monospace, monospace);
+}
+.flux-card-head small {
+  display: block;
+  margin-top: 2px;
+  color: var(--color-steel);
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.flux-card-body {
+  padding: 4px 10px 10px;
+  overflow-y: auto;
+}
+.flux-card-note {
+  margin: 8px 4px;
+  color: var(--color-steel);
+  font-size: 13px;
+}
+.flux-card-foot {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-top: 1px solid var(--color-hairline, #d9dde3);
+}
+.flux-card-state {
+  margin-right: auto;
+  font-size: 12px;
+  color: var(--color-steel);
+}
+.flux-card-button {
+  padding: 7px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--color-hairline, #d9dde3);
+  background: var(--color-surface, #fff);
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+}
+.flux-card-button.is-primary {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-on-accent);
+}
+.flux-card-button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}

@@ -1,5 +1,5 @@
-// Copies Upskale Studio's editors into src/studio: the context menu, the
-// properties panel and the visual editor, with every file they import, at
+// Copies Upskale Studio's editors into src/studio: the context menu and the
+// property fields (one property's card), with every file they import, at
 // the same paths they have in upskaleapp/src (so their imports stay as
 // they are). Two things stay behind, each replaced by a file of ours:
 //
@@ -25,7 +25,8 @@ if (!existsSync(join(src, "lib/studio/parser.ts"))) throw new Error(`no Upskale 
 
 const ENTRIES = [
   "console/components/studio/code-context-menu/CodeContextMenu.tsx",
-  "console/components/studio/inspect-properties/InspectProperties.tsx",
+  "components/studio/VisualFields.tsx",
+  "components/studio/StudioContextMenu.tsx",
   "components/studio/CodeContextMenu.tsx",
   "lib/studio/componentTemplates.ts",
   "lib/studio/languageService.ts",

@@ -43,6 +43,7 @@ export function CodeContextMenu({
   onError,
   onClose,
   only,
+  onProperty,
 }: {
   request: CodeMenuRequest;
   source: string;
@@ -60,6 +61,13 @@ export function CodeContextMenu({
   onClose: () => void;
   /** "add": only what can go inside the widget (the form's Add child). */
   only?: "add";
+  /**
+   * Edits a property on a card of the host's own (flux dev's, beside the
+   * page's element): choosing one under Add property or Properties calls
+   * this with its name instead of opening its values here. Without it, a
+   * property's values are picked in the menu, or on a card at the menu.
+   */
+  onProperty?: (name: string, adding: boolean) => void;
 }) {
   const [picker, setPickerState] = useState<PickerRequest>();
   // "Add property": its value is chosen on a card first (AddPropertyCard).
@@ -206,6 +214,7 @@ export function CodeContextMenu({
           open: (kind) => (kind === "custom" ? custom() : setCard({ kind, title: `Add ${item.name} to ${name}`, write })),
           onError,
         });
+        if (onProperty) return { label: item.name, hint: item.required ? "required" : item.type, onSelect: () => onProperty(item.name, true) };
         return {
           label: item.name,
           hint: item.required ? "required" : item.type,
@@ -251,9 +260,11 @@ export function CodeContextMenu({
           title: row.required ? `${name} needs ${row.name}.` : undefined,
           onSelect: () => run(() => removeArgument(source, range, row.name)),
         };
+        const hint = written.length > 22 ? written.slice(0, 21) + "…" : written;
+        if (onProperty) return { label: row.name, hint, title: written, onSelect: () => onProperty(row.name, false) };
         return {
           label: row.name,
-          hint: written.length > 22 ? written.slice(0, 21) + "…" : written,
+          hint,
           title: written,
           children: [...(choices?.children ?? [{ label: "Change…", onSelect: choices?.onSelect ?? custom }]), remove],
         };

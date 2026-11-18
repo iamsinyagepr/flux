@@ -1,17 +1,21 @@
 // flux dev's editor over the running site. Off, the page is the page. On
-// (the Edit switch, or E), hovering a widget outlines it, clicking selects
-// it and opens Studio's properties panel beside the page, and right-clicking
-// opens Studio's context menu. Every edit rewrites the widget's .flx file
-// through flux dev, which rebuilds, and the page updates in place.
+// (the Edit switch, or E), hovering a widget outlines it and clicking
+// selects it. Right-clicking opens Studio's context menu; Ctrl+right-click,
+// the properties the widget has. Choosing a property (to add or to edit)
+// opens its card beside the widget, and Done saves it. Every edit rewrites
+// the widget's .flx file through flux dev, which rebuilds, and the page
+// updates in place.
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { CodeContextMenu } from "../studio/console/components/studio/code-context-menu/CodeContextMenu";
 import type { CodeMenuRequest } from "../studio/components/studio/CodeContextMenu";
-import { InspectProperties } from "../studio/console/components/studio/inspect-properties/InspectProperties";
+import StudioContextMenu, { type MenuItem } from "../studio/components/studio/StudioContextMenu";
 import { componentStarters } from "../studio/lib/studio/componentTemplates";
 import { parseSource } from "../studio/lib/studio/parser";
 import { componentReferences } from "../studio/lib/studio/projectComponents";
 import { setActiveProjectConfig } from "../studio/lib/studio/projectConfig";
-import { callLocations, deleteNode, insertWidget, locateCall, type SourceEdit } from "../studio/lib/studio/sourceEdits";
+import { callLocations, definitionOf, deleteNode, insertWidget, locateCall, type SourceEdit } from "../studio/lib/studio/sourceEdits";
+import { propertyRows } from "../studio/lib/studio/visualModel";
+import { PropertyCard, type PropertyCardRequest } from "./PropertyCard";
 import { Conflict, getProject, saveSource, subscribe, type ProjectState } from "../host/channel";
 import { boxOf, elementFor, markedElementAt, parentMarked, parseMark, ATTRIBUTE, type Box, type Mark } from "./marks";
 
@@ -45,6 +49,10 @@ export function App({ host }: { host: HTMLElement }) {
   const [selected, setSelected] = useState<Mark | undefined>(() => parseMark(remembered("selected")));
   const [selectedBox, setSelectedBox] = useState<Box>();
   const [menu, setMenu] = useState<Menu>();
+  // Ctrl+right-click: the widget's properties, at the pointer.
+  const [properties, setProperties] = useState<{ mark: Mark; x: number; y: number }>();
+  // One property on its card, beside the widget.
+  const [card, setCard] = useState<PropertyCardRequest>();
   const [error, setError] = useState("");
   const [saving, setSaving] = useState(false);
   const latest = useRef<ProjectState>();
@@ -139,6 +147,8 @@ export function App({ host }: { host: HTMLElement }) {
       if (!element) return;
       event.preventDefault();
       event.stopPropagation();
+      // A card is open: Done or Cancel first, so its changes aren't lost.
+      if (card) return;
       // Alt-click: the widget it's in.
       const target = event.altKey ? parentMarked(element) ?? element : element;
       const mark = parseMark(target.getAttribute(ATTRIBUTE));
@@ -152,14 +162,21 @@ export function App({ host }: { host: HTMLElement }) {
       if (!mark) return;
       event.preventDefault();
       event.stopPropagation();
-      if (!confirmed(mark)) return;
+      if (card || !confirmed(mark)) return;
       setSelected(mark);
-      openMenu(mark, event.clientX, event.clientY);
+      setMenu(undefined);
+      setProperties(undefined);
+      // Ctrl (Cmd on a Mac) + right-click: just its properties.
+      if (event.ctrlKey || event.metaKey) setProperties({ mark, x: event.clientX, y: event.clientY });
+      else openMenu(mark, event.clientX, event.clientY);
     };
     const onKey = (event: KeyboardEvent) => {
       const typing = event.target instanceof HTMLElement && /^(INPUT|TEXTAREA|SELECT)$/.test(event.target.tagName);
       if (event.key === "Escape") {
+        // An open card takes its own Esc (Cancel).
+        if (card) return;
         if (menu) setMenu(undefined);
+        else if (properties) setProperties(undefined);
         else setSelected(undefined);
       } else if (!typing && !ours(event) && (event.key === "e" || event.key === "E") && !event.ctrlKey && !event.metaKey && !event.altKey) {
         setEditing((on) => !on);
@@ -239,38 +256,49 @@ export function App({ host }: { host: HTMLElement }) {
     });
   }
 
-  const inspected = useMemo(() => {
-    if (!selected) return undefined;
-    const source = sources[selected.documentId];
-    if (source === undefined) return undefined;
-    try {
-      const node = locateCall(source, selected)?.node;
-      return node && { node, root: parseSource(source).root ?? undefined, source };
-    } catch {
-      return undefined;
-    }
-  }, [selected, sources]);
-  const selectedFile = selected && fileOf(selected.documentId);
+  /** Opens a property's card for the widget at mark: to add it, or to edit it. */
+  function openCard(mark: Mark, name: string, adding: boolean) {
+    setMenu(undefined);
+    setProperties(undefined);
+    setSelected(mark);
+    setCard({ documentId: mark.documentId, from: mark.from, to: mark.to, name, adding });
+  }
+
+  /** The widget's properties as a dropdown: those set, then the ones it can still have. */
+  function propertyItems(mark: Mark): MenuItem[] {
+    const source = sources[mark.documentId];
+    const node = source !== undefined ? locateCall(source, mark)?.node : undefined;
+    if (!node || source === undefined) return [{ label: "This widget isn't in its file any more", disabled: true }];
+    const { rows, available } = propertyRows(source, node, definitionOf(node, { components, currentComponent: currentComponent(mark.documentId) }));
+    const set = rows.filter((row) => Object.hasOwn(node.args, row.name));
+    const written = (name: string) => {
+      const text = source.slice(node.args[name].from, node.args[name].to).replace(/\s+/g, " ");
+      return text.length > 26 ? text.slice(0, 25) + "…" : text;
+    };
+    const items: MenuItem[] = set.map((row, index) => ({
+      section: index === 0 ? node.name : undefined,
+      label: row.name,
+      hint: written(row.name),
+      onSelect: () => openCard(mark, row.name, false),
+    }));
+    if (!set.length) items.push({ section: node.name, label: "Nothing set yet", disabled: true });
+    if (available.length)
+      items.push({
+        section: "",
+        label: "Add property",
+        hint: available.length + " available",
+        children: available.map((item) => ({
+          label: item.name,
+          hint: item.required ? "required" : item.type,
+          onSelect: () => openCard(mark, item.name, true),
+        })),
+      });
+    return items;
+  }
   // A build stopped by an error leaves the page on the last one that worked,
   // while the files on disk have moved on: editing waits until it's fixed.
   const failing = project?.failing ?? [];
   const paused = failing.length > 0;
-  // The panel beside the page, never over it: the page gives it room.
-  const panelOpen = editing && !paused && !!inspected;
-  useEffect(() => {
-    if (!panelOpen || window.innerWidth < 900) return;
-    // A stylesheet of the document's own, not a style attribute: React owns
-    // <html>'s attributes, and one it didn't render is a hydration mismatch.
-    const sheet = new CSSStyleSheet();
-    sheet.replaceSync("html { margin-right: 384px !important; }");
-    document.adoptedStyleSheets = [...document.adoptedStyleSheets, sheet];
-    return () => {
-      document.adoptedStyleSheets = document.adoptedStyleSheets.filter((s) => s !== sheet);
-    };
-  }, [panelOpen]);
-  const label = (documentId: string) =>
-    currentComponent(documentId) ?? project?.pages.find((p) => p.id === documentId)?.name ?? (documentId === "shared-shell" ? "Shell" : "Page");
-
   return (
     <div className="studio-root flux-overlay" data-editing={editing || undefined}>
       {editing && !paused && hover && <div className="flux-box is-hover" style={boxStyle(hover)} />}
@@ -290,30 +318,34 @@ export function App({ host }: { host: HTMLElement }) {
         </div>
       )}
 
-      {editing && !paused && inspected && selected && (
-        <aside className="flux-panel" aria-label="Properties">
-          <p className="flux-panel-file" title={selectedFile?.path}>
-            {selectedFile?.path}
-          </p>
-          <InspectProperties
-            node={inspected.node}
-            root={inspected.root}
-            source={inspected.source}
-            documentLabel={label(selected.documentId)}
-            components={components}
-            currentComponent={currentComponent(selected.documentId)}
-            config={project?.config}
-            diagnostics={project?.diagnostics[selected.documentId] ?? []}
-            pagePaths={pagePaths}
-            readOnly={false}
-            onEdit={(edit) => apply(selected.documentId, edit)}
-            onError={setError}
-            onShowCode={() => setError(`It's in ${selectedFile?.path ?? "the project"}: open it in your editor.`)}
-            onClose={() => setSelected(undefined)}
-            onSelect={(range) => setSelected({ documentId: selected.documentId, ...range })}
-            onAddChild={(x, y) => openMenu(selected, x, y, "add")}
-          />
-        </aside>
+      {editing && !paused && card && sources[card.documentId] !== undefined && (
+        <PropertyCard
+          key={`${card.documentId}:${card.from}:${card.name}:${card.adding}`}
+          request={card}
+          source={sources[card.documentId]}
+          file={fileOf(card.documentId)?.path ?? ""}
+          box={selectedBox}
+          components={components}
+          currentComponent={currentComponent(card.documentId)}
+          config={project?.config}
+          pagePaths={pagePaths}
+          onDone={(edit) => {
+            apply(card.documentId, edit);
+            setCard(undefined);
+          }}
+          onCancel={() => setCard(undefined)}
+        />
+      )}
+
+      {properties && !paused && (
+        <StudioContextMenu
+          label="Properties"
+          searchable
+          x={properties.x}
+          y={properties.y}
+          items={propertyItems(properties.mark)}
+          onClose={() => setTimeout(() => setProperties((open) => (open === properties ? undefined : open)))}
+        />
       )}
 
       {menu && !paused && sources[menu.mark.documentId] !== undefined && (
@@ -335,6 +367,7 @@ export function App({ host }: { host: HTMLElement }) {
           config={project?.config}
           onClose={() => setMenu(undefined)}
           only={menu.only}
+          onProperty={(name, adding) => openCard(menu.mark, name, adding)}
         />
       )}
 
@@ -358,9 +391,11 @@ export function App({ host }: { host: HTMLElement }) {
               ? "Paused: fix the error above"
               : saving
                 ? "Saving…"
-                : selected
-                  ? "Alt-click: the widget around it · Esc: deselect"
-                  : "Click a widget to edit it · right-click for more"}
+                : card
+                  ? "Done saves it · Esc cancels"
+                  : selected
+                    ? "Right-click: menu · Ctrl+right-click: its properties · Alt-click: the widget around it"
+                    : "Click a widget to select it · right-click to edit it"}
           </span>
         )}
       </div>

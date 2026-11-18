@@ -109,20 +109,26 @@ $ npx flux dev`}</Code>
         left:
       </p>
       <ul>
-        <li>hovering a widget outlines it;</li>
-        <li>
-          clicking selects it and opens its <strong>properties</strong> beside the page: its text, sizes, colours, actions and
-          the rest, each with the right control;
-        </li>
+        <li>hovering a widget outlines it, and clicking selects it;</li>
         <li>
           right-clicking opens the <strong>menu</strong>: insert a widget before or after it, wrap it, replace it, duplicate or
-          delete it, add a property;
+          delete it, or choose a property under <strong>Add property</strong> or <strong>Properties</strong>;
+        </li>
+        <li>
+          <kbd>Ctrl</kbd> + right-click (<kbd>⌘</kbd> on a Mac) lists the properties the widget has, and the ones it can still
+          have;
+        </li>
+        <li>
+          choosing a property opens its <strong>card</strong> beside the widget, with the right control for it (sizes, colours,
+          text, an action…). Change it there, then <strong>Done</strong> saves it (<kbd>Ctrl</kbd> + <kbd>Enter</kbd>), and{" "}
+          <strong>Cancel</strong> or <kbd>Esc</kbd> leaves it as it was;
         </li>
         <li>Alt-click selects the widget around the one you clicked, and Esc deselects.</li>
       </ul>
       <p>
-        Every change is written to the widget's <code>.flx</code> file, and the page updates as soon as it's rebuilt, so your
-        code editor shows it too. A file that changed on disk after you started an edit is never overwritten: the editor reloads
+        Saved changes are written to the widget's <code>.flx</code> file, and the page updates as soon as it's rebuilt, so your
+        code editor shows it too. While a file has an error, the page keeps its last version that built, a banner says where
+        the error is, and editing waits until it's fixed. A file that changed on disk after you started an edit is never overwritten: the editor reloads
         it and asks you to make the change again. Images you add go into <code>public/uploads</code>. These are the same editors
         as Upskale Studio's. <code>flux dev --no-editor</code> serves the site without them.
       </p>
