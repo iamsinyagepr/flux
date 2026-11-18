@@ -129,12 +129,12 @@ export function App({ host }: { host: HTMLElement }) {
   useEffect(() => {
     const ours = (event: Event) => event.composedPath().includes(host);
     const onMove = (event: MouseEvent) => {
-      if (!editing || ours(event)) return setHover(undefined);
+      if (!editing || pausedNow() || ours(event)) return setHover(undefined);
       const element = markedElementAt(event.target);
       setHover(element ? boxOf(element) : undefined);
     };
     const onClick = (event: MouseEvent) => {
-      if (!editing || ours(event)) return;
+      if (!editing || pausedNow() || ours(event)) return;
       const element = markedElementAt(event.target);
       if (!element) return;
       event.preventDefault();
@@ -146,7 +146,7 @@ export function App({ host }: { host: HTMLElement }) {
       setMenu(undefined);
     };
     const onMenu = (event: MouseEvent) => {
-      if (!editing || ours(event)) return;
+      if (!editing || pausedNow() || ours(event)) return;
       const element = markedElementAt(event.target);
       const mark = element && parseMark(element.getAttribute(ATTRIBUTE));
       if (!mark) return;
@@ -178,10 +178,15 @@ export function App({ host }: { host: HTMLElement }) {
     };
   }); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Not until the project has loaded (nothing to check a widget against),
+  // nor while the latest build failed (the page isn't what's on disk).
+  const pausedNow = () => !latest.current || latest.current.failing.length > 0;
+
   /**
-   * Whether a mark is a widget in its source as it is now. A page loaded
-   * while flux dev was still rebuilding can carry an older build's marks,
-   * which would point an edit at the wrong place: those are never used.
+   * Whether a mark is a widget in its source as it is now (where an edit is
+   * made). Between a save and the rebuild it reaches the page, the page's
+   * marks are the last build's and can point elsewhere: those are never
+   * used. It says so once; the page catches up by itself.
    */
   function confirmed(mark: Mark): boolean {
     const source = latest.current?.files.find((f) => f.documentId === mark.documentId)?.source;
@@ -192,9 +197,8 @@ export function App({ host }: { host: HTMLElement }) {
       ok = false;
     }
     if (!ok) {
-      setError("The page is still catching up with the last change. Try again in a moment.");
+      setError("The page is a moment behind its files. Try again once it has updated.");
       refresh();
-      setTimeout(() => location.reload(), 600);
     }
     return ok;
   }
@@ -247,8 +251,12 @@ export function App({ host }: { host: HTMLElement }) {
     }
   }, [selected, sources]);
   const selectedFile = selected && fileOf(selected.documentId);
+  // A build stopped by an error leaves the page on the last one that worked,
+  // while the files on disk have moved on: editing waits until it's fixed.
+  const failing = project?.failing ?? [];
+  const paused = failing.length > 0;
   // The panel beside the page, never over it: the page gives it room.
-  const panelOpen = editing && !!inspected;
+  const panelOpen = editing && !paused && !!inspected;
   useEffect(() => {
     if (!panelOpen || window.innerWidth < 900) return;
     // A stylesheet of the document's own, not a style attribute: React owns
@@ -265,10 +273,24 @@ export function App({ host }: { host: HTMLElement }) {
 
   return (
     <div className="studio-root flux-overlay" data-editing={editing || undefined}>
-      {editing && hover && <div className="flux-box is-hover" style={boxStyle(hover)} />}
-      {editing && selectedBox && <div className="flux-box is-selected" style={boxStyle(selectedBox)} />}
+      {editing && !paused && hover && <div className="flux-box is-hover" style={boxStyle(hover)} />}
+      {editing && !paused && selectedBox && <div className="flux-box is-selected" style={boxStyle(selectedBox)} />}
 
-      {editing && inspected && selected && (
+      {paused && (
+        <div className="flux-stale" role="status">
+          <strong>
+            {failing[0].path}
+            {failing[0].line ? `:${failing[0].line}:${failing[0].column}` : ""}
+          </strong>{" "}
+          {failing[0].message}
+          {failing.length > 1 && <span className="flux-stale-more"> and {failing.length - 1} more</span>}
+          <span className="flux-stale-note">
+            The page shows the last version that worked. Editing here picks up again once this is fixed.
+          </span>
+        </div>
+      )}
+
+      {editing && !paused && inspected && selected && (
         <aside className="flux-panel" aria-label="Properties">
           <p className="flux-panel-file" title={selectedFile?.path}>
             {selectedFile?.path}
@@ -294,7 +316,7 @@ export function App({ host }: { host: HTMLElement }) {
         </aside>
       )}
 
-      {menu && sources[menu.mark.documentId] !== undefined && (
+      {menu && !paused && sources[menu.mark.documentId] !== undefined && (
         <CodeContextMenu
           request={menu.request}
           source={sources[menu.mark.documentId]}
@@ -332,7 +354,13 @@ export function App({ host }: { host: HTMLElement }) {
         </button>
         {editing && (
           <span className="flux-hint">
-            {saving ? "Saving…" : selected ? "Alt-click: the widget around it · Esc: deselect" : "Click a widget to edit it · right-click for more"}
+            {paused
+              ? "Paused: fix the error above"
+              : saving
+                ? "Saving…"
+                : selected
+                  ? "Alt-click: the widget around it · Esc: deselect"
+                  : "Click a widget to edit it · right-click for more"}
           </span>
         )}
       </div>

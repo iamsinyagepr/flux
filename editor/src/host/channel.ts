@@ -32,6 +32,17 @@ export interface ProjectState {
   pages: ProjectPage[];
   config?: StudioConfig;
   diagnostics: Record<string, StudioDiagnostic[]>;
+  /** Each source as the page on screen was built from it: its marks point into these. */
+  built?: Record<string, string> | null;
+  /** The errors that stopped the latest build. While there are any, the page shows the last one that worked. */
+  failing: BuildProblem[];
+}
+
+export interface BuildProblem {
+  path: string;
+  line: number;
+  column: number;
+  message: string;
 }
 
 async function call<T>(path: string, init: RequestInit = {}): Promise<T> {

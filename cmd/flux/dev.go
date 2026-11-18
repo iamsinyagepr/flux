@@ -53,25 +53,36 @@ func runDev(args []string) error {
 	}
 
 	build := func() bool {
+		// The editor learns whether the page on screen is this build or the
+		// last one that worked (a source with an error keeps it there).
+		failed := func(loaded *project.Loaded, diagnostics []diagnostic, err error) bool {
+			if edit != nil {
+				edit.buildFailed(loaded, diagnostics, err)
+			}
+			return false
+		}
 		loaded, err := project.Load(root)
 		if err != nil {
 			fmt.Fprintln(os.Stderr, "flux:", err)
-			return false
+			return failed(nil, nil, err)
 		}
 		files, diagnostics, err := compileWith(loaded, "web", options)
 		if err != nil {
 			fmt.Fprintln(os.Stderr, "flux:", err)
-			return false
+			return failed(loaded, diagnostics, err)
 		}
 		report(os.Stderr, loaded, diagnostics)
 		if files == nil {
 			fmt.Fprintln(os.Stderr, "flux: not rebuilt: fix the errors above (the page keeps its last build)")
-			return false
+			return failed(loaded, diagnostics, nil)
 		}
 		changed, err := writeOutput(out, files)
 		if err != nil {
 			fmt.Fprintln(os.Stderr, "flux:", err)
-			return false
+			return failed(loaded, nil, err)
+		}
+		if edit != nil {
+			edit.builtFrom(loaded)
 		}
 		if changed > 0 {
 			fmt.Printf("flux: rebuilt (%d %s changed)\n", changed, plural(changed, "file", "files"))

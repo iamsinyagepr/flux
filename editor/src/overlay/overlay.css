@@ -127,7 +127,7 @@
   align-items: flex-start;
   padding: 10px 12px;
   border-radius: 10px;
-  background: #b42318;
+  background: var(--color-danger);
   color: #fff;
   font-size: 13px;
 }
@@ -138,4 +138,31 @@
   font-size: 18px;
   line-height: 1;
   cursor: pointer;
+}
+
+/* A build stopped by an error: where, and what that means for the page. */
+.flux-stale {
+  position: fixed;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(640px, calc(100vw - 24px));
+  box-sizing: border-box;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: var(--color-offset);
+  color: var(--color-on-offset);
+  border: 1px solid color-mix(in srgb, var(--color-on-offset) 25%, transparent);
+  box-shadow: 0 8px 30px rgb(0 0 0 / 0.15);
+  font-size: 13px;
+  line-height: 1.45;
+}
+.flux-stale strong {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-weight: 600;
+}
+.flux-stale-note {
+  display: block;
+  margin-top: 4px;
+  opacity: 0.8;
 }

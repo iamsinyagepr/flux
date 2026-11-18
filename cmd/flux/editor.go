@@ -36,6 +36,58 @@ type editor struct {
 	origins map[string]bool // the dev site's, the only one the overlay runs on
 	mu      sync.Mutex
 	clients map[chan struct{}]bool
+	// built is each source as the page was last built from it (its marks
+	// point into these), and failing the errors that stopped the latest
+	// build: while there are any, the page shows that last build.
+	built   map[string]string
+	failing []editorProblem
+}
+
+// editorProblem is an error that stops the build, where it is.
+type editorProblem struct {
+	Path    string `json:"path"`
+	Line    int    `json:"line"`
+	Column  int    `json:"column"`
+	Message string `json:"message"`
+}
+
+// builtFrom records a build that succeeded: the sources the page now shows.
+func (e *editor) builtFrom(loaded *project.Loaded) {
+	built := map[string]string{}
+	for _, f := range loaded.Files {
+		built[f.DocumentID] = f.Source
+	}
+	e.mu.Lock()
+	e.built, e.failing = built, nil
+	e.mu.Unlock()
+}
+
+// buildFailed records a build stopped by errors: the page keeps the last one.
+func (e *editor) buildFailed(loaded *project.Loaded, diagnostics []diagnostic, err error) {
+	var problems []editorProblem
+	if err != nil {
+		problems = append(problems, editorProblem{Path: project.ConfigFile, Message: err.Error()})
+	}
+	for _, d := range diagnostics {
+		if d.Severity != "error" {
+			continue
+		}
+		p := editorProblem{Path: d.File, Message: d.Message}
+		if p.Path == "" {
+			p.Path = project.ConfigFile
+		}
+		if loaded != nil {
+			for _, f := range loaded.Files {
+				if f.Path == d.File {
+					p.Line, p.Column = project.Position(f.Source, d.From)
+				}
+			}
+		}
+		problems = append(problems, p)
+	}
+	e.mu.Lock()
+	e.failing = problems
+	e.mu.Unlock()
 }
 
 func newEditor(root string, sitePort int) *editor {
@@ -176,12 +228,21 @@ func (e *editor) project(w http.ResponseWriter) {
 			diagnostics[id] = append(diagnostics[id], editorDiagnostic{d.Code, d.Severity, d.Message, d.From, d.To})
 		}
 	}
+	e.mu.Lock()
+	built, failing := e.built, e.failing
+	e.mu.Unlock()
+	if failing == nil {
+		failing = []editorProblem{}
+	}
 	reply(w, http.StatusOK, map[string]any{
 		"name":        loaded.Config.Name,
 		"files":       files,
 		"pages":       pages,
 		"config":      loaded.Project.Config,
 		"diagnostics": diagnostics,
+		// What the page on screen was built from, and what stops a new build.
+		"built":   built,
+		"failing": failing,
 	})
 }
 
